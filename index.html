@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="bROqHRpnP3dGq455SRd6__2Sj9CSjM5ZyOl8-hrYupw" />
+<title>堺市の左官・漆喰・モールテックス施工なら中元工房｜PWNK</title>
+<meta name="description" content="大阪府堺市で漆喰塗りや左官工事をお探しなら中元工房（PWNK）へ。モールテックスや和漆喰、珪藻土など素材の魅力を活かした職人直営の施工をご提案。1級左官技能士として29年の実績で、質の高い仕上げをお約束します。">
+<meta name="keywords" content="左官, 堺市, 大阪, モールテックス, 漆喰, 塗り壁, 1級建築施工管理技士, PWNK, パンク">
+<meta property="og:site_name" content="中元工房（PWNK）">
+<link rel="icon" href="favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Noto+Sans+JP:wght@100;300;400;500&display=swap');
+:root {
+  --cream: #F5F0E8;
+  --teak: #8B6A47;
+  --teak-light: #C4A882;
+  --charcoal: #2C2C2C;
+  --warm-white: #FAF7F2;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--cream);
+  color:var(--charcoal);
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+}
+.nav-logo {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; justify-content:center; align-items:center;
+  padding:1.4rem 3rem; pointer-events:none;
+}
+.nav-logo span {
+  font-family:'Noto Sans JP',sans-serif; font-weight:400;
+  font-size:0.68rem; letter-spacing:0.4em; color:var(--teak-light);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+}
+.afro-btn {
+  position:fixed; top:0.55rem; left:0.4rem; z-index:300;
+  background:none; border:none; cursor:pointer; padding:0.3rem;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  opacity:0; transition:opacity 0.4s ease;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+}
+.afro-svg { width:30px; height:34px; display:block; overflow:visible; }
+.g-afro { transition:opacity 0.38s ease, transform 0.38s ease; transform-origin:36px 40px; }
+.g-close { opacity:0; transition:opacity 0.28s ease 0.1s; }
+.afro-btn.is-open .g-afro { opacity:0; transform:scale(0.4); }
+.afro-btn.is-open .g-close { opacity:1; }
+.g-sunglasses { opacity:0; transition:opacity 0.25s ease; }
+.afro-menu-label {
+  font-family:'Noto Sans JP',sans-serif; font-weight:400;
+  font-size:0.46rem; letter-spacing:0.4em; padding-left:0.4em;
+  color:var(--teak-light); opacity:0.8; transition:opacity 0.3s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+}
+.afro-btn:hover .afro-menu-label { opacity:1; }
+.sns-fixed {
+  position:fixed; top:0.9rem; right:0.5rem; z-index:9999;
+  display:flex; align-items:center; gap:0.5rem; pointer-events:all;
+}
+.sns-fixed button {
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:none; cursor:pointer; opacity:0.9;
+  transition:opacity 0.3s, transform 0.3s;
+  padding:0.25rem;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+}
+.sns-fixed button:hover { opacity:1; transform:scale(1.12); }
+.sns-fixed svg { width:22px; height:22px; display:block; }
+.sns-fixed .ig-path { fill:var(--teak-light); transition:fill 0.3s; }
+.sns-fixed .line-icon-sns { fill:var(--teak-light); transition:fill 0.3s; }
+.sns-fixed button:hover .line-icon-sns { fill:#06C755; }
+.sns-fixed button:hover .ig-path {fill: url(#ig-gradient);
+}
+#fs-menu {
+  position:fixed; inset:0; z-index:250;
+  background:var(--charcoal);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  pointer-events:none;
+  clip-path:circle(0% at 2.2rem 2rem);
+  transition:clip-path 0.78s cubic-bezier(0.77,0,0.18,1);
+}
+#fs-menu.is-open { pointer-events:all; clip-path:circle(160% at 2.2rem 2rem); }
+#fs-menu::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+}
+#fs-menu::after {
+  content:''; position:absolute; right:3.5rem; top:12%; bottom:12%; width:1px;
+  background:linear-gradient(180deg,transparent,var(--teak) 30%,var(--teak) 70%,transparent);
+  opacity:0.35;
+}
+.fs-nav { display:flex; flex-direction:column; align-items:center; gap:0; position:relative; z-index:1; }
+.fs-nav button {
+  font-family:'Noto Sans JP',sans-serif; font-weight:300;
+  font-size:clamp(1.2rem, 4vw, 1.8rem); letter-spacing:0.5em;
+  color:var(--warm-white); background:none; border:none; cursor:pointer;
+  line-height:1.4; opacity:0; transform:translateY(24px);
+  transition:color 0.3s;
+  display:block; width:auto; text-align:center;
+  padding-top:1em; padding-bottom:1em;
+  -webkit-tap-highlight-color:transparent;
+}
+.fs-nav button:hover { color:var(--teak-light); }
+.fs-rule { width:36px; height:1px; background:rgba(196,168,130,0.22); opacity:0; margin:0.15rem 0; }
+#fs-menu.is-open .fs-nav button { animation:fsIn 0.65s ease forwards; }
+#fs-menu.is-open .fs-rule { animation:fsIn 0.65s ease forwards; }
+#fs-menu.is-open .fs-nav button:nth-child(1) { animation-delay:0.24s; }
+#fs-menu.is-open .fs-rule:nth-child(2)       { animation-delay:0.30s; }
+#fs-menu.is-open .fs-nav button:nth-child(3) { animation-delay:0.34s; }
+#fs-menu.is-open .fs-rule:nth-child(4)       { animation-delay:0.38s; }
+#fs-menu.is-open .fs-nav button:nth-child(5) { animation-delay:0.42s; }
+#fs-menu.is-open .fs-rule:nth-child(6)       { animation-delay:0.46s; }
+#fs-menu.is-open .fs-nav button:nth-child(7) { animation-delay:0.50s; }
+#fs-menu:not(.is-open) .fs-nav button,
+#fs-menu:not(.is-open) .fs-rule { opacity:0; transform:translateY(24px); }
+@keyframes fsIn { to { opacity:1; transform:translateY(0); } }
+#hero {
+  height:100svh; min-height:500px;
+  position:relative; display:flex; align-items:flex-end;
+  overflow:hidden; background:var(--charcoal);
+}
+.hero-wall {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 70% 40%,rgba(196,168,130,0.18) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 20% 70%,rgba(245,240,232,0.08) 0%,transparent 50%),
+    radial-gradient(ellipse 80% 50% at 50% 90%,rgba(44,44,44,0.6) 0%,transparent 70%);
+  background-color:#3A3530;
+}
+.hero-wall::before {
+  content:''; position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  opacity:0.4;
+}
+.hero-wall::after { content:''; position:absolute; inset:0; background:linear-gradient(115deg,transparent 30%,rgba(196,168,130,0.12) 50%,transparent 65%); }
+.hero-aurora {
+  position:absolute; inset:-50%; pointer-events:none; width:200%; height:200%;
+  mix-blend-mode:screen; filter:blur(90px); animation: aurora1 70s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse 90% 35% at 20% 30%, rgba(196,168,130,0.22) 0%, transparent 100%),
+    radial-gradient(ellipse 70% 50% at 75% 20%, rgba(180,148,100,0.18) 0%, transparent 100%),
+    radial-gradient(ellipse 80% 40% at 50% 70%, rgba(196,168,130,0.15) 0%, transparent 100%);
+}
+.hero-aurora-2 {
+  position:absolute; inset:-50%; pointer-events:none; width:200%; height:200%;
+  mix-blend-mode:screen; filter:blur(110px); animation: aurora2 90s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse 60% 55% at 80% 60%, rgba(210,175,115,0.2) 0%, transparent 100%),
+    radial-gradient(ellipse 75% 35% at 15% 75%, rgba(196,168,130,0.16) 0%, transparent 100%),
+    radial-gradient(ellipse 85% 30% at 55% 15%, rgba(180,148,100,0.18) 0%, transparent 100%);
+}
+.hero-aurora-3 {
+  position:absolute; inset:-50%; pointer-events:none; width:200%; height:200%;
+  mix-blend-mode:screen; filter:blur(80px); animation: aurora3 55s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse 100% 40% at 40% 50%, rgba(196,168,130,0.14) 0%, transparent 100%),
+    radial-gradient(ellipse 65% 60% at 85% 35%, rgba(180,148,100,0.16) 0%, transparent 100%);
+}
+@keyframes aurora1 {
+  0%   { transform:translate(0%,0%)   skew(0deg,2deg)   scaleX(1);    opacity:0.7; }
+  20%  { transform:translate(-8%,-6%) skew(3deg,-1deg)  scaleX(1.1);  opacity:1;   }
+  40%  { transform:translate(6%,10%)  skew(-2deg,3deg)  scaleX(0.95); opacity:0.6; }
+  60%  { transform:translate(-5%,5%)  skew(1deg,2deg)   scaleX(1.05); opacity:0.85;}
+  80%  { transform:translate(8%,-8%)  skew(-3deg,-1deg) scaleX(1.08); opacity:0.7; }
+  100% { transform:translate(0%,0%)   skew(0deg,2deg)   scaleX(1);    opacity:0.7; }
+}
+@keyframes aurora2 {
+  0%   { transform:translate(0%,0%)   skew(-1deg,3deg)  scaleY(1);    opacity:0.6; }
+  25%  { transform:translate(10%,8%)  skew(2deg,-2deg)  scaleY(1.12); opacity:0.85;}
+  50%  { transform:translate(-7%,-5%) skew(-3deg,1deg)  scaleY(0.92); opacity:0.5; }
+  75%  { transform:translate(5%,10%)  skew(1deg,3deg)   scaleY(1.06); opacity:0.75;}
+  100% { transform:translate(0%,0%)   skew(-1deg,3deg)  scaleY(1);    opacity:0.6; }
+}
+@keyframes aurora3 {
+  0%   { transform:translate(0%,0%)   rotate(0deg)  scale(1);    opacity:0.55;}
+  30%  { transform:translate(-10%,6%) rotate(-2deg) scale(1.08); opacity:0.8; }
+  65%  { transform:translate(7%,-9%)  rotate(3deg)  scale(0.94); opacity:0.5; }
+  100% { transform:translate(0%,0%)   rotate(0deg)  scale(1);    opacity:0.55;}
+}
+.hero-content { position:relative; z-index:2; padding:2rem 2rem 3rem; max-width:700px; margin-top:auto; }
+.hero-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(2.2rem, 8vw, 6rem); line-height:1.05; color:var(--warm-white);
+}
+.hero-title strong { font-weight:600; font-style:normal; display:block; }
+.scroll-hint {
+  position:absolute; bottom:10%; left:50%; transform:translateX(-50%);
+  z-index:10; display:flex; align-items:center; justify-content:center;
+  width:48px; height:48px; border-radius:50%;
+  border:1.5px solid rgba(196,168,130,0.7);
+  pointer-events:none; animation: bounce 2s ease-in-out infinite;
+}
+.scroll-hint svg { width:16px; height:16px; stroke:rgba(196,168,130,0.9); stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+@keyframes bounce {
+  0%,100%{ transform:translateX(-50%) translateY(0); }
+  50%    { transform:translateX(-50%) translateY(5px); }
+}
+#about {
+  min-height:55vh; display:flex; align-items:flex-start;
+  padding:4.5rem 1.8rem 5rem calc(100% / 2.0);
+  background:var(--warm-white); position:relative;
+  background-size:cover; background-position:center;
+  overflow:hidden;
+}
+#about::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--teak); z-index:1; }
+#about .about-overlay {
+  position:absolute; inset:0; z-index:0;
+  background:rgba(250,247,242,0.82);
+  transition:background 0.6s ease;
+}
+#about.has-photo .about-overlay { background:rgba(30,25,20,0.55); }
+.about-inner { max-width:640px; margin-left:auto; margin-right:auto; position:relative; z-index:2; }
+.about-label {
+  font-size:0.6rem; letter-spacing:0.45em; color:var(--teak-light);
+  margin-bottom:1.6rem; opacity:0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7), 0 2px 10px rgba(0,0,0,0.5);
+}
+.about-statement {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(1rem, 3.5vw, 2.4rem); line-height:1.6;
+  color:#FFFFFF; opacity:0;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8), 0 2px 14px rgba(0,0,0,0.6);
+}
+.about-statement em { font-style:italic; color:var(--teak-light); }
+#work { padding:4rem 0; background:var(--cream); }
+.texture-header { padding:0 1.8rem 2.5rem; display:flex; justify-content:space-between; align-items:baseline; }
+.section-label { font-size:0.6rem; letter-spacing:0.4em; color:var(--teak); }
+.texture-grid {
+  display:grid;
+  grid-template-columns: 1.618fr 1fr;
+  grid-template-rows: 56vw 62vw 34vw;
+  gap:4px;
+}
+.tex-cell { overflow:hidden; position:relative; opacity:0; transform:translateY(24px); }
+.tex-cell-mortex  { grid-column:1/3; grid-row:1/2; }
+.tex-cell-trowel  { grid-column:1/2; grid-row:2/3; }
+.tex-cell-shikkui { grid-column:2/3; grid-row:2/3; }
+.tex-cell-accent  { grid-column:1/3; grid-row:3/4; }
+.tex-bg { position:absolute; inset:0; transition:transform 0.8s ease; background-size:cover; background-position:center; }
+.tex-cell:hover .tex-bg { transform:scale(1.04); }
+.tex-plaster-bg { background-color:#B8AC97; }
+.tex-mortex-bg  { background:linear-gradient(160deg,#4A4540 0%,#3A3530 50%,#2C2825 100%); }
+.tex-trowel-bg  { background:linear-gradient(200deg,#E8DECE 0%,#D4C4A8 60%,#C4B090 100%); }
+.tex-accent-bg  { background:var(--teak); }
+.tex-caption {
+  position:absolute; bottom:0.9rem; left:1rem; z-index:2;
+  font-size:0.5rem; letter-spacing:0.25em; text-transform:uppercase;
+  color:#FAF7F2;
+  text-shadow:
+    0 0 4px rgba(0,0,0,1), 0 1px 2px rgba(0,0,0,1),
+    0 2px 6px rgba(0,0,0,1), 0 4px 14px rgba(0,0,0,0.95),
+    0 6px 24px rgba(0,0,0,0.85);
+}
+.tex-cell-trowel .tex-caption {
+  text-shadow:
+    0 0 2px rgba(0,0,0,1), 0 0 6px rgba(0,0,0,1),
+    0 0 12px rgba(0,0,0,1), 0 1px 2px rgba(0,0,0,1),
+    0 2px 8px rgba(0,0,0,1), 0 4px 20px rgba(0,0,0,1),
+    -1px 0 4px rgba(0,0,0,1), 1px 0 4px rgba(0,0,0,1);
+}
+.accent-caption {
+  color:#FAF7F2;
+  text-shadow:
+    0 1px 2px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,0.95),
+    0 4px 14px rgba(0,0,0,0.85), 0 6px 24px rgba(0,0,0,0.7);
+}
+#profile { min-height:auto; display:flex; flex-direction:column; background:var(--charcoal); overflow:hidden; }
+.profile-visual { position:relative; overflow:hidden; min-height:300px; }
+.profile-hand { position:absolute; inset:0; background:radial-gradient(ellipse 50% 70% at 60% 55%,rgba(196,168,130,0.25) 0%,transparent 60%),linear-gradient(170deg,#3A3530 0%,#2C2825 100%); }
+.profile-hand::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(125deg,transparent 0%,transparent 12%,rgba(196,168,130,0.06) 12%,rgba(196,168,130,0.06) 12.5%); }
+.profile-hand::after { content:''; position:absolute; bottom:0; left:0; right:0; height:60%; background:linear-gradient(0deg,rgba(44,44,44,0.7) 0%,transparent 100%); }
+.profile-photo {
+  position:absolute; inset:0;
+  background-image:url('プロフィール.JPG');
+  background-size:cover; background-position:center 20%;
+  filter:brightness(0.65) contrast(1.08) saturate(0.75);
+}
+.profile-text { display:flex; flex-direction:column; justify-content:center; padding:3rem 2rem 3.5rem; position:relative; }
+.profile-text::before { content:''; position:absolute; top:2rem; right:2rem; width:1px; height:50%; background:linear-gradient(180deg,var(--teak) 0%,transparent 100%); }
+.profile-label { font-size:0.6rem; letter-spacing:0.45em; color:var(--teak); margin-bottom:2rem; opacity:0; }
+.profile-name { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(2rem, 8vw, 3rem); color:var(--warm-white); line-height:1.2; margin-bottom:0.5rem; opacity:0; }
+.profile-title-jp { font-size:0.7rem; letter-spacing:0.3em; color:var(--teak-light); margin-bottom:2rem; opacity:0; }
+.profile-bio { font-size:0.78rem; line-height:2.2; color:rgba(250,247,242,0.5); max-width:320px; opacity:0; }
+.profile-year { margin-top:2rem; font-family:'Cormorant Garamond',serif; font-size:4rem; font-weight:300; color:rgba(196,168,130,0.12); line-height:1; opacity:0; }
+
+/* ── ACCESS ── */
+#access {
+  display:flex; flex-direction:column;
+  background:var(--charcoal); overflow:hidden;
+  position:relative;
+}
+#access::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:1px;
+  background:linear-gradient(180deg,transparent,var(--teak) 20%,var(--teak) 80%,transparent);
+  opacity:0.3;
+}
+.access-text {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:3.5rem 2rem; position:relative;
+}
+.access-text::before {
+  content:''; position:absolute; top:2rem; right:2rem;
+  width:1px; height:50%;
+  background:linear-gradient(180deg,var(--teak) 0%,transparent 100%);
+}
+.access-label {
+  font-family:'Noto Sans JP',serif !important;
+  font-weight:300 !important;
+  font-size:0.6rem !important;
+  letter-spacing:0.45em !important;
+  color:var(--teak) !important;
+  margin-bottom:2.5rem;
+  opacity:0;
+  text-transform:uppercase;
+}
+.access-title {
+  font-family:'Cormorant Garamond',serif !important;
+  font-weight:300 !important;
+  font-size:clamp(2.2rem, 6vw, 3.2rem) !important;
+  letter-spacing:0.18em !important;
+  color:var(--teak-light) !important;
+  line-height:1.2;
+  margin-bottom:2.5rem;
+  opacity:0;
+}
+.access-info {
+  opacity:0;
+}
+.access-info-name {
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:300;
+  font-size:0.75rem;
+  letter-spacing:0.25em;
+  color:var(--warm-white);
+  margin-bottom:0.8rem;
+}
+.access-info-addr {
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:300;
+  font-size:0.68rem;
+  letter-spacing:0.15em;
+  color:rgba(196,168,130,0.75);
+  line-height:2;
+  margin-bottom:1.6rem;
+}
+.access-note {
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:300;
+  font-size:0.55rem;
+  letter-spacing:0.12em;
+  color:rgba(250,247,242,0.3);
+  line-height:1.9;
+  border-left:1px solid rgba(139,106,71,0.35);
+  padding-left:0.9rem;
+}
+.access-map {
+  position:relative;
+  min-height:300px;
+  overflow:hidden;
+}
+.access-map iframe {
+  width:100%; height:100%; min-height:300px;
+  border:none; display:block;
+  /* エイジングゴールド・セピア加工 */
+  filter:sepia(0.65) saturate(0.6) brightness(0.72) contrast(1.1) hue-rotate(5deg);
+  transition:filter 0.4s ease;
+}
+.access-map iframe:hover {
+  filter:sepia(0.35) saturate(0.8) brightness(0.85) contrast(1.05) hue-rotate(5deg);
+}
+/* 地図の上に薄いゴールドオーバーレイ */
+.access-map::after {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(196,168,130,0.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+#contact { min-height:50vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:5rem 2rem; background:var(--warm-white); text-align:center; position:relative; overflow:hidden; }
+#contact::before { content:''; position:absolute; width:480px; height:480px; border-radius:50%; border:1px solid rgba(139,106,71,0.1); top:50%; left:50%; transform:translate(-50%,-50%); }
+#contact::after  { content:''; position:absolute; width:300px; height:300px; border-radius:50%; border:1px solid rgba(139,106,71,0.08); top:50%; left:50%; transform:translate(-50%,-50%); }
+.contact-label { font-size:0.6rem; letter-spacing:0.45em; color:var(--teak); margin-bottom:1.6rem; opacity:0; }
+.contact-headline { font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic; font-size:clamp(1.8rem, 7vw, 3.5rem); color:var(--charcoal); line-height:1.4; margin-bottom:3rem; opacity:0; }
+.line-btn {
+  display:inline-flex; align-items:center; gap:0.9rem;
+  padding:1rem 2.2rem; background:var(--charcoal); color:var(--warm-white);
+  border:none; cursor:pointer;
+  font-family:'Noto Sans JP',sans-serif; font-size:0.7rem; letter-spacing:0.3em;
+  position:relative; z-index:1; transition:background 0.4s; opacity:0;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+}
+.line-btn:hover { background:var(--teak); }
+.line-icon { width:18px; height:18px; }
+footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+.footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
+.footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--cream); }
+::-webkit-scrollbar-thumb { background:var(--teak); }
+@media (min-width: 768px) {
+  .nav-logo { padding:1.9rem 3rem; }
+  .nav-logo span { font-size:0.72rem; }
+  .afro-btn { top:1rem; left:1.6rem; padding:0; }
+  .afro-svg { width:50px; height:56px; }
+  .afro-menu-label { font-size:0.62rem; }
+  .sns-fixed { top:1.3rem; right:1.8rem; gap:1.2rem; }
+  .sns-fixed svg { width:30px; height:30px; }
+  #about { padding:8rem 3rem; align-items:center; }
+  .about-inner { margin-right:8vw; }
+  .about-statement { font-size:clamp(1.5rem, 5vw, 2.4rem); line-height:1.7; }
+  #work { padding:6rem 0; }
+  .texture-header { padding:0 3rem 4rem; }
+  .texture-grid {
+    grid-template-columns: 2.618fr 1.618fr 1fr;
+    grid-template-rows: 1.618fr 1fr;
+    gap:6px; height:600px;
+  }
+  .tex-cell-mortex  { grid-column:1/2; grid-row:1/3; }
+  .tex-cell-trowel  { grid-column:2/3; grid-row:1/2; }
+  .tex-cell-shikkui { grid-column:3/4; grid-row:1/3; }
+  .tex-cell-accent  { grid-column:2/3; grid-row:2/3; }
+  .tex-caption { font-size:0.55rem; letter-spacing:0.3em; bottom:1.2rem; left:1.5rem; }
+  #profile { flex-direction:row; min-height:70vh; }
+  .profile-visual { flex:1; min-height:500px; }
+  .profile-text { flex:1; padding:5rem 4rem; }
+  .profile-text::before { top:3rem; right:3rem; height:60%; }
+  .profile-label { margin-bottom:3rem; }
+  .profile-year { font-size:5rem; margin-top:3rem; }
+  /* ACCESS PC */
+  #access { flex-direction:row; min-height:60vh; }
+  .access-text { flex:1; padding:5rem 4rem; }
+  .access-text::before { top:3rem; right:3rem; height:60%; }
+  .access-label { margin-bottom:3rem; }
+  .access-map { flex:1; min-height:500px; }
+  .access-map iframe { min-height:500px; }
+  #contact { padding:7rem 3rem; min-height:55vh; }
+  #contact::before { width:600px; height:600px; }
+  #contact::after  { width:400px; height:400px; }
+  footer { padding:2rem 3rem; flex-wrap:nowrap; }
+  .footer-copy { font-size:0.55rem; letter-spacing:0.2em; }
+  .hero-content { padding:3rem; }
+  .scroll-hint { width:52px; height:52px; }
+  .scroll-hint svg { width:18px; height:18px; }
+}
+@media (min-width: 1200px) {
+  .hero-title { font-size:clamp(5rem, 8vw, 6rem); }
+  .sns-fixed { right:2rem; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "PWNK",
+  "description": "大阪府堺市の左官・塗装専門ブランド。一級建築施工管理技士による施工管理と高い技術力。",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "堺市",
+    "addressRegion": "大阪府",
+    "addressCountry": "JP"
+  },
+  "url": "https://tukuru5uta10-glitch.github.io/Mojya-project/",
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "name": "一級建築施工管理技士"
+  }
+}
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <linearGradient id="ig-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#feda75"/>
+    <stop offset="25%" stop-color="#fa7e1e"/>
+    <stop offset="50%" stop-color="#d62976"/>
+    <stop offset="75%" stop-color="#962fbf"/>
+    <stop offset="100%" stop-color="#4f5bd5"/>
+  </linearGradient>
+</defs>
+</svg>
+
+<div class="nav-logo"><span>pwnk — Osaka</span></div>
+
+<button class="afro-btn" id="afroBtn" aria-label="メニューを開く">
+  <svg class="afro-svg" viewBox="0 0 80 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <g id="pureAfroShape">
+        <path d="M 13 60 C 5 55 1 45 1 35 C 1 22 8 11 17 6 C 15 1 21 0 26 2 C 29 0 32 0 36 0 C 40 0 44 0 47 0 C 51 0 54 0 57 2 C 62 0 66 2 63 6 C 72 11 79 22 79 35 C 79 45 75 55 67 60 C 61 63 51 65 40 65 C 29 65 19 63 13 60 Z" class="afro-fill" fill="#C4A882"/>
+        <circle cx="40" cy="0"  r="8"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="29" cy="1"  r="7"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="51" cy="1"  r="7"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="20" cy="3"  r="6.5" class="afro-fill" fill="#C4A882"/>
+        <circle cx="12" cy="9"  r="6.5" class="afro-fill" fill="#C4A882"/>
+        <circle cx="5"  cy="19" r="6"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="60" cy="3"  r="6.5" class="afro-fill" fill="#C4A882"/>
+        <circle cx="68" cy="9"  r="6.5" class="afro-fill" fill="#C4A882"/>
+        <circle cx="75" cy="19" r="6"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="1"  cy="31" r="6"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="79" cy="31" r="6"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="3"  cy="44" r="5.5" class="afro-fill" fill="#C4A882"/>
+        <circle cx="77" cy="44" r="5.5" class="afro-fill" fill="#C4A882"/>
+        <circle cx="9"  cy="56" r="5"   class="afro-fill" fill="#C4A882"/>
+        <circle cx="71" cy="56" r="5"   class="afro-fill" fill="#C4A882"/>
+        <ellipse cx="40" cy="30" rx="24" ry="20" fill="#8A6030" opacity="0.12"/>
+      </g>
+      <mask id="face-mask">
+        <use href="#pureAfroShape" fill="white" />
+        <ellipse cx="40" cy="54" rx="21" ry="26" fill="black" />
+      </mask>
+    </defs>
+    <g class="g-afro">
+      <use href="#pureAfroShape" mask="url(#face-mask)" />
+      <ellipse cx="40" cy="54" rx="21" ry="26" fill="transparent" stroke="var(--teak-light)" stroke-width="2.2"/>
+    </g>
+    <g class="g-sunglasses" id="gSunglasses">
+      <path d="M22 48 Q23 43 30 43 Q37 43 38 48 Q38 55 30 57 Q22 55 22 48Z" fill="#111" opacity="0.92"/>
+      <path d="M42 48 Q43 43 50 43 Q57 43 58 48 Q58 55 50 57 Q42 55 42 48Z" fill="#111" opacity="0.92"/>
+      <path d="M38 47 Q40 45 42 47" fill="none" stroke="#C4A882" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="22" y1="48" x2="14" y2="46" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="58" y1="48" x2="66" y2="46" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M22 48 Q23 43 30 43 Q37 43 38 48 Q38 55 30 57 Q22 55 22 48Z" fill="none" stroke="#C4A882" stroke-width="1.2" opacity="0.7"/>
+      <path d="M42 48 Q43 43 50 43 Q57 43 58 48 Q58 55 50 57 Q42 55 42 48Z" fill="none" stroke="#C4A882" stroke-width="1.2" opacity="0.7"/>
+      <path d="M24 46 Q28 43 34 44" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M25 48 Q27 46 30 47" fill="none" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+      <path d="M44 46 Q48 43 54 44" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M45 48 Q47 46 50 47" fill="none" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+    </g>
+    <g class="g-close">
+      <line x1="20" y1="12" x2="60" y2="72" stroke="#C4A882" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="60" y1="12" x2="20" y2="72" stroke="#C4A882" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </svg>
+  <span class="afro-menu-label">MENU</span>
+</button>
+
+<div class="sns-fixed">
+  <button aria-label="Instagram" onclick="window.open('https://www.instagram.com/pwnk2010/','_blank')">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path class="ig-path" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+  </button>
+  <button aria-label="LINE" onclick="window.open('https://lin.ee/pUSe1mi','_blank')">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path class="line-icon-sns" d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+    </svg>
+  </button>
+</div>
+
+<div id="fs-menu" role="dialog" aria-modal="true" aria-label="ナビゲーション">
+  <nav class="fs-nav">
+    <button data-target="hero">TOP</button>
+    <div class="fs-rule"></div>
+    <button data-target="profile">PROFILE</button>
+    <div class="fs-rule"></div>
+    <button data-target="work">WORK</button>
+    <div class="fs-rule"></div>
+    <button data-target="contact">CONTACT</button>
+  </nav>
+</div>
+
+<section id="hero">
+  <div class="hero-wall"></div>
+  <div class="hero-aurora"></div>
+  <div class="hero-aurora-2"></div>
+  <div class="hero-aurora-3"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">
+      刻まれる<br>
+      <strong>光。</strong>
+    </h1>
+  </div>
+  <div class="scroll-hint" id="scrollHint">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<section id="about" class="has-photo" style="background-image:url('鏝6.png');">
+  <div class="about-overlay"></div>
+  <div class="about-inner">
+    <p class="about-label" id="aboutLabel">ABOUT</p>
+    <p class="about-statement" id="aboutStatement">
+      <em>語る壁に応える鏝。</em>
+    </p>
+  </div>
+</section>
+
+<section id="work">
+  <div class="texture-header">
+    <span class="section-label">TEXTURE &amp; MATERIAL</span>
+  </div>
+  <div class="texture-grid">
+    <div class="tex-cell tex-cell-mortex">
+      <div class="tex-bg tex-plaster-bg" style="background-image:url('モールテックス.png')"></div>
+      <span class="tex-caption">モールテックス / MORTEX</span>
+    </div>
+    <div class="tex-cell tex-cell-trowel">
+      <div class="tex-bg tex-trowel-bg" style="background-image:url('造形.png'); background-size:cover; background-position:center;"></div>
+      <span class="tex-caption">造形 / Decorative Mortar</span>
+    </div>
+    <div class="tex-cell tex-cell-shikkui">
+      <div class="tex-bg tex-mortex-bg" style="background-image:url('漆喰.png'); background-size:cover; background-position:center;"></div>
+      <span class="tex-caption">漆喰 / SHIKKUI</span>
+    </div>
+    <div class="tex-cell tex-cell-accent">
+      <div class="tex-bg tex-accent-bg" style="background-image:url('素材.png'); background-size:cover; background-position:center;"></div>
+      <span class="tex-caption accent-caption">素材と対話する</span>
+    </div>
+  </div>
+</section>
+
+<section id="profile">
+  <div class="profile-visual">
+    <div class="profile-hand"></div>
+    <div class="profile-photo"></div>
+  </div>
+  <div class="profile-text">
+    <p class="profile-label" id="profileLabel">Plastering artisan</p>
+    <h2 class="profile-name" id="profileName">Ryuzou<br>Nakamoto</h2>
+    <p class="profile-title-jp" id="profileTitleJp">左官職人 — 一級技能士</p>
+    <p class="profile-bio" id="profileBio">
+      「伝統を塗り、未来をデザインする。」
+
+1998年の創業以来、大阪・堺を拠点に、左官という古来の技法を現代の美意識で再定義。
+
+漆喰が放つ清涼な空気感、モルタルやモールテックスが描き出す重厚なテクスチャ。
+一級左官技能士の繊細な手仕事が、単なる壁を、空間の価値を高めるアートへと昇華させる。
+
+追求するのは、手仕事の温度を感じる、おしゃれで唯一無二の空間体験。
+住宅から商業施設まで、妥協なきクラフトマンシップが、年月を重ねるほどに愛着が深まる風景を塗り上げる。
+    </p>
+    <div class="profile-year" id="profileYear"><span style="font-size:1.2rem; letter-spacing:0.2em;">since</span> 1998</div>
+  </div>
+</section>
+
+<!-- ── ACCESS ── -->
+<section id="access">
+  <div class="access-text">
+    <p class="access-label" id="accessLabel">Location</p>
+    <div class="access-info" id="accessInfo">
+      <p class="access-info-name">pwnk — Osaka</p>
+      <p class="access-info-addr">
+        〒591-8037<br>
+        大阪府堺市北区百舌鳥赤畑町
+      </p>
+      <p class="access-note">
+        当工房は出張施工専門のため、<br>
+        工事に関するご相談は<br>
+        公式ラインよりご連絡くださいませ。
+      </p>
+    </div>
+  </div>
+  <div class="access-map">
+    <iframe
+      src="https://www.google.com/maps?q=大阪府堺市北区百舌鳥赤畑町&z=16&output=embed"
+  　　width="100%"
+  　　height="300"
+  　　style="border:0;"
+  　　loading="lazy">
+    </iframe>
+  </div>
+</section>
+
+<section id="contact">
+  <p class="contact-label" id="contactLabel">CONTACT</p>
+  <h2 class="contact-headline" id="contactHeadline">あなたの壁に、<br>物語を。</h2>
+  <button class="line-btn" id="lineBtn" onclick="window.open('https://lin.ee/pUSe1mi','_blank')">
+    <svg class="line-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+    </svg>
+    LINE で相談する
+  </button>
+</section>
+
+<footer>
+  <div class="footer-logo">pwnk</div>
+  <p class="footer-copy">
+    &copy; 2026 Ryuzou Nakamoto. All rights reserved.<br>
+    <span style="font-size:0.8em; opacity:0.5;">堺市（堺区・北区・西区・中区・東区・美原区・南区）和泉市・高石市・大阪狭山市・河内長野市・松原市・羽曳野市・富田林市ほか大阪全域。</span>
+  </p>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const btn  = document.getElementById('afroBtn');
+  const menu = document.getElementById('fs-menu');
+  let menuOpen = false;
+
+  function toggleMenu(state) {
+    menuOpen = state;
+    btn.classList.toggle('is-open', menuOpen);
+    menu.classList.toggle('is-open', menuOpen);
+    btn.setAttribute('aria-label', menuOpen ? 'メニューを閉じる' : 'メニューを開く');
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }
+
+  btn.addEventListener('click', () => toggleMenu(!menuOpen));
+
+  document.querySelectorAll('.fs-nav button[data-target]').forEach(b => {
+    b.addEventListener('click', () => {
+      const target = document.getElementById(b.dataset.target);
+      toggleMenu(false);
+      if (target) setTimeout(() => target.scrollIntoView({ behavior:'smooth', block:'start' }), 420);
+    });
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menuOpen) toggleMenu(false);
+  });
+
+  /* サングラス */
+  const sunglasses = document.getElementById('gSunglasses');
+  btn.addEventListener('mouseenter', () => { if (!menuOpen) sunglasses.style.opacity = '1'; });
+  btn.addEventListener('mouseleave', () => { sunglasses.style.opacity = '0'; });
+
+  /* インスタ ホバー */
+  const igBtn  = document.querySelector('[aria-label="Instagram"]');
+  const igPath = document.querySelector('.ig-path');
+  igBtn.addEventListener('mouseenter', () => igPath.setAttribute('fill','url(#igGrad)'));
+  igBtn.addEventListener('mouseleave', () => igPath.setAttribute('fill','#C4A882'));
+
+  /* スクロールヒント */
+  const scrollHint = document.getElementById('scrollHint');
+  function updateScrollHint() {
+    const p = Math.min(window.scrollY / (window.innerHeight * 0.3), 1);
+    scrollHint.style.opacity = 1 - p;
+    scrollHint.style.transform = `translateX(-50%) translateY(${-p * 60}px)`;
+    scrollHint.style.animationPlayState = p >= 1 ? 'paused' : 'running';
+  }
+  window.addEventListener('scroll', updateScrollHint, { passive:true });
+  updateScrollHint();
+
+  /* アフロ & SNS フェードイン */
+  function updateFloatingOpacity() {
+    const r = Math.min(Math.max((window.scrollY - window.innerHeight * 0.05) / (window.innerHeight * 0.45), 0), 1);
+    btn.style.opacity = r;
+    document.querySelector('.sns-fixed').style.opacity = r;
+  }
+  window.addEventListener('scroll', updateFloatingOpacity, { passive:true });
+  updateFloatingOpacity();
+
+  /* GSAP */
+  gsap.to('#aboutLabel',     { opacity:1, scrollTrigger:{ trigger:'#about',   start:'top 75%' }, duration:0.8, delay:0.1 });
+  gsap.to('#aboutStatement', { opacity:1, scrollTrigger:{ trigger:'#about',   start:'top 70%' }, duration:1.2, delay:0.4 });
+
+  gsap.utils.toArray('.tex-cell').forEach((el, i) => {
+    gsap.to(el, { opacity:1, y:0, scrollTrigger:{ trigger:'#work', start:'top 80%' }, duration:0.9, delay:i*0.15, ease:'power3.out' });
+  });
+
+  ['#profileLabel','#profileName','#profileTitleJp','#profileBio','#profileYear'].forEach((id, i) => {
+    gsap.to(id, { opacity:1, scrollTrigger:{ trigger:'#profile', start:'top 70%' }, duration:0.9, delay:i*0.18, ease:'power3.out' });
+  });
+
+  /* Access アニメーション */
+  gsap.to('#accessLabel', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 75%' }, duration:0.8, delay:0.1 });
+  gsap.to('#accessTitle', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 70%' }, duration:1.0, delay:0.3 });
+  gsap.to('#accessInfo',  { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 65%' }, duration:0.9, delay:0.5 });
+
+  gsap.to('#contactLabel',    { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 75%' }, duration:0.8, delay:0.1 });
+  gsap.to('#contactHeadline', { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 70%' }, duration:1.0, delay:0.3 });
+  gsap.to('#lineBtn',         { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 65%' }, duration:0.8, delay:0.5 });
+
+  /* ABOUT 背景画像があれば has-photo クラスを付与 */
+  const aboutEl = document.getElementById('about');
+  const aboutBg = window.getComputedStyle(aboutEl).backgroundImage;
+  if (aboutBg && aboutBg !== 'none') aboutEl.classList.add('has-photo');
+</script>
+</body>
+</html>
+</script>
+</body>
+</html>

@@ -5,89 +5,261 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="bROqHRpnP3dGq455SRd6__2Sj9CSjM5ZyOl8-hrYupw" />
 <title>堺市の左官・漆喰・モールテックス施工なら中元工房｜PWNK</title>
-<meta name="description" content="大阪府堺市で漆喰塗りや左官工事をお探しなら中元工房（PWNK）へ。モールテックスや和漆喰、珪藻土など素材の魅力を活かした職人直営の施工をご提案。左官技能士としての実績で、質の高い仕上げをお約束します。">
-<meta name="keywords" content="左官, 堺市, 大阪, モールテックス, 漆喰, 塗り壁, PWNK, パンク">
-
+<meta name="description" content="大阪府堺市で漆喰塗りや左官工事をお探しなら中元工房（PWNK）へ。モールテックスや和漆喰、珪藻土など素材の魅力を活かした職人直営の施工をご提案。1級左官技能士として29年の実績で、質の高い仕上げをお約束します。">
+<meta name="keywords" content="左官, 堺市, 大阪, モールテックス, 漆喰, 塗り壁, 1級建築施工管理技士, PWNK, パンク">
 <meta property="og:site_name" content="中元工房（PWNK）">
-<meta property="og:image" content="images/pwnk-official-logo-square.png">
-<link rel="icon" href="images/pwnk-official-logo-square.png">
-
+<link rel="icon" href="favicon.ico">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;700&display=swap');
 
-/* V1の配色・デザインを完全復元 */
-:root { --bg:#0d0d0d; --fg:#f2f2f2; --accent:#c1a35f; }
+:root {
+  --bg: #0d0d0d;
+  --fg: #f2f2f2;
+  --accent: #c1a35f;
+}
+
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--bg); color:var(--fg); font-family:'Noto Sans JP', sans-serif; line-height:1.7; overflow-x:hidden; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
 
-/* Header & Logo */
-header { position:fixed; top:0; left:0; width:100%; height:80px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; z-index:100; mix-blend-mode:difference; }
-.logo { font-family:'Cormorant Garamond', serif; font-size:24px; letter-spacing:0.1em; font-weight:300; display: flex; align-items: center; }
-/* V2で追加したロゴ画像もV1の雰囲気を壊さないよう調整 */
-.logo img { height: 32px; margin-right: 12px; filter: invert(1); }
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 100;
+  mix-blend-mode: difference;
+}
 
-/* アフロボタン (V1のデザイン) */
-.afro-btn { width:50px; height:50px; cursor:pointer; position:relative; z-index:110; border:1px solid rgba(242,242,242,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.4s; }
-.afro-btn:hover { border-color:var(--accent); }
-.afro-icon { width:24px; height:24px; background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>') no-repeat center/contain; transition:0.4s; }
-.afro-btn.active .afro-icon { transform:rotate(45deg); }
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  letter-spacing: 0.1em;
+  font-weight: 300;
+}
 
-/* Navigation Overlay */
-.fs-nav { position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(13,13,13,0.95); z-index:105; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.6s ease; }
-.fs-nav.active { opacity:1; pointer-events:all; }
-.fs-nav-links { text-align:center; }
-.fs-nav button { display:block; background:none; border:none; color:var(--fg); font-family:'Cormorant Garamond', serif; font-size:48px; margin:20px 0; cursor:pointer; transition:0.4s; opacity:0; transform:translateY(20px); }
-.fs-nav button:hover { color:var(--accent); letter-spacing:0.1em; }
+.afro-btn {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  position: relative;
+  z-index: 110;
+  border: 1px solid rgba(242,242,242,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.4s;
+}
+.afro-btn:hover { border-color: var(--accent); }
+.afro-icon {
+  width: 24px;
+  height: 24px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>') no-repeat center/contain;
+  transition: transform 0.4s;
+}
+.afro-btn.active .afro-icon { transform: rotate(45deg); }
 
-/* Hero Section (V1の力強さを再現) */
-#hero { height:100vh; width:100%; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; background: url('images/professional-plastering-tools-osaka-sakai.jpg') no-repeat center center/cover; }
-#hero::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); }
-.hero-content { position:relative; z-index:2; text-align:center; }
-#heroTitle { font-family:'Cormorant Garamond', serif; font-size:clamp(40px, 8vw, 100px); font-weight:300; letter-spacing:0.2em; opacity:0; transform:translateY(30px); margin-bottom:10px; }
-#heroSub { font-size:14px; letter-spacing:0.8em; text-transform:uppercase; color:var(--accent); opacity:0; }
+.fs-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(13,13,13,0.95);
+  z-index: 105;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.fs-nav.active { opacity: 1; pointer-events: all; }
+.fs-nav-links { text-align: center; }
+.fs-nav button {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--fg);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: 0.4s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fs-nav button:hover { color: var(--accent); letter-spacing: 0.1em; }
 
-/* Texture & Material Section */
-#work { padding:120px 40px; max-width:1400px; margin:0 auto; }
-.section-label { font-family:'Cormorant Garamond', serif; font-size:12px; letter-spacing:0.5em; color:var(--accent); margin-bottom:40px; text-align:center; }
-.tex-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px; }
-.tex-cell { position:relative; overflow:hidden; aspect-ratio:1/1; opacity:0; transform:translateY(30px); }
-.tex-cell img { width:100%; height:100%; object-fit:cover; transition:transform 1.2s ease; filter:grayscale(0.3); }
-.tex-cell:hover img { transform:scale(1.1); filter:grayscale(0); }
-.tex-cell p { position:absolute; bottom:20px; left:20px; font-family:'Cormorant Garamond', serif; font-size:16px; letter-spacing:0.2em; z-index:2; }
+#hero {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ヒーロー背景画像の差し替え */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('images/professional-plastering-tools-osaka-sakai.jpg') no-repeat center center/cover;
+  transform: scale(1.1);
+  z-index: 1;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 2;
+}
+.hero-content { position: relative; z-index: 3; text-align: center; }
+#heroTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 8vw, 100px);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  opacity: 0;
+  transform: translateY(30px);
+  margin-bottom: 10px;
+}
+#heroSub {
+  font-size: 14px;
+  letter-spacing: 0.8em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+}
 
-/* ... (その他のV1スタイルを100%継承) ... */
-#profile, #access, #contact { padding:100px 40px; border-top:1px solid rgba(242,242,242,0.1); }
+#work { padding: 120px 40px; max-width: 1400px; margin: 0 auto; }
+.section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 0.5em;
+  color: var(--accent);
+  margin-bottom: 40px;
+  text-align: left;
+}
+.tex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
+.tex-cell {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  opacity: 0;
+  transform: translateY(30px);
+  cursor: pointer;
+}
+.tex-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+  filter: grayscale(0.2);
+}
+.tex-cell:hover img { transform: scale(1.08); filter: grayscale(0); }
+.tex-cell p {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+#profile { padding: 120px 40px; max-width: 1000px; margin: 0 auto; }
+.profile-flex { display: flex; flex-wrap: wrap; gap: 80px; align-items: flex-start; }
+.profile-img { flex: 1; min-width: 300px; position: relative; }
+/* プロフィール画像の差し替え */
+.profile-img img { width: 100%; filter: grayscale(1); }
+.profile-text { flex: 1.2; min-width: 300px; }
+.profile-name { font-size: 32px; letter-spacing: 0.1em; margin: 20px 0; }
+.profile-title { font-size: 14px; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 30px; }
+.profile-bio { font-size: 15px; color: #aaa; text-align: justify; margin-bottom: 40px; }
+
+#access { padding: 120px 40px; background: #000; text-align: center; }
+.map-container { margin-top: 60px; width: 100%; height: 450px; filter: grayscale(1) invert(0.9); }
+
+#contact { padding: 120px 40px; text-align: center; }
+.line-cta {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 20px 60px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  letter-spacing: 0.2em;
+  transition: 0.4s;
+}
+.line-cta:hover { background: var(--accent); color: #000; }
+
+footer {
+  padding: 60px 40px;
+  border-top: 1px solid rgba(242,242,242,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; opacity: 0.5; }
+.footer-copy { font-size: 10px; color: #555; letter-spacing: 0.1em; }
+
+@media (max-width: 768px) {
+  header { padding: 0 20px; }
+  #work, #profile, #contact { padding: 80px 20px; }
+  .profile-flex { gap: 40px; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <img src="images/pwnk-osaka-sakai-logo.png" alt="PWNKロゴ">
-    pwnk — Osaka
-  </div>
-  <div class="afro-btn" id="afroBtn">
-    <div class="afro-icon"></div>
-  </div>
+  <div class="logo">pwnk — Osaka</div>
+  <div class="afro-btn" id="afroBtn"><div class="afro-icon"></div></div>
 </header>
 
-<nav class="fs-nav" id="fsNav">
+<div class="fs-nav" id="fsNav">
   <div class="fs-nav-links">
     <button data-target="#hero">TOP</button>
     <button data-target="#work">WORKS</button>
-    <button data-target="#work">MATERIAL</button>
     <button data-target="#profile">ABOUT</button>
     <button data-target="#access">LOCATION</button>
   </div>
-</nav>
+</div>
 
 <main>
   <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1 id="heroTitle">中元工房<br><span style="font-size:0.4em;">PWNK — Osaka</span></h1>
+      <h1 id="heroTitle">中元工房<br><span style="font-size:0.4em; letter-spacing:0.3em; opacity:0.8;">PWNK — Osaka</span></h1>
       <p id="heroSub">刻まれる光。</p>
     </div>
   </section>
@@ -113,11 +285,47 @@ header { position:fixed; top:0; left:0; width:100%; height:80px; display:flex; a
       </div>
     </div>
   </section>
-  
-  </main>
+
+  <section id="profile">
+    <p class="section-label" id="profileLabel">ABOUT ME</p>
+    <div class="profile-flex">
+      <div class="profile-img">
+        <img src="images/pwnk-official-logo-square.png" alt="中元工房 代表">
+      </div>
+      <div class="profile-text">
+        <p class="profile-name" id="profileName">中元 正</p>
+        <p class="profile-title" id="profileTitleJp">中元工房 代表 / 1級左官技能士 / 1級建築施工管理技士</p>
+        <div class="profile-bio" id="profileBio">
+          29年のキャリアを持つ左官職人。伝統的な漆喰塗りから、モールテックスやモルタル造形といった現代的な特殊意匠まで幅広く手掛ける。1級左官技能士としての確かな技術に加え、1級建築施工管理技士の視点から、現場の品質管理と美学の両立を追求している。大阪・堺を拠点に、光と影が刻まれる壁を創造し続けている。
+        </div>
+        <p class="profile-year" id="profileYear" style="font-family:'Cormorant Garamond'; color:var(--accent); font-size:13px; letter-spacing:0.1em;">EST. 1997 — SAKAI, OSAKA</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="access">
+    <p class="section-label" id="accessLabel">LOCATION</p>
+    <h2 id="accessTitle" style="font-family:'Cormorant Garamond'; font-weight:300; font-size:32px; letter-spacing:0.1em; margin-bottom:10px;">SAKAI / OSAKA</h2>
+    <p id="accessInfo" style="font-size:13px; color:#888; letter-spacing:0.05em;">大阪府堺市を拠点に関西一円対応</p>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105151.02562479603!2d135.4093863768224!3d34.554366916560945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000da2492f25f25%3A0xc66571587a8c3e80!2z5aSn6Ziq5bqc5aC65biC!5e0!3m2!1sja!2sjp!4v1711200000000!5m2!1sja!2sjp" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <section id="contact">
+    <p class="section-label" id="contactLabel">CONTACT</p>
+    <h2 id="contactHeadline" style="font-family:'Cormorant Garamond'; font-weight:300; font-size:clamp(32px, 5vw, 60px); letter-spacing:0.1em; margin-bottom:30px;">LET'S TALK ABOUT YOUR WALL.</h2>
+    <p style="font-size:14px; color:#888; max-width:600px; margin:0 auto 40px;">施工に関するご相談、お見積り依頼はLINE公式アカウントより承っております。</p>
+    <a href="#" class="line-cta">CONNECT VIA LINE</a>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-logo">pwnk — Osaka</div>
+  <div class="footer-copy">&copy; 2026 PWNK — Osaka. All Rights Reserved.</div>
+</footer>
 
 <script>
-  // V1の動き（GSAP）を完全再現
   const afroBtn = document.getElementById('afroBtn');
   const fsNav = document.getElementById('fsNav');
   const navLinks = document.querySelectorAll('.fs-nav button');
@@ -126,7 +334,7 @@ header { position:fixed; top:0; left:0; width:100%; height:80px; display:flex; a
     afroBtn.classList.toggle('active');
     fsNav.classList.toggle('active');
     if(fsNav.classList.contains('active')){
-      gsap.to(navLinks, { opacity:1, y:0, stagger:0.1, duration:0.5, ease:'power2.out' });
+      gsap.to(navLinks, { opacity:1, y:0, stagger:0.1, duration:0.5, ease:'power2.out', delay:0.2 });
     } else {
       gsap.set(navLinks, { opacity:0, y:20 });
     }
@@ -141,12 +349,24 @@ header { position:fixed; top:0; left:0; width:100%; height:80px; display:flex; a
     });
   });
 
+  gsap.to('.hero-bg', { scale:1, duration:3, ease:'power2.out' });
   gsap.to('#heroTitle', { opacity:1, y:0, duration:1.5, ease:'power4.out', delay:0.5 });
   gsap.to('#heroSub', { opacity:1, duration:2, delay:1.2 });
 
   gsap.utils.toArray('.tex-cell').forEach((el, i) => {
-    gsap.to(el, { opacity:1, y:0, scrollTrigger:{ trigger:'#work', start:'top 80%' }, duration:0.9, delay:i*0.15 });
+    gsap.to(el, { opacity:1, y:0, scrollTrigger:{ trigger:'#work', start:'top 80%' }, duration:0.9, delay:i*0.15, ease:'power3.out' });
   });
+
+  ['#profileLabel','#profileName','#profileTitleJp','#profileBio','#profileYear'].forEach((id, i) => {
+    gsap.to(id, { opacity:1, scrollTrigger:{ trigger:'#profile', start:'top 70%' }, duration:0.9, delay:i*0.18, ease:'power3.out' });
+  });
+
+  gsap.to('#accessLabel', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 75%' }, duration:0.8, delay:0.1 });
+  gsap.to('#accessTitle', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 70%' }, duration:1.0, delay:0.3 });
+  gsap.to('#accessInfo',  { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 65%' }, duration:0.9, delay:0.5 });
+
+  gsap.to('#contactLabel',    { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 75%' }, duration:0.8, delay:0.1 });
+  gsap.to('#contactHeadline', { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 70%' }, duration:1.0, delay:0.3 });
 </script>
 </body>
 </html>

@@ -453,25 +453,52 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .hero-title { font-size:clamp(5rem, 8vw, 6rem); }
   .sns-fixed { right:2rem; }
 }
-/* ── 全セクション共通：リンクボタン（PWNKカラー版） ── */
+/* ── リンクボタン（peek版） ── */
 .more-btn {
-  /* 【解決策】文字の幅だけしか持たせない設定 */
   display: inline-block !important;
-  width: fit-content !important; /* 文字の幅にフィットさせる最強の命令 */
-  
+  width: fit-content !important;
   margin-top: 1.5rem;
   font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em; /* peekの4文字を少し広げると格好いいです */
   color: var(--teak) !important;
   text-decoration: none !important;
   border-bottom: 1px solid var(--teak) !important;
   padding-bottom: 0.3rem;
-  
   transition: all 0.3s ease;
-  opacity: 0; /* GSAPで表示させるため初期値は0でOK */
-  visibility: visible !important;
   position: relative;
   z-index: 100;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ホバーした時の演出 */
+.more-btn:hover {
+  color: var(--teak) !important;
+  font-size: 0.8rem; /* 少し大きくして目立たせる */
+  letter-spacing: 0.1em;
+}
+
+/* ホバー時に文字を「( |ω･)ﾁﾗ」に差し替える */
+.more-btn:hover {
+  font-size: 0; /* 元の「peek」を一時的に見えなくする */
+}
+
+.more-btn:hover::after {
+  content: "( |ω･)ﾁﾗ";
+  font-size: 0.8rem; /* 顔文字のサイズ */
+  letter-spacing: normal;
+  display: inline-block;
+}
+
+/* スマホ版（文字サイズ調整） */
+@media (max-width: 768px) {
+  .more-btn {
+    font-size: 0.6rem !important;
+  }
+  .more-btn:hover::after {
+    font-size: 0.7rem;
+  }
+}
   
   /* 【重要】色をロゴと同じ「テーク色」に指定 */
   color: var(--teak) !important; 

@@ -138,7 +138,7 @@ body {
   
   /* 2. 【本質の境界線】上下の文字を完全に「接着」させ「一つの塊」にする。
         sakanshokunin.com の「継ぎ目のない密度」を再現 */
-  line-height: 0.9 !important; 
+  line-height: 0.7 !important; 
   
   color: var(--warm-white);
   text-transform: uppercase;
@@ -152,7 +152,7 @@ body {
 .page-title-main span {
   display: block;
   /* 3. 【塊感の境界線】文字同士を重ね、境界線を殺す。限界値 */
-  letter-spacing: 0.2em !important; 
+  letter-spacing: 0.1em !important; 
   
   /* 4. 【素材感】文字を横にギュッと潰す（平体）。文字をマテリアルに変える魔法。
         これが「読み物」を「塗り壁」に変えます */
@@ -176,10 +176,10 @@ body {
 /* スマホ版：密度の再調整（ダサさを防ぐ最終ライン） */
 @media (max-width: 768px) {
   .page-title-main {
-    line-height: 0.9 !important;
+    line-height: 0.7 !important;
   }
   .page-title-main span {
-    letter-spacing: 0.2em !important;
+    letter-spacing: 0.1em !important;
     /* スマホでは少しだけ潰し具合を緩めて可読性を確保 */
     transform: scaleX(0.85); 
   }

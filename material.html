@@ -162,30 +162,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .sns-fixed svg { width:30px; height:30px; }
   .content-section { padding: 8rem 4rem; }
 }
-.the-earth {
-  display: block;
-  /* 画面横幅に対して約15%のサイズ。レスポンシブで自動可変 */
-  font-size: clamp(3rem, 15vw, 15rem) !important;
-  
-  /* 文字同士を限界まで密着させて「無機質な石壁」にする */
-  letter-spacing: -0.06em !important;
-  
-  /* 横に0.75倍に潰す「平体」加工。これが渋さの秘訣です */
-  transform: scaleX(0.75);
-  transform-origin: center;
-  
-  white-space: nowrap;
-  line-height: 1;
-}
 
-/* スマホ版の調整（文字が小さくなりすぎないように） */
-@media (max-width: 768px) {
-  .the-earth {
-    font-size: clamp(2rem, 18vw, 8rem) !important;
-    letter-spacing: -0.04em !important;
-    transform: scaleX(0.82); /* スマホでは少しだけ潰しを緩める */
-  }
-}
 </style>
 </head>
 <body>
@@ -197,7 +174,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   </linearGradient>
  </defs>
 </svg>
-
 <div class="nav-logo"><span>pwnk — Osaka</span></div>
 
 <button class="afro-btn" id="afroBtn" aria-label="メニューを開く">

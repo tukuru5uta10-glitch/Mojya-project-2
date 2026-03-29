@@ -126,53 +126,54 @@ body {
   0%, 100% { transform:translate(0%,0%) skew(0deg,2deg) scaleX(1); opacity:0.7; }
   50% { transform:translate(-5%,5%) skew(1deg,2deg) scaleX(1.05); opacity:0.85;}
 }
-/* --- ジャーナルスタンダードの「塊（ブロック）感」を完全再現するCSS --- */
-
-.page-title-main {
-  position: relative; z-index: 2; text-align: center;
-  /* フォント：Noto Sans JP の Black (900) */
+.pwnk-block-title {
+  position: relative;
+  z-index: 2;
+  text-align: center;
   font-family: 'Noto Sans JP', sans-serif !important;
   font-weight: 900 !important;
   
-  /* 1. 【センスの境界線】上下の文字をほぼ「接着」させる */
-  line-height: 0.75 !important; 
+  /* 1. 【極限の接着】上下の隙間を殺し、一つの「壁」にする */
+  line-height: 0.78 !important;
   
-  /* 基本設定 */
-  color: var(--warm-white); 
+  color: var(--warm-white);
   text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pwnk-block-title span {
   display: block;
-}
-
-.page-title-main span {
-  display: inline-block;
+  /* 2. 【JSの密度】文字同士を重ねる (-0.1em以下) */
+  letter-spacing: -0.11em !important;
   
-  /* 2. 【最重要】文字同士を重ねる。0.1em以下が「塊」になるための絶対条件 */
-  letter-spacing: -0.11em !important; 
-  
-  /* 3. 【最重要】文字を横に「潰す（平体にする）」。
-        これで文字が「塊」になり、ジャーナルスタンダードのロゴと同じ「渋さ」が出ます */
-  transform: scaleX(0.8); 
-  transform-origin: center center; /* 中央を基準に潰す */
+  /* 3. 【職人の無骨さ】横にギュッと潰して「素材感」を出す */
+  transform: scaleX(0.82);
+  transform-origin: center;
+  white-space: nowrap;
 }
 
-/* 上段 (TROWELLED) のサイズ調整（ARCHIVESより少しだけ小さく） */
-.title-top {
-  font-size: clamp(2.2rem, 9vw, 6.5rem) !important;
+/* 4. 【最重要：外郭を揃える】
+   上の段と下の段の横幅を視覚的に揃えるためのサイズ調整 */
+.line-top {
+  font-size: clamp(2.5rem, 10vw, 7.5rem) !important;
 }
 
-/* 下段 (ARCHIVES) のサイズ調整（ここを最大化して「土台」にする） */
-.title-bottom {
-  font-size: clamp(2.8rem, 12vw, 9rem) !important;
+.line-bottom {
+  /* 下の段を大きくすることで、どっしりとした安定感を出す */
+  font-size: clamp(3rem, 12.5vw, 9.5rem) !important;
+  margin-top: -0.05em; /* さらに上下を食い込ませる */
 }
 
-/* スマホ版での微調整：さらなる「塊感」のために */
+/* スマホ版：密度の再調整 */
 @media (max-width: 768px) {
-  .page-title-main {
-    line-height: 0.7 !important; /* スマホではさらに上下を接着 */
+  .pwnk-block-title {
+    line-height: 0.75 !important;
   }
-  .page-title-main span {
-    letter-spacing: -0.09em !important; /* スマホでは文字同士をさらに重ねる */
-    transform: scaleX(0.85); /* スマホでは潰し具合を少し緩めて可読性を確保 */
+  .pwnk-block-title span {
+    letter-spacing: -0.08em !important;
+    transform: scaleX(0.88);
   }
 }
 .content-label { font-size:0.6rem; letter-spacing:0.4em; color:var(--teak); margin-bottom:1rem; display:block;}

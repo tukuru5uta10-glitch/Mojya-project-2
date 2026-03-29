@@ -141,6 +141,42 @@ body {
   margin: 0;
   white-space: nowrap;
 }
+  
+.page-title-main span {
+  display: block;
+  /* ★ここをマイナスに！文字同士の隙間を消して「壁」にします */
+  letter-spacing: 0.1em ; 
+  transform: scaleX(0.85);
+  transform-origin: center;
+}
+
+/* 5. 【両端を揃えるためのサイズ調整】 */
+.title-top {
+  /* TROWELLED(9文字): 下段より少し小さく絞って幅を合わせる */
+  font-size: clamp(1rem, 9.5vw, 6rem) !important;
+  
+  /* ★この数値を触ります！ */
+  /* マイナス値を大きくするほど、文字が重なり合って狭くなります */
+  letter-spacing: -1em !important;
+}
+
+.title-bottom {
+  /* ARCHIVES(8文字): 1文字少ない分、大きくして土台にする */
+  font-size: clamp(1rem, 12vw, 7rem) !important;
+  /* 食い込みを少し深くして、1つのロゴのように見せる */
+  margin-top: -0.15em; 
+}
+
+/* スマホ版 */
+@media (max-width: 768px) {
+  .page-title-main {
+    line-height: 0.65 !important;
+  }
+  .page-title-main span {
+    letter-spacing: 0.05em !important; 
+    transform: scaleX(0.85); 
+  }
+}
 /* ── 自由編集コンテンツエリア ── */
 .content-section {
   padding: 5rem 2rem;

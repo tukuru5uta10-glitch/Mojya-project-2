@@ -455,20 +455,27 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 }
   /* ── 分岐ページへ飛ぶためのリンクボタン ── */
 .more-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: inherit;
+  display: inline-block; /* 横幅いっぱいに広がらないようにします */
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--teak);
+  color: var(--teak);
   text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 0.3rem;
-  transition: opacity 0.3s;
-  opacity: 0.75;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  /* ↓ ここが重要！場所をリセットして、文章のすぐ下に出るようにします */
   position: relative;
-  z-index: 10;
+  left: 0;
+  transform: none;
+  margin-left: 0;
 }
-.more-btn:hover { opacity: 1; }
+
+.more-btn:hover {
+  background: var(--teak);
+  color: #fff;
+}
 </style>
 <script type="application/ld+json">
 {

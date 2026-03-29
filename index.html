@@ -453,6 +453,22 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .hero-title { font-size:clamp(5rem, 8vw, 6rem); }
   .sns-fixed { right:2rem; }
 }
+  /* MATERIALセクション限定：ボタンとチラの色を白に変更 */
+#material .more-btn {
+  color: #ffffff !important;
+}
+
+#material .more-btn span {
+  border-bottom: 1px solid #ffffff !important;
+}
+
+#material .more-btn::after {
+  color: #ffffff !important;
+}
+
+#material .more-btn:hover {
+  opacity: 0.7 !important;
+}
 /* ── リンクボタン（peek + チラ版） ── */
 .more-btn {
   display: inline-block !important;

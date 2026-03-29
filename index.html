@@ -462,8 +462,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   letter-spacing: 0.3em;
   color: var(--teak) !important;
   text-decoration: none !important;
-  border-bottom: 1px solid var(--teak) !important;
-  padding-bottom: 0.3rem;
+  /* ↓ ここにあった border-bottom を削除 ↓ */
   transition: all 0.3s ease;
   position: relative;
   z-index: 100;
@@ -471,40 +470,32 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   visibility: visible !important;
 }
 
-/* ホバー時に色を少し強調 */
-.more-btn:hover {
-  opacity: 0.8 !important;
+/* 「peek」の文字だけに下線を引く */
+.more-btn span {
+  border-bottom: 1px solid var(--teak) !important;
+  padding-bottom: 0.3rem;
+  display: inline-block;
 }
 
-/* peekの横に「 |ω･)ﾁﾗ」を表示させる */
+/* 顔文字の設定（変更なし：そのまま） */
 .more-btn::after {
-  content: " |ω･)ﾁﾗ";
+  content: "( |ω･)ﾁﾗ";
   font-size: 0.8rem;
   letter-spacing: normal;
   display: inline-block;
-  margin-left: 0.5rem; /* peekとの間隔 */
-  
-  /* 最初は隠しておいて、ホバーで出すための設定 */
+  margin-left: 0.5rem;
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.3s ease;
   pointer-events: none;
+  /* ↓ ここに border-bottom: none !important; を念のため追加 */
+  border-bottom: none !important; 
 }
 
 .more-btn:hover::after {
   opacity: 1;
-  transform: translateX(0); /* スッと横から出てくる動き */
+  transform: translateX(0);
 }
-
-/* スマホ版の微調整 */
-@media (max-width: 768px) {
-  .more-btn {
-    font-size: 0.6rem !important;
-  }
-  .more-btn::after {
-    font-size: 0.7rem;
-    margin-left: 0.3rem;
-  }
 }
   /* 【重要】色をロゴと同じ「テーク色」に指定 */
   color: var(--teak) !important; 

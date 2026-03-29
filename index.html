@@ -453,30 +453,36 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .hero-title { font-size:clamp(5rem, 8vw, 6rem); }
   .sns-fixed { right:2rem; }
 }
-  /* ── 分岐ページへ飛ぶためのリンクボタン ── */
-/* ── 分岐ページへ飛ぶためのリンクボタン ── */
+/* ── 全セクション共通：リンクボタン（PWNKカラー版） ── */
 .more-btn {
   display: inline-block;
   margin-top: 1.5rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  color: inherit; /* 文字色を親要素に合わせる（重要） */
+  font-size: 0.7rem; /* 少しだけ大きくして読みやすく */
+  letter-spacing: 0.2em;
+  
+  /* 【重要】色をロゴと同じ「テーク色」に指定 */
+  color: var(--teak) !important; 
   text-decoration: none;
-  border-bottom: 1px solid currentColor; /* 下線を表示 */
+  border-bottom: 1px solid var(--teak) !important; /* 下線も同じ色 */
+  
   padding-bottom: 0.3rem;
-  transition: opacity 0.3s;
-  opacity: 0.75;
+  transition: all 0.3s ease;
+  
+  /* 透明度を1にして確実に見えるように */
+  opacity: 1 !important; 
+  visibility: visible !important;
+
   position: relative;
-  z-index: 10;
-  /* 場所を文章のすぐ下に固定 */
-  position: relative;
+  z-index: 100;
   left: 0;
   transform: none;
   margin-left: 0;
 }
 
 .more-btn:hover {
-  opacity: 1; /* ホバーで不透明度を1にする（WORKSと同じ挙動） */
+  /* ホバーした時は少しだけ明るくするか、不透明度を下げる */
+  opacity: 0.7 !important;
+  border-bottom: 1px solid var(--teak-light) !important;
 }
 </style>
 <script type="application/ld+json">

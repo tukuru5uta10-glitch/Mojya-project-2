@@ -404,7 +404,14 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 ::-webkit-scrollbar { width:3px; }
 ::-webkit-scrollbar-track { background:var(--cream); }
 ::-webkit-scrollbar-thumb { background:var(--teak); }
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+  /* ...既存のスマホ用設定... */
+
+  /* WORKSのボタンを右に寄せる（ここに含める） */
+  #material .more-btn {
+    margin-left: 20% !important; /* 20%くらいにするとグリッドと綺麗に揃います */
+  }
+} /* ←最後にこの「閉じカッコ」があるか確認！ */
   .nav-logo { padding:1.9rem 3rem; }
   .nav-logo span { font-size:0.72rem; }
   .afro-btn { top:1rem; left:1.6rem; padding:0; }

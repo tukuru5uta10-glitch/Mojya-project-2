@@ -453,6 +453,22 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .hero-title { font-size:clamp(5rem, 8vw, 6rem); }
   .sns-fixed { right:2rem; }
 }
+  /* ── 分岐ページへ飛ぶためのリンクボタン ── */
+.more-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.3rem;
+  transition: opacity 0.3s;
+  opacity: 0.75;
+  position: relative;
+  z-index: 10;
+}
+.more-btn:hover { opacity: 1; }
 </style>
 <script type="application/ld+json">
 {
@@ -592,12 +608,14 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     <p class="about-statement" id="aboutStatement">
       <em>語る壁に応える鏝。</em>
     </p>
+    <a href="material.html" class="more-btn">VIEW DETAILS →</a>
   </div>
 </section>
 
 <section id="work">
   <div class="texture-header">
     <span class="section-label">WORKS</span>
+    <a href="works.html" class="more-btn" style="margin-top:0;">VIEW DETAILS →</a>
   </div>
   <div class="texture-grid">
     <div class="tex-cell tex-cell-mortex">
@@ -641,6 +659,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     </p>
     <div class="profile-year" id="profileYear"><span style="font-size:1.2rem; letter-spacing:0.2em;">since</span> 1998</div>
   </div>
+  <a href="about.html" class="more-btn">VIEW DETAILS →</a>
 </section>
 
 <!-- ── ACCESS ── -->
@@ -658,6 +677,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
         工事に関するご相談は<br>
         公式ラインよりご連絡くださいませ。
       </p>
+      <a href="location.html" class="more-btn">VIEW DETAILS →</a>
     </div>
   </div>
   <div class="access-map">

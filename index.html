@@ -455,22 +455,21 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 }
 /* ── 全セクション共通：リンクボタン（PWNKカラー版） ── */
 .more-btn {
-  /* 【重要】幅を文字の長さにギュッと凝縮させます */
-  display: inline-table !important; 
-  width: auto !important;
-
+  /* 【解決策】文字の幅だけしか持たせない設定 */
+  display: inline-block !important;
+  width: fit-content !important; /* 文字の幅にフィットさせる最強の命令 */
+  
   margin-top: 1.5rem;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   color: var(--teak) !important;
   text-decoration: none !important;
-  
-  /* 下線も文字の幅に合わせます */
   border-bottom: 1px solid var(--teak) !important;
   padding-bottom: 0.3rem;
   
   transition: all 0.3s ease;
-  opacity: 1 !important;
+  opacity: 0; /* GSAPで表示させるため初期値は0でOK */
+  visibility: visible !important;
   position: relative;
   z-index: 100;
   

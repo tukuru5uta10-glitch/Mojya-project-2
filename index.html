@@ -453,13 +453,13 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .hero-title { font-size:clamp(5rem, 8vw, 6rem); }
   .sns-fixed { right:2rem; }
 }
-/* ── リンクボタン（peek版） ── */
+/* ── リンクボタン（peek + チラ版） ── */
 .more-btn {
   display: inline-block !important;
   width: fit-content !important;
   margin-top: 1.5rem;
   font-size: 0.7rem;
-  letter-spacing: 0.3em; /* peekの4文字を少し広げると格好いいです */
+  letter-spacing: 0.3em;
   color: var(--teak) !important;
   text-decoration: none !important;
   border-bottom: 1px solid var(--teak) !important;
@@ -471,35 +471,41 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   visibility: visible !important;
 }
 
-/* ホバーした時の演出 */
+/* ホバー時に色を少し強調 */
 .more-btn:hover {
-  color: var(--teak) !important;
-  font-size: 0.8rem; /* 少し大きくして目立たせる */
-  letter-spacing: 0.1em;
+  opacity: 0.8 !important;
 }
 
-/* ホバー時に文字を「( |ω･)ﾁﾗ」に差し替える */
-.more-btn:hover {
-  font-size: 0; /* 元の「peek」を一時的に見えなくする */
+/* peekの横に「 |ω･)ﾁﾗ」を表示させる */
+.more-btn::after {
+  content: " |ω･)ﾁﾗ";
+  font-size: 0.8rem;
+  letter-spacing: normal;
+  display: inline-block;
+  margin-left: 0.5rem; /* peekとの間隔 */
+  
+  /* 最初は隠しておいて、ホバーで出すための設定 */
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .more-btn:hover::after {
-  content: "( |ω･)ﾁﾗ";
-  font-size: 0.8rem; /* 顔文字のサイズ */
-  letter-spacing: normal;
-  display: inline-block;
+  opacity: 1;
+  transform: translateX(0); /* スッと横から出てくる動き */
 }
 
-/* スマホ版（文字サイズ調整） */
+/* スマホ版の微調整 */
 @media (max-width: 768px) {
   .more-btn {
     font-size: 0.6rem !important;
   }
-  .more-btn:hover::after {
+  .more-btn::after {
     font-size: 0.7rem;
+    margin-left: 0.3rem;
   }
 }
-  
   /* 【重要】色をロゴと同じ「テーク色」に指定 */
   color: var(--teak) !important; 
   text-decoration: none;

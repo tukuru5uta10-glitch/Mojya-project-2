@@ -773,12 +773,15 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   /* GSAP */
   gsap.to('#aboutLabel',     { opacity:1, scrollTrigger:{ trigger:'#about',   start:'top 75%' }, duration:0.8, delay:0.1 });
   gsap.to('#aboutStatement', { opacity:1, scrollTrigger:{ trigger:'#about',   start:'top 70%' }, duration:1.2, delay:0.4 });
+  // 【追加①】MATERIALセクションのボタン用
+  gsap.to('#about .more-btn', { opacity:1, scrollTrigger:{ trigger:'#about', start:'top 70%' }, duration:1.2, delay:0.6 });
 
   gsap.utils.toArray('.tex-cell').forEach((el, i) => {
     gsap.to(el, { opacity:1, y:0, scrollTrigger:{ trigger:'#work', start:'top 80%' }, duration:0.9, delay:i*0.15, ease:'power3.out' });
   });
 
-  ['#profileLabel','#profileName','#profileTitleJp','#profileBio','#profileYear'].forEach((id, i) => {
+  // 【変更②】ABOUTセクション用（配列の最後に '#profile .more-btn' を足しました）
+  ['#profileLabel','#profileName','#profileTitleJp','#profileBio','#profileYear', '#profile .more-btn'].forEach((id, i) => {
     gsap.to(id, { opacity:1, scrollTrigger:{ trigger:'#profile', start:'top 70%' }, duration:0.9, delay:i*0.18, ease:'power3.out' });
   });
 
@@ -786,6 +789,8 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   gsap.to('#accessLabel', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 75%' }, duration:0.8, delay:0.1 });
   gsap.to('#accessTitle', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 70%' }, duration:1.0, delay:0.3 });
   gsap.to('#accessInfo',  { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 65%' }, duration:0.9, delay:0.5 });
+  // 【追加③】LOCATIONセクションのボタン用
+  gsap.to('#access .more-btn', { opacity:1, scrollTrigger:{ trigger:'#access', start:'top 65%' }, duration:0.9, delay:0.7 });
 
   gsap.to('#contactLabel',    { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 75%' }, duration:0.8, delay:0.1 });
   gsap.to('#contactHeadline', { opacity:1, scrollTrigger:{ trigger:'#contact', start:'top 70%' }, duration:1.0, delay:0.3 });

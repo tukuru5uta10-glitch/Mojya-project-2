@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABOUT | PWNK</title>
+<link rel="icon" href="images/pwnk-official-logo-square.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Noto+Sans+JP:wght@100;300;400;500&display=swap');
+:root {
+  --cream: #F5F0E8;
+  --teak: #8B6A47;
+  --teak-light: #C4A882;
+  --charcoal: #2C2C2C;
+  --warm-white: #FAF7F2;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:var(--warm-white);
+  color:var(--charcoal);
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+}
+/* ヘッダー＆メニュー：TOPと100%共通 */
+.nav-logo {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; justify-content:center; align-items:center;
+  padding:1.4rem 3rem; pointer-events:none;
+}
+.nav-logo span {
+  font-family:'Noto Sans JP',sans-serif; font-weight:400;
+  font-size:0.68rem; letter-spacing:0.4em; color:var(--teak-light);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+}
+.afro-btn {
+  position:fixed; top:0.55rem; left:0.4rem; z-index:300;
+  background:none; border:none; cursor:pointer; padding:0.3rem;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  transition:opacity 0.4s ease;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+}
+.afro-svg { width:30px; height:34px; display:block; overflow:visible; }
+.g-afro { transition:opacity 0.38s ease, transform 0.38s ease; transform-origin:36px 40px; }
+.g-close { opacity:0; transition:opacity 0.28s ease 0.1s; }
+.afro-btn.is-open .g-afro { opacity:0; transform:scale(0.4); }
+.afro-btn.is-open .g-close { opacity:1; }
+.g-sunglasses { opacity:0; transition:opacity 0.25s ease; }
+.afro-menu-label {
+  font-family:'Noto Sans JP',sans-serif; font-weight:400;
+  font-size:0.46rem; letter-spacing:0.4em; padding-left:0.4em;
+  color:var(--teak-light); opacity:0.8; transition:opacity 0.3s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+}
+.afro-btn:hover .afro-menu-label { opacity:1; }
+.sns-fixed {
+  position:fixed; top:0.9rem; right:0.5rem; z-index:9999;
+  display:flex; align-items:center; gap:0.5rem; pointer-events:all;
+}
+.sns-fixed button {
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:none; cursor:pointer; opacity:0.9;
+  transition:opacity 0.3s, transform 0.3s;
+  padding:0.25rem;
+  -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+}
+.sns-fixed button:hover { opacity:1; transform:scale(1.12); }
+.sns-fixed svg { width:22px; height:22px; display:block; }
+.sns-fixed .ig-path { fill:var(--teak-light); transition:fill 0.3s; }
+.sns-fixed .line-icon-sns { fill:var(--teak-light); transition:fill 0.3s; }
+.sns-fixed button:hover .line-icon-sns { fill:#06C755; }
+.sns-fixed button:hover .ig-path {fill: url(#ig-gradient); }
+
+#fs-menu {
+  position:fixed; inset:0; z-index:250;
+  background:var(--charcoal);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  pointer-events:none;
+  clip-path:circle(0% at 2.2rem 2rem);
+  transition:clip-path 0.78s cubic-bezier(0.77,0,0.18,1);
+}
+#fs-menu.is-open { pointer-events:all; clip-path:circle(160% at 2.2rem 2rem); }
+#fs-menu::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+}
+.fs-nav { display:flex; flex-direction:column; align-items:center; gap:0; position:relative; z-index:1; }
+.fs-nav button {
+  font-family:'Noto Sans JP',sans-serif; font-weight:300;
+  font-size:clamp(1.2rem, 4vw, 1.8rem); letter-spacing:0.5em;
+  color:var(--warm-white); background:none; border:none; cursor:pointer;
+  line-height:1.4; opacity:0; transform:translateY(24px);
+  transition:color 0.3s;
+  display:block; width:auto; text-align:center;
+  padding-top:1em; padding-bottom:1em;
+}
+.fs-nav button:hover { color:var(--teak-light); }
+.fs-rule { width:36px; height:1px; background:rgba(196,168,130,0.22); opacity:0; margin:0.15rem 0; }
+#fs-menu.is-open .fs-nav button { animation:fsIn 0.65s ease forwards; }
+#fs-menu.is-open .fs-rule { animation:fsIn 0.65s ease forwards; }
+#fs-menu.is-open .fs-nav button:nth-child(1) { animation-delay:0.24s; }
+#fs-menu.is-open .fs-rule:nth-child(2)       { animation-delay:0.30s; }
+#fs-menu.is-open .fs-nav button:nth-child(3) { animation-delay:0.34s; }
+#fs-menu.is-open .fs-rule:nth-child(4)       { animation-delay:0.38s; }
+#fs-menu.is-open .fs-nav button:nth-child(5) { animation-delay:0.42s; }
+#fs-menu.is-open .fs-rule:nth-child(6)       { animation-delay:0.46s; }
+#fs-menu.is-open .fs-nav button:nth-child(7) { animation-delay:0.50s; }
+@keyframes fsIn { to { opacity:1; transform:translateY(0); } }
+
+/* ── 子ページ専用ミニヒーロー（TOPのオーロラを継承） ── */
+#page-hero {
+  height:40svh; min-height:300px;
+  position:relative; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; background:var(--charcoal);
+}
+.hero-wall { position:absolute; inset:0; background-color:#3A3530; }
+.hero-aurora {
+  position:absolute; inset:-50%; pointer-events:none; width:200%; height:200%;
+  mix-blend-mode:screen; filter:blur(90px); animation: aurora1 70s ease-in-out infinite;
+  background: radial-gradient(ellipse 90% 35% at 20% 30%, rgba(196,168,130,0.22) 0%, transparent 100%);
+}
+@keyframes aurora1 {
+  0%, 100% { transform:translate(0%,0%) skew(0deg,2deg) scaleX(1); opacity:0.7; }
+  50% { transform:translate(-5%,5%) skew(1deg,2deg) scaleX(1.05); opacity:0.85;}
+}
+.page-title {
+  position:relative; z-index:2; text-align:center;
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(2.5rem, 6vw, 4rem); color:var(--warm-white); letter-spacing: 0.1em;
+}
+
+/* ── 自由編集コンテンツエリア ── */
+.content-section {
+  padding: 5rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.content-label { font-size:0.6rem; letter-spacing:0.4em; color:var(--teak); margin-bottom:1rem; display:block;}
+.content-p { font-size:0.85rem; line-height:2.2; color:rgba(44,44,44,0.8); margin-bottom:2rem; }
+
+footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+.footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
+.footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
+
+@media (min-width: 768px) {
+  .afro-btn { top:1rem; left:1.6rem; padding:0; }
+  .afro-svg { width:50px; height:56px; }
+  .afro-menu-label { font-size:0.62rem; }
+  .sns-fixed { top:1.3rem; right:1.8rem; gap:1.2rem; }
+  .sns-fixed svg { width:30px; height:30px; }
+  .content-section { padding: 8rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <linearGradient id="ig-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/><stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/><stop offset="100%" stop-color="#4f5bd5"/>
+  </linearGradient>
+ </defs>
+</svg>
+
+<div class="nav-logo"><span>pwnk — Osaka</span></div>
+
+<button class="afro-btn" id="afroBtn" aria-label="メニューを開く">
+  <svg class="afro-svg" viewBox="0 0 80 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <g id="pureAfroShape">
+        <path d="M 13 60 C 5 55 1 45 1 35 C 1 22 8 11 17 6 C 15 1 21 0 26 2 C 29 0 32 0 36 0 C 40 0 44 0 47 0 C 51 0 54 0 57 2 C 62 0 66 2 63 6 C 72 11 79 22 79 35 C 79 45 75 55 67 60 C 61 63 51 65 40 65 C 29 65 19 63 13 60 Z" class="afro-fill" fill="#C4A882"/>
+        <circle cx="40" cy="0"  r="8"   class="afro-fill" fill="#C4A882"/><circle cx="29" cy="1"  r="7"   class="afro-fill" fill="#C4A882"/><circle cx="51" cy="1"  r="7"   class="afro-fill" fill="#C4A882"/><circle cx="20" cy="3"  r="6.5" class="afro-fill" fill="#C4A882"/><circle cx="12" cy="9"  r="6.5" class="afro-fill" fill="#C4A882"/><circle cx="5"  cy="19" r="6"   class="afro-fill" fill="#C4A882"/><circle cx="60" cy="3"  r="6.5" class="afro-fill" fill="#C4A882"/><circle cx="68" cy="9"  r="6.5" class="afro-fill" fill="#C4A882"/><circle cx="75" cy="19" r="6"   class="afro-fill" fill="#C4A882"/><circle cx="1"  cy="31" r="6"   class="afro-fill" fill="#C4A882"/><circle cx="79" cy="31" r="6"   class="afro-fill" fill="#C4A882"/><circle cx="3"  cy="44" r="5.5" class="afro-fill" fill="#C4A882"/><circle cx="77" cy="44" r="5.5" class="afro-fill" fill="#C4A882"/><circle cx="9"  cy="56" r="5"   class="afro-fill" fill="#C4A882"/><circle cx="71" cy="56" r="5"   class="afro-fill" fill="#C4A882"/><ellipse cx="40" cy="30" rx="24" ry="20" fill="#8A6030" opacity="0.12"/>
+      </g>
+      <mask id="face-mask">
+        <use href="#pureAfroShape" fill="white" />
+        <ellipse cx="40" cy="54" rx="21" ry="26" fill="black" />
+      </mask>
+    </defs>
+    <g class="g-afro">
+      <use href="#pureAfroShape" mask="url(#face-mask)" />
+      <ellipse cx="40" cy="54" rx="21" ry="26" fill="transparent" stroke="var(--teak-light)" stroke-width="2.2"/>
+    </g>
+    <g class="g-sunglasses" id="gSunglasses">
+      <path d="M22 48 Q23 43 30 43 Q37 43 38 48 Q38 55 30 57 Q22 55 22 48Z" fill="#111" opacity="0.92"/>
+      <path d="M42 48 Q43 43 50 43 Q57 43 58 48 Q58 55 50 57 Q42 55 42 48Z" fill="#111" opacity="0.92"/>
+      <path d="M38 47 Q40 45 42 47" fill="none" stroke="#C4A882" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="22" y1="48" x2="14" y2="46" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="58" y1="48" x2="66" y2="46" stroke="#C4A882" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+    <g class="g-close">
+      <line x1="20" y1="12" x2="60" y2="72" stroke="#C4A882" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="60" y1="12" x2="20" y2="72" stroke="#C4A882" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </svg>
+  <span class="afro-menu-label">MENU</span>
+</button>
+
+<div class="sns-fixed">
+  <button aria-label="Instagram" onclick="window.open('https://www.instagram.com/pwnk2010/','_blank')">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path class="ig-path" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+  </button>
+  <button aria-label="LINE" onclick="window.open('https://lin.ee/pUSe1mi','_blank')">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path class="line-icon-sns" d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+    </svg>
+  </button>
+</div>
+
+<div id="fs-menu" role="dialog" aria-modal="true" aria-label="ナビゲーション">
+  <nav class="fs-nav">
+    <button onclick="window.location.href='index.html'">TOP</button>
+    <div class="fs-rule"></div>
+    <button onclick="window.location.href='material.html'">TEXTURE & MATERIAL</button>
+    <div class="fs-rule"></div>
+    <button onclick="window.location.href='works.html'">WORKS</button>
+    <div class="fs-rule"></div>
+    <button onclick="window.location.href='about.html'">ABOUT</button>
+    <div class="fs-rule"></div>
+    <button onclick="window.location.href='location.html'">LOCATION</button>
+  </nav>
+</div>
+
+<section id="page-hero">
+  <div class="hero-wall"></div>
+  <div class="hero-aurora"></div>
+  <h1 class="page-title">ABOUT</h1>
+</section>
+
+<section class="content-section">
+  <span class="content-label" id="fadeLabel">OUTLINE</span>
+  <p class="content-p" id="fadeParagraph">
+    ここに「MATERIAL & TEXTURE」の詳細なコンテンツを流し込んでいきます。<br>
+    TOPページのデザイン、フォント、背景のアニメーションの連動性が100%継承されています。<br>
+    必要なセクションの追加、画像の配置などはここをベースに自由にコーディングが可能です。
+  </p>
+</section>
+
+<footer>
+  <div class="footer-logo">pwnk</div>
+  <p class="footer-copy">© 2026 Ryuzou Nakamoto. All rights reserved.</p>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const btn  = document.getElementById('afroBtn');
+  const menu = document.getElementById('fs-menu');
+  let menuOpen = false;
+
+  function toggleMenu(state) {
+    menuOpen = state;
+    btn.classList.toggle('is-open', menuOpen);
+    menu.classList.toggle('is-open', menuOpen);
+    btn.setAttribute('aria-label', menuOpen ? 'メニューを閉じる' : 'メニューを開く');
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }
+
+  btn.addEventListener('click', () => toggleMenu(!menuOpen));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menuOpen) toggleMenu(false);
+  });
+
+  /* サングラス、インスタグラムのホバー */
+  const sunglasses = document.getElementById('gSunglasses');
+  btn.addEventListener('mouseenter', () => { if (!menuOpen) sunglasses.style.opacity = '1'; });
+  btn.addEventListener('mouseleave', () => { sunglasses.style.opacity = '0'; });
+  const igBtn  = document.querySelector('[aria-label="Instagram"]');
+  const igPath = document.querySelector('.ig-path');
+  igBtn.addEventListener('mouseenter', () => igPath.setAttribute('fill','url(#igGrad)'));
+  igBtn.addEventListener('mouseleave', () => igPath.setAttribute('fill','#C4A882'));
+
+  /* ページ内でのフワッと現れる演出を100%踏襲 */
+  gsap.from('#fadeLabel', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
+  gsap.from('#fadeParagraph', { opacity: 0, y: 20, duration: 0.8, delay: 0.5, ease: 'power3.out' });
+</script>
+
+</body>
+</html>

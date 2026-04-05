@@ -545,23 +545,22 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     cursor: none !important;
   }
 
-  .trowel-cursor {
-    width: 32px;
-    height: 32px;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -5%) rotate(-15deg); 
-    transform-origin: 50% 5%;
-    transition: transform 0.1s ease-out;
-  }
+  /* 残像（鏝の形）のスタイル */
+.cursor-trail-kote {
+  width: 32px;
+  height: 32px;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998; /* 本体(10000)より背面に */
+  transform: translate(-50%, -5%); /* 先端を合わせる */
+}
 
-  .trowel-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
+.trowel-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 
   /* 軌跡（トレイル）も鏝のサイズに合わせる */
  .cursor-trail {

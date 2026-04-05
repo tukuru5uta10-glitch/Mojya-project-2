@@ -834,7 +834,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 // PC環境のみで実行
 if (window.innerWidth >= 768) {
   const trowel = document.querySelector('.trowel-cursor');
-  const trailCount = 15; // 軌跡の点の数（多いほど滑らか）
+  const trailCount = 25; // 軌跡の点の数
   const trails = [];
 
   // 軌跡用の要素を動的に生成
@@ -849,52 +849,50 @@ if (window.innerWidth >= 768) {
     const x = e.clientX;
     const y = e.clientY;
 
-    // 鏝本体はマウス位置へ即座に移動
+    // 鏝本体はマウス位置（先端基準）へ即座に移動
     gsap.to(trowel, { x: x, y: y, duration: 0 });
     
-    // 軌跡の要素を時間差でマウス位置に移動。
-    // 移動時間を鏝先から離れるほど長くすることで、尾っぽが伸びて消えていくような演出。
+    // 軌跡の要素を時間差でマウス位置に移動
     trails.forEach((trail, index) => {
       const ratio = (index + 1) / trailCount;
       gsap.to(trail, {
         x: x,
         y: y,
-        duration: 0.3 * ratio, // 尾っぽの端ほど移動時間が長く、遅れて届く
-        ease: 'power2.out',
-        opacity: 1 - ratio * 0.7, // 尾っぽの端ほど透明に
-        scale: 1 - ratio * 0.5, // 尾っぽの端ほど小さく
+        duration: 0.5 * ratio,
+        ease: 'power3.out',
+        opacity: 1 - ratio * 0.5,
+        scale: 1 - ratio * 0.4,
       });
     });
   });
 
-  // ボタンやリンクへのホバーアクション（光る・大きくなる）
+  // ボタンやリンクへのホバーアクション
   const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
 
   interactiveEls.forEach((el) => {
     el.addEventListener('mouseenter', () => {
-      // ホバー時は鏝が少し大きく、光る
+      // 鏝先端を起点に1.5倍に大きくなり、強烈に光る
       gsap.to(trowel, {
-        scale: 1.2,
-        filter: 'drop-shadow(0 0 8px rgba(196, 168, 130, 0.8))', // teak-lightの光
+        scale: 1.5,
+        filter: 'drop-shadow(0 0 15px rgba(196, 168, 130, 1.0))',
         duration: 0.3
       });
-      // ホバー中は尾っぽも少し光る
       gsap.to(trails, {
-        backgroundColor: 'rgba(196, 168, 130, 0.6)',
+        backgroundColor: 'rgba(196, 168, 130, 0.9)',
+        filter: 'blur(1.5px) drop-shadow(0 0 5px rgba(196, 168, 130, 0.8))',
         duration: 0.3
       });
     });
     
     el.addEventListener('mouseleave', () => {
-      // ホバー解除で元に戻る
       gsap.to(trowel, {
         scale: 1,
         filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',
         duration: 0.3
       });
-      // 尾っぽも元に戻る
       gsap.to(trails, {
-        backgroundColor: 'rgba(196, 168, 130, 0.4)',
+        backgroundColor: 'rgba(196, 168, 130, 0.6)',
+        filter: 'blur(1.5px)',
         duration: 0.3
       });
     });

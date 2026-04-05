@@ -841,22 +841,23 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 if (window.innerWidth >= 768) {
   const trowel = document.querySelector('.trowel-cursor');
   
-  // マウスの動きに合わせて「その場に形を残す」
+  // マウス移動時の処理
   window.addEventListener('mousemove', (e) => {
     const x = e.clientX;
     const y = e.clientY;
 
-    // 1. 鏝本体の移動（ホバー拡大なし）
+    // 1. 鏝本体の移動（遅延なし・拡大なし）
     gsap.to(trowel, { x: x, y: y, duration: 0 });
     
-    // 2. 残像（鏝の形）を生成
+    // 2. その場に残像を生成する関数を呼び出し
     createKoteTrail(x, y);
   });
 
+  // 残像を生成する関数
   function createKoteTrail(x, y) {
     const trail = document.createElement('div');
     trail.className = 'cursor-trail-kote';
-    // 鏝のSVGを注入
+    // 鏝の形(SVG)をコピー
     trail.innerHTML = `
       <svg viewBox="0 0 100 100" class="trowel-svg">
         <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
@@ -865,28 +866,25 @@ if (window.innerWidth >= 768) {
     `;
     document.body.appendChild(trail);
 
-    // 生成された瞬間の場所に固定
+    // 生成した瞬間の位置に固定（角度も固定）
     gsap.set(trail, {
       x: x,
       y: y,
-      opacity: 0.15, // かなり薄く出現
+      opacity: 0.1, // ★極めて薄く出現
       scale: 0.9,
-      rotation: -15, // 角度を固定して崩れを防ぐ
-      transformOrigin: "50% 5%"
+      rotation: -15
     });
 
-    // その場で3秒かけて「超ゆっくり」消えていく
+    // その場で「長く、ゆっくり」消えていく
     gsap.to(trail, {
       opacity: 0,
-      duration: 3.0, // 消えるまでの時間を長く
-      ease: "power1.in", // じわ〜っと消える
-      onComplete: () => {
-        trail.remove(); // 完全に消えたら削除
-      }
+      duration: 3.5, // ★3.5秒かけて消える（かなり長い余韻）
+      ease: "power2.in", 
+      onComplete: () => trail.remove() // 消えたら要素を削除
     });
   }
 
-  // ホバーアクション（光の演出のみ）
+  // ホバー時のエフェクト（拡大は廃止、光の演出のみ）
   const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
 
   interactiveEls.forEach((el) => {
@@ -896,7 +894,6 @@ if (window.innerWidth >= 768) {
         duration: 0.3
       });
     });
-    
     el.addEventListener('mouseleave', () => {
       gsap.to(trowel, {
         filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',

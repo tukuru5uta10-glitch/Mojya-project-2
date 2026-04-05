@@ -843,7 +843,7 @@ if (window.innerWidth >= 768) {
     
     // 移動距離に応じて、間を埋めるように鏝を配置（塗りつぶし）
     // 1px動くごとに1枚置く勢いで敷き詰めます
-    const steps = Math.ceil(dist / 2); 
+    const steps = Math.ceil(dist / 1); 
     for (let i = 0; i < steps; i++) {
       const lerpX = lastX + (x - lastX) * (i / steps);
       const lerpY = lastY + (y - lastY) * (i / steps);

@@ -536,7 +536,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   opacity: 0.7 !important;
   border-bottom: 1px solid var(--teak-light) !important;
 }
-  /* PC環境のみ */
+/* PC環境のみ */
 @media (min-width: 768px) {
   body {
     cursor: none !important; /* 標準カーソルを消す */
@@ -546,14 +546,17 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   }
 
   .trowel-cursor {
-    width: 30px; /* 鏝のサイズ */
-    height: 30px;
+    width: 32px;
+    height: 32px;
     position: fixed;
     top: 0; left: 0;
     pointer-events: none; /* マウスイベントを透過させる */
-    z-index: 10000; /* 最前面に */
-    transform: translate(-50%, -50%) rotate(-15deg); /* 中心をマウスに、少し傾ける */
-    transform-origin: center;
+    z-index: 10000;
+    
+    /* 尖った先（横50%, 縦5%の位置）をマウス位置に合わせ、少し傾ける */
+    transform: translate(-50%, -5%) rotate(-15deg); 
+    transform-origin: 50% 5%; /* 回転や拡大の中心を「鏝の先端」にする */
+    transition: transform 0.1s ease-out;
   }
 
   .trowel-svg {
@@ -564,16 +567,17 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 
   /* 軌跡（トレイル）の要素スタイル */
   .cursor-trail {
-    width: 4px; /* トレイルの点のサイズ */
-    height: 4px;
-    background-color: rgba(196, 168, 130, 0.4); /* teak-lightの半透明 */
+    width: 6px;
+    height: 6px;
+    background-color: rgba(196, 168, 130, 0.6);
     border-radius: 50%;
     position: fixed;
     top: 0; left: 0;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    opacity: 0; /* 最初は非表示 */
+    opacity: 0;
+    filter: blur(1.5px);
   }
 }
 </style>

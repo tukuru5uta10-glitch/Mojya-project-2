@@ -564,18 +564,17 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   }
 
   /* 軌跡（トレイル）も鏝のサイズに合わせる */
-  .cursor-trail {
-    width: 32px;
-    height: 32px;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -5%) rotate(-15deg);
-    transform-origin: 50% 5%;
-    opacity: 0;
-    filter: blur(1px); /* 流れ星のように少しだけブレさせる */
-  }
+ .cursor-trail {
+  width: 32px;
+  height: 32px;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -5%) rotate(-15deg);
+  mix-blend-mode: multiply; /* 背景と馴染ませる（白っぽい背景なら有効） */
+  filter: blur(0.5px); /* 少しだけボカして柔らかく */
+　}
 }
 </style>
 <script type="application/ld+json">

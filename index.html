@@ -831,13 +831,20 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 // PC環境のみで実行
 if (window.innerWidth >= 768) {
   const trowel = document.querySelector('.trowel-cursor');
-  const trailCount = 25; // 軌跡の点の数
+  const trailCount = 20; // 流れ星の密度
   const trails = [];
 
-  // 軌跡用の要素を動的に生成
+  // 軌跡用の要素を生成し、すべてに鏝の形を埋め込む
   for (let i = 0; i < trailCount; i++) {
     const trail = document.createElement('div');
     trail.className = 'cursor-trail';
+    // 鏝のSVGをコピーして挿入
+    trail.innerHTML = `
+      <svg viewBox="0 0 100 100" class="trowel-svg">
+        <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
+        <path d="M 50 85 L 50 95 C 50 99, 45 99, 45 95 L 45 85" stroke="#8B6A47" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    `;
     document.body.appendChild(trail);
     trails.push(trail);
   }
@@ -846,50 +853,50 @@ if (window.innerWidth >= 768) {
     const x = e.clientX;
     const y = e.clientY;
 
-    // 鏝本体はマウス位置（先端基準）へ即座に移動
+    // 先頭の鏝
     gsap.to(trowel, { x: x, y: y, duration: 0 });
     
-    // 軌跡の要素を時間差でマウス位置に移動
+    // 流れ星の尾っぽ（残像）の動き
     trails.forEach((trail, index) => {
       const ratio = (index + 1) / trailCount;
       gsap.to(trail, {
         x: x,
         y: y,
-        duration: 0.5 * ratio,
-        ease: 'power3.out',
-        opacity: 1 - ratio * 0.5,
-        scale: 1 - ratio * 0.4,
+        duration: 0.6 * ratio, // 後ろほど遅れて届くことで綺麗な尾っぽに
+        ease: 'power2.out',
+        opacity: 0.7 * (1 - ratio), // 後ろに行くほどシュッと消えていく
+        scale: 1 - ratio * 0.8, // 後ろに行くほど小さくなる
       });
     });
   });
 
-  // ボタンやリンクへのホバーアクション
+  // ボタンやリンクへのホバーアクション（超大げさ版）
   const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
 
   interactiveEls.forEach((el) => {
     el.addEventListener('mouseenter', () => {
-      // 鏝先端を起点に1.5倍に大きくなり、強烈に光る
+      // ホバー時は鏝を【2倍】に拡大、影の光を【30px】まで爆発させる
       gsap.to(trowel, {
-        scale: 1.5,
-        filter: 'drop-shadow(0 0 15px rgba(196, 168, 130, 1.0))',
+        scale: 2.0,
+        filter: 'drop-shadow(0 0 30px rgba(196, 168, 130, 1.0))', 
         duration: 0.3
       });
+      // 尾っぽ全体も強く発光させる
       gsap.to(trails, {
-        backgroundColor: 'rgba(196, 168, 130, 0.9)',
-        filter: 'blur(1.5px) drop-shadow(0 0 5px rgba(196, 168, 130, 0.8))',
+        filter: 'blur(1px) drop-shadow(0 0 10px rgba(196, 168, 130, 0.8))',
         duration: 0.3
       });
     });
     
     el.addEventListener('mouseleave', () => {
+      // 離れたら元に戻る
       gsap.to(trowel, {
         scale: 1,
         filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',
         duration: 0.3
       });
       gsap.to(trails, {
-        backgroundColor: 'rgba(196, 168, 130, 0.6)',
-        filter: 'blur(1.5px)',
+        filter: 'blur(1px)',
         duration: 0.3
       });
     });

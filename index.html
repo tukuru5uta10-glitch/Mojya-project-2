@@ -838,27 +838,31 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 <script>
   gsap.registerPlugin(ScrollTrigger);
   
-// PC環境のみで実行
 if (window.innerWidth >= 768) {
   const trowel = document.querySelector('.trowel-cursor');
-  
-  // マウス移動時の処理
+  let lastX = 0;
+  let lastY = 0;
+
   window.addEventListener('mousemove', (e) => {
     const x = e.clientX;
     const y = e.clientY;
 
-    // 1. 鏝本体の移動（遅延なし・拡大なし）
+    // 1. 本体移動
     gsap.to(trowel, { x: x, y: y, duration: 0 });
-    
-    // 2. その場に残像を生成する関数を呼び出し
-    createKoteTrail(x, y);
+
+    // 2. 「塗り跡」生成ロジック
+    // 前回の位置から一定距離（3px）動くたびに残像を残すことで、連続した「面」にする
+    const dist = Math.hypot(x - lastX, y - lastY);
+    if (dist > 3) { 
+      createKoteTrail(x, y);
+      lastX = x;
+      lastY = y;
+    }
   });
 
-  // 残像を生成する関数
   function createKoteTrail(x, y) {
     const trail = document.createElement('div');
     trail.className = 'cursor-trail-kote';
-    // 鏝の形(SVG)をコピー
     trail.innerHTML = `
       <svg viewBox="0 0 100 100" class="trowel-svg">
         <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
@@ -867,27 +871,25 @@ if (window.innerWidth >= 768) {
     `;
     document.body.appendChild(trail);
 
-    // 生成した瞬間の位置に固定（角度も固定）
     gsap.set(trail, {
       x: x,
       y: y,
-      opacity: 0.1, // ★極めて薄く出現
-      scale: 0.9,
+      opacity: 0.2, // 塗りたての少し濃い状態
+      scale: 1,
       rotation: -15
     });
 
-    // その場で「長く、ゆっくり」消えていく
+    // 漆喰が壁に馴染んでいくように、ゆっくり長く消えていく
     gsap.to(trail, {
       opacity: 0,
-      duration: 3.5, // ★3.5秒かけて消える（かなり長い余韻）
-      ease: "power2.in", 
-      onComplete: () => trail.remove() // 消えたら要素を削除
+      duration: 4.0, // 4秒かけてじわ〜っと消失（余韻をさらに長く）
+      ease: "power2.inOut",
+      onComplete: () => trail.remove()
     });
   }
 
-  // ホバー時のエフェクト（拡大は廃止、光の演出のみ）
+  // ホバーアクション（光の演出のみに限定）
   const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
-
   interactiveEls.forEach((el) => {
     el.addEventListener('mouseenter', () => {
       gsap.to(trowel, {

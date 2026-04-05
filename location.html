@@ -167,7 +167,7 @@ body {
   }
   .content-label {
     font-size: 0.45rem !important;    /* ラベルをさらに小さくして、情報の対比を強める */
-    letter-spacing: -0.05em !important; 
+    letter-spacing: 0.01em !important; 
     margin-bottom: 1.5rem;
   }
   .content-p {
@@ -178,13 +178,23 @@ body {
   }
 }
 /* ── 自由編集コンテンツエリア ── */
-.content-section {
-  padding: 5rem 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+/* 229行目付近：OUTLINEなどの小見出し */
+.content-label { 
+  font-size:0.85rem !important; 
+  letter-spacing:-0.01em !important;  /* 元の0.4emからガッツリ詰めました */
+  color:var(--teak); 
+  margin-bottom:1rem; 
+  display:block;
 }
-.content-label { font-size:0.6rem; letter-spacing:0.4em; color:var(--teak); margin-bottom:1rem; display:block;}
-.content-p { font-size:0.85rem; line-height:2.2; color:rgba(44,44,44,0.8); margin-bottom:2rem; }
+
+/* 230行目付近：本文 */
+.content-p { 
+  font-size:0.65rem !important; 
+  line-height:2.2; 
+  color:rgba(44,44,44,0.8); 
+  margin-bottom:2rem; 
+  letter-spacing: -0.03em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
+}
 
 footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }

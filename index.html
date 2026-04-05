@@ -818,69 +818,65 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   gsap.registerPlugin(ScrollTrigger);
   
 if (window.innerWidth >= 768) {
+  const canvas = document.getElementById('plasterCanvas');
+  const ctx = canvas.getContext('2d');
   const trowel = document.querySelector('.trowel-cursor');
-  let lastX = 0;
-  let lastY = 0;
+  
+  let mouse = { x: 0, y: 0 };
+  let lastMouse = { x: 0, y: 0 };
+
+  // キャンバスを画面サイズに合わせる
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
 
   window.addEventListener('mousemove', (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
+    lastMouse = { x: mouse.x, y: mouse.y };
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
 
-    // 1. 本体移動
-    gsap.to(trowel, { x: x, y: y, duration: 0 });
+    // 鏝本体の移動
+    gsap.set(trowel, { x: mouse.x, y: mouse.y });
 
-    // 2. 「塗り跡」生成ロジック
-    // 前回の位置から一定距離（3px）動くたびに残像を残すことで、連続した「面」にする
-    const dist = Math.hypot(x - lastX, y - lastY);
-    if (dist > 1) { 
-      createKoteTrail(x, y);
-      lastX = x;
-      lastY = y;
-    }
+    // 漆喰を塗る（線を描く）
+    drawPlaster(lastMouse.x, lastMouse.y, mouse.x, mouse.y);
   });
 
-  function createKoteTrail(x, y) {
-    const trail = document.createElement('div');
-    trail.className = 'cursor-trail-kote';
-    trail.innerHTML = `
-      <svg viewBox="0 0 100 100" class="trowel-svg">
-        <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
-        <path d="M 50 85 L 50 95 C 50 99, 45 99, 45 95 L 45 85" stroke="#8B6A47" stroke-width="3" fill="none" stroke-linecap="round"/>
-      </svg>
-    `;
-    document.body.appendChild(trail);
+  function drawPlaster(x1, y1, x2, y2) {
+    ctx.strokeStyle = 'rgba(196, 168, 130, 0.15)'; // 漆喰の色と薄さ
+    ctx.lineWidth = 25; // 鏝の幅（塗り幅）
+    ctx.lineCap = 'round'; // 角を丸くして馴染ませる
+    ctx.lineJoin = 'round';
 
-    gsap.set(trail, {
-      x: x,
-      y: y,
-      opacity: 0.2, // 塗りたての少し濃い状態
-      scale: 1,
-      rotation: -15
-    });
-
-    // 漆喰が壁に馴染んでいくように、ゆっくり長く消えていく
-    gsap.to(trail, {
-      opacity: 0,
-      duration: 4.0, // 4秒かけてじわ〜っと消失（余韻をさらに長く）
-      ease: "power2.inOut",
-      onComplete: () => trail.remove()
-    });
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
   }
 
-  // ホバーアクション（光の演出のみに限定）
-  const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
-  interactiveEls.forEach((el) => {
+  // ★重要：描いた漆喰を「じわ〜っと消していく」処理
+  function fade() {
+    // 毎フレーム、少しずつ透明な背景で塗りつぶす（これで乾いて消える演出）
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.02)'; // この数字を小さくするほど長く残る
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'source-over';
+    
+    requestAnimationFrame(fade);
+  }
+  fade();
+
+  // ホバーアクション（光の演出のみ）
+  const interactiveEls = document.querySelectorAll('a, button, .afro-btn, .sns-fixed button, .tex-cell');
+  interactiveEls.forEach(el => {
     el.addEventListener('mouseenter', () => {
-      gsap.to(trowel, {
-        filter: 'drop-shadow(0 0 15px rgba(196, 168, 130, 0.8))',
-        duration: 0.3
-      });
+      gsap.to(trowel, { filter: 'drop-shadow(0 0 15px rgba(196, 168, 130, 0.8))', duration: 0.3 });
     });
     el.addEventListener('mouseleave', () => {
-      gsap.to(trowel, {
-        filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',
-        duration: 0.3
-      });
+      gsap.to(trowel, { filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))', duration: 0.3 });
     });
   });
 }

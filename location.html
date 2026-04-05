@@ -126,10 +126,40 @@ body {
   0%, 100% { transform:translate(0%,0%) skew(0deg,2deg) scaleX(1); opacity:0.7; }
   50% { transform:translate(-5%,5%) skew(1deg,2deg) scaleX(1.05); opacity:0.85;}
 }
-.page-title {
-  position:relative; z-index:2; text-align:center;
-  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
-  font-size:clamp(2.5rem, 6vw, 4rem); color:var(--warm-white); letter-spacing: 0.1em;
+.page-title-main {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-family: 'Noto Sans JP', sans-serif !important;
+  font-weight: 900 !important;
+  line-height: 0.8 !important; /* 密着 */
+  color: var(--warm-white)!important;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  white-space: nowrap;
+}
+.the-earth {
+  display: block;
+  /* 1段で横幅いっぱいに広げるサイズ感 */
+  font-size: clamp(1rem, 12vw, 7rem) !important;
+  /* 文字を密着させ、「石壁」のような塊にする */
+  letter-spacing: 0.02em !important;
+  /* ★重要：平体（横に潰す）。これでドッシリした重圧が出る */
+  transform: scaleX(0.85);
+  transform-origin: center;
+}
+/* スマホ版 */
+@media (max-width: 768px) {
+  .page-title-main {
+    line-height: 0.65 !important;
+  }
+  .page-title-main span {
+    letter-spacing: 0.05em !important; 
+    transform: scaleX(0.85); 
+  }
 }
 
 /* ── 自由編集コンテンツエリア ── */
@@ -228,7 +258,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 <section id="page-hero">
   <div class="hero-wall"></div>
   <div class="hero-aurora"></div>
-  <h1 class="page-title">LOCATION</h1>
+  <h1 class="page-title">BASE INFO</h1>
 </section>
 
 <section class="content-section">

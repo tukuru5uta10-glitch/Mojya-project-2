@@ -826,7 +826,76 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
+  
+// PC環境のみで実行
+if (window.innerWidth >= 768) {
+  const trowel = document.querySelector('.trowel-cursor');
+  const trailCount = 15; // 軌跡の点の数（多いほど滑らか）
+  const trails = [];
 
+  // 軌跡用の要素を動的に生成
+  for (let i = 0; i < trailCount; i++) {
+    const trail = document.createElement('div');
+    trail.className = 'cursor-trail';
+    document.body.appendChild(trail);
+    trails.push(trail);
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+
+    // 鏝本体はマウス位置へ即座に移動
+    gsap.to(trowel, { x: x, y: y, duration: 0 });
+    
+    // 軌跡の要素を時間差でマウス位置に移動。
+    // 移動時間を鏝先から離れるほど長くすることで、尾っぽが伸びて消えていくような演出。
+    trails.forEach((trail, index) => {
+      const ratio = (index + 1) / trailCount;
+      gsap.to(trail, {
+        x: x,
+        y: y,
+        duration: 0.3 * ratio, // 尾っぽの端ほど移動時間が長く、遅れて届く
+        ease: 'power2.out',
+        opacity: 1 - ratio * 0.7, // 尾っぽの端ほど透明に
+        scale: 1 - ratio * 0.5, // 尾っぽの端ほど小さく
+      });
+    });
+  });
+
+  // ボタンやリンクへのホバーアクション（光る・大きくなる）
+  const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
+
+  interactiveEls.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      // ホバー時は鏝が少し大きく、光る
+      gsap.to(trowel, {
+        scale: 1.2,
+        filter: 'drop-shadow(0 0 8px rgba(196, 168, 130, 0.8))', // teak-lightの光
+        duration: 0.3
+      });
+      // ホバー中は尾っぽも少し光る
+      gsap.to(trails, {
+        backgroundColor: 'rgba(196, 168, 130, 0.6)',
+        duration: 0.3
+      });
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      // ホバー解除で元に戻る
+      gsap.to(trowel, {
+        scale: 1,
+        filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',
+        duration: 0.3
+      });
+      // 尾っぽも元に戻る
+      gsap.to(trails, {
+        backgroundColor: 'rgba(196, 168, 130, 0.4)',
+        duration: 0.3
+      });
+    });
+  });
+}
   const btn  = document.getElementById('afroBtn');
   const menu = document.getElementById('fs-menu');
   let menuOpen = false;

@@ -537,8 +537,12 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   border-bottom: 1px solid var(--teak-light) !important;
 }
 /* PC環境のみ */
- @media (min-width: 768px) {
-  body { cursor: none !important; }
+@media (min-width: 768px) {
+  /* ③ リンクに触っても指を出さない（全ての要素でカーソルを強制消去） */
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+
   .trowel-cursor {
     width: 35px;
     height: 35px;
@@ -549,20 +553,25 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     transform: translate(-50%, -5%) rotate(-15deg);
     transform-origin: 50% 5%;
   }
-}
 
-  /* 軌跡（トレイル）も鏝のサイズに合わせる */
- .cursor-trail {
-  width: 32px;
-  height: 32px;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -5%) rotate(-15deg);
-  mix-blend-mode: multiply; /* 背景と馴染ませる（白っぽい背景なら有効） */
-  filter: blur(0.5px); /* 少しだけボカして柔らかく */
-　}
+  /* 塗り跡用のスタイル */
+  .cursor-trail-kote {
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -5%) rotate(-15deg);
+    transform-origin: 50% 5%;
+    will-change: opacity; /* 動作を軽くする */
+  }
+  
+  .trowel-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 }
 </style>
 <script type="application/ld+json">

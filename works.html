@@ -196,7 +196,7 @@ body {
 /* ── 自由編集コンテンツエリア ── */
 /* 229行目付近：OUTLINEなどの小見出し */
 .content-label { 
-  font-size:0.95rem; 
+  font-size:0.95rem !important; 
   letter-spacing:-0.01em !important;  /* 元の0.4emからガッツリ詰めました */
   color:var(--teak); 
   margin-bottom:1rem; 
@@ -205,11 +205,11 @@ body {
 
 /* 230行目付近：本文 */
 .content-p { 
-  font-size:0.65rem; 
+  font-size:0.65rem !important; 
   line-height:2.2; 
   color:rgba(44,44,44,0.8); 
   margin-bottom:2rem; 
-  letter-spacing: -0.03em; /* ★これを追加（マイナス値で文字間が詰まります） */
+  letter-spacing: -0.03em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
 }
 .content-label { font-size:0.6rem; letter-spacing:0.4em; color:var(--teak); margin-bottom:1rem; display:block;}
 .content-p { font-size:0.85rem; line-height:2.2; color:rgba(44,44,44,0.8); margin-bottom:2rem; }

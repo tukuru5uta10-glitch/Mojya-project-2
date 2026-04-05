@@ -537,42 +537,19 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   border-bottom: 1px solid var(--teak-light) !important;
 }
 /* PC環境のみ */
-  @media (min-width: 768px) {
-    body { cursor: none !important; }
-    a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell {
-      cursor: none !important;
-    }
-
-    .trowel-cursor {
-      width: 35px; /* 少しだけサイズアップ */
-      height: 35px;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 10000;
-      transform: translate(-50%, -5%) rotate(-15deg);
-      transform-origin: 50% 5%;
-    }
-
-    .cursor-trail-kote {
-      width: 35px;
-      height: 35px;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -5%) rotate(-15deg);
-      transform-origin: 50% 5%;
-      /* 重なった部分がわずかに濃くなることで塗り跡感を出す */
-      mix-blend-mode: multiply; 
-    }
-    
-    .trowel-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
+ @media (min-width: 768px) {
+  body { cursor: none !important; }
+  .trowel-cursor {
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -5%) rotate(-15deg);
+    transform-origin: 50% 5%;
   }
+}
 
   /* 軌跡（トレイル）も鏝のサイズに合わせる */
  .cursor-trail {

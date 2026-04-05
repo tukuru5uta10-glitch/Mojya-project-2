@@ -536,31 +536,42 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   opacity: 0.7 !important;
   border-bottom: 1px solid var(--teak-light) !important;
 }
-/* PC環境のみ */
-@media (min-width: 768px) {
-  body {
-    cursor: none !important;
-  }
-  a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell {
-    cursor: none !important;
-  }
+/* PC環境のみ：カスタムカーソルの基本設定 */
+  @media (min-width: 768px) {
+    body { cursor: none !important; }
+    a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell {
+      cursor: none !important;
+    }
 
-  /* 残像（鏝の形）のスタイル */
-.cursor-trail-kote {
-  width: 32px;
-  height: 32px;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9998; /* 本体(10000)より背面に */
-  transform: translate(-50%, -5%); /* 先端を合わせる */
-}
+    .trowel-cursor {
+      width: 32px;
+      height: 32px;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -5%) rotate(-15deg);
+      transform-origin: 50% 5%;
+    }
 
-.trowel-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
+    /* 残像（鏝の形）のスタイル設定 */
+    .cursor-trail-kote {
+      width: 32px;
+      height: 32px;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -5%) rotate(-15deg);
+      transform-origin: 50% 5%;
+    }
+    
+    .trowel-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
 
   /* 軌跡（トレイル）も鏝のサイズに合わせる */
  .cursor-trail {

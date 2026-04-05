@@ -24,6 +24,7 @@ body {
   font-weight:400;
   overflow-x:hidden;
 }
+
 /* ヘッダー＆メニュー：TOPと100%共通 */
 .nav-logo {
   position:fixed; top:0; left:0; right:0; z-index:200;
@@ -126,6 +127,9 @@ body {
   0%, 100% { transform:translate(0%,0%) skew(0deg,2deg) scaleX(1); opacity:0.7; }
   50% { transform:translate(-5%,5%) skew(1deg,2deg) scaleX(1.05); opacity:0.85;}
 }
+
+
+/* ★★★ 絶対不可侵のタイトルエリア（一切触れていません） ★★★ */
 .page-title-main {
   position: relative;
   z-index: 2;
@@ -166,60 +170,66 @@ body {
   /* 食い込みを少し深くして、1つのロゴのように見せる */
   margin-top: -0.15em; 
 }
+/* ★★★ ここまでタイトルエリア ★★★ */
 
-/* スマホ版 */
-@media (max-width: 768px) {
-  .page-title-main {
-    line-height: 0.65 !important;
-  }
-  .page-title-main span {
-    letter-spacing: 0.05em !important; 
-    transform: scaleX(0.85); 
-  }
-  /* ここから追加：文章エリアの調整 */
-  .content-section {
-    padding: 4rem 1.5rem; /* 左右の余白を少し詰めて、中央に密度を作る */
-    text-align: justify;  /* 文末を揃えてブロックとしての美しさを出す */
-  }
-  .content-label {
-    font-size: 0.45rem !important;    /* ラベルをさらに小さくして、情報の対比を強める */
-    letter-spacing: -0.05em !important; 
-    margin-bottom: 1.5rem;
-  }
-  .content-p {
-    font-size: 0.45rem !important;    /* 文字をあえて小さくし、余白の価値を上げる */ 
-    line-height: -1.0;      /* 行間 */
-    color: rgba(44, 44, 44, 0.7); /* 黒を少し薄めて、高級感を出す */
-    letter-spacing: -0.05em;
-  }
+
+/* ── 自由編集コンテンツエリア（基本・PC版） ── */
+.content-section {
+  padding: 8rem 4rem; /* PC版の余白 */
+  text-align: justify;
 }
-/* ── 自由編集コンテンツエリア ── */
+.content-label { 
+  font-size: 0.6rem; 
+  letter-spacing: 0.15em; /* PC版: 文字間を少し詰めました */
+  color: var(--teak); 
+  margin-bottom: 1rem; 
+  display: block;
+}
+.content-p { 
+  font-size: 0.85rem; 
+  line-height: 2.2; 
+  color: rgba(44,44,44,0.8); 
+  margin-bottom: 2rem; 
+  letter-spacing: -0.03em; /* PC版: 文字間を少しだけ詰めて密度を上げる */
+}
+
+
+/* ── フッター ── */
 footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
 .footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
 
+/* ── PC版の配置調整 ── */
 @media (min-width: 768px) {
   .afro-btn { top:1rem; left:1.6rem; padding:0; }
   .afro-svg { width:50px; height:56px; }
   .afro-menu-label { font-size:0.62rem; }
   .sns-fixed { top:1.3rem; right:1.8rem; gap:1.2rem; }
   .sns-fixed svg { width:30px; height:30px; }
-  .content-section { padding: 8rem 4rem; }
 }
-   /* ここから追加：文章エリアの調整 */
-.content-label { 
-  font-size:0.6rem; 
-  letter-spacing:-0.5em !important; /* 元の0.4emからガッツリ詰めました */
-  color:var(--teak); 
-  margin-bottom:1rem; 
-  display:block;
-}
-.content-p { 
-  font-size:0.85rem; 
-  line-height:2.2; 
-  color:rgba(44,44,44,0.8); 
-  margin-bottom:2rem; 
-  letter-spacing: -0.5em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
+
+
+/* ── スマホ版の調整（最後尾に置くことで最強の優先度に） ── */
+@media (max-width: 768px) {
+  /* タイトル（一切触れません） */
+  .page-title-main { line-height: 0.65 !important; }
+  .page-title-main span { letter-spacing: 0.05em !important; transform: scaleX(0.85); }
+
+  /* 文章エリア（スマホ用） */
+  .content-section {
+    padding: 4rem 1.5rem !important; 
+  }
+  .content-label {
+    font-size: 0.5rem !important; /* ★スマホでの小見出しサイズ */
+    letter-spacing: 0.05em !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .content-p {
+    font-size: 0.75rem !important; /* ★スマホでの本文サイズ（小さめ） */
+    line-height: 2.0 !important;   /* エラーだったマイナス値を正常化 */
+    color: rgba(44, 44, 44, 0.7) !important;
+    letter-spacing: -0.05em !important; /* スマホで文字間をギュッと詰める */
+  }
 }
 </style>
 </head>

@@ -877,7 +877,7 @@ if (window.innerWidth >= 768) {
     // ① じわぁーと消えていく（4秒かけてゆっくり）
     gsap.to(trail, {
       opacity: 0,
-      duration: 4.0,
+      duration: 1.5,
       ease: "power2.inOut",
       onComplete: () => trail.remove()
     });

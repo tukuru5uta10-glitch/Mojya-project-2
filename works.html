@@ -194,7 +194,19 @@ body {
   }
 }
 /* ── 自由編集コンテンツエリア ── */
- /* ここから追加：文章エリアの調整 */
+footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+.footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
+.footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
+
+@media (min-width: 768px) {
+  .afro-btn { top:1rem; left:1.6rem; padding:0; }
+  .afro-svg { width:50px; height:56px; }
+  .afro-menu-label { font-size:0.62rem; }
+  .sns-fixed { top:1.3rem; right:1.8rem; gap:1.2rem; }
+  .sns-fixed svg { width:30px; height:30px; }
+  .content-section { padding: 8rem 4rem; }
+}
+   /* ここから追加：文章エリアの調整 */
 .content-label { 
   font-size:0.6rem; 
   letter-spacing:-0.03em !important; /* 元の0.4emからガッツリ詰めました */
@@ -208,19 +220,6 @@ body {
   color:rgba(44,44,44,0.8); 
   margin-bottom:2rem; 
   letter-spacing: -0.03em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
-}
-
-footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
-.footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
-.footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
-
-@media (min-width: 768px) {
-  .afro-btn { top:1rem; left:1.6rem; padding:0; }
-  .afro-svg { width:50px; height:56px; }
-  .afro-menu-label { font-size:0.62rem; }
-  .sns-fixed { top:1.3rem; right:1.8rem; gap:1.2rem; }
-  .sns-fixed svg { width:30px; height:30px; }
-  .content-section { padding: 8rem 4rem; }
 }
 </style>
 </head>

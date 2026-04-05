@@ -831,22 +831,22 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 if (window.innerWidth >= 768) {
   const trowel = document.querySelector('.trowel-cursor');
   
-  // マウスの動きに合わせて本体を移動
+  // マウスの動きに合わせて「その場に形を残す」
   window.addEventListener('mousemove', (e) => {
     const x = e.clientX;
     const y = e.clientY;
 
-    // 先頭の鏝本体（これは即座に追従）
+    // 1. 鏝本体の移動（ホバー拡大なし）
     gsap.to(trowel, { x: x, y: y, duration: 0 });
     
-    // --- 【新ロジック】残像（鏝の形）をその場に生成 ---
-    createTrail(x, y);
+    // 2. 残像（鏝の形）を生成
+    createKoteTrail(x, y);
   });
 
-  function createTrail(x, y) {
+  function createKoteTrail(x, y) {
     const trail = document.createElement('div');
-    trail.className = 'cursor-trail';
-    // 鏝の形を注入
+    trail.className = 'cursor-trail-kote';
+    // 鏝のSVGを注入
     trail.innerHTML = `
       <svg viewBox="0 0 100 100" class="trowel-svg">
         <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
@@ -855,43 +855,40 @@ if (window.innerWidth >= 768) {
     `;
     document.body.appendChild(trail);
 
-    // 初期位置をマウスの場所に固定
+    // 生成された瞬間の場所に固定
     gsap.set(trail, {
       x: x,
       y: y,
-      opacity: 0.3, // 最初からかなり薄く
+      opacity: 0.15, // かなり薄く出現
       scale: 0.9,
+      rotation: -15, // 角度を固定して崩れを防ぐ
       transformOrigin: "50% 5%"
     });
 
-    // 「その場」でゆっくり、長〜く消えていくアニメーション
+    // その場で3秒かけて「超ゆっくり」消えていく
     gsap.to(trail, {
       opacity: 0,
-      scale: 0.6,
-      duration: 2.5, // 2.5秒かけてゆっくり消える（長〜い余韻）
-      ease: "power2.in", // 最後にスッと消える感じ
+      duration: 3.0, // 消えるまでの時間を長く
+      ease: "power1.in", // じわ〜っと消える
       onComplete: () => {
-        trail.remove(); // 消えたら要素を削除して重くならないようにする
+        trail.remove(); // 完全に消えたら削除
       }
     });
   }
 
-  // ボタンやリンクへのホバーアクション（さらに大げさに）
+  // ホバーアクション（光の演出のみ）
   const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
 
   interactiveEls.forEach((el) => {
     el.addEventListener('mouseenter', () => {
       gsap.to(trowel, {
-        scale: 2.5, // さらに大きく
-        filter: 'drop-shadow(0 0 35px rgba(196, 168, 130, 1.0))', 
-        duration: 0.4,
-        ease: "back.out(2)" // 弾むような大げさな動き
+        filter: 'drop-shadow(0 0 15px rgba(196, 168, 130, 0.8))',
+        duration: 0.3
       });
     });
     
     el.addEventListener('mouseleave', () => {
       gsap.to(trowel, {
-        scale: 1,
         filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',
         duration: 0.3
       });

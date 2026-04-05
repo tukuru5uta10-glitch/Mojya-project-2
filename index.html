@@ -536,7 +536,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   opacity: 0.7 !important;
   border-bottom: 1px solid var(--teak-light) !important;
 }
-/* PC環境のみ：カスタムカーソルの基本設定 */
+/* PC環境のみ */
   @media (min-width: 768px) {
     body { cursor: none !important; }
     a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell {
@@ -544,8 +544,8 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     }
 
     .trowel-cursor {
-      width: 32px;
-      height: 32px;
+      width: 35px; /* 少しだけサイズアップ */
+      height: 35px;
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
@@ -554,16 +554,17 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
       transform-origin: 50% 5%;
     }
 
-    /* 残像（鏝の形）のスタイル設定 */
     .cursor-trail-kote {
-      width: 32px;
-      height: 32px;
+      width: 35px;
+      height: 35px;
       position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -5%) rotate(-15deg);
       transform-origin: 50% 5%;
+      /* 重なった部分がわずかに濃くなることで塗り跡感を出す */
+      mix-blend-mode: multiply; 
     }
     
     .trowel-svg {

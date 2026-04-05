@@ -831,14 +831,23 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 // PC環境のみで実行
 if (window.innerWidth >= 768) {
   const trowel = document.querySelector('.trowel-cursor');
-  const trailCount = 20; // 流れ星の密度
-  const trails = [];
+  
+  // マウスの動きに合わせて本体を移動
+  window.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
 
-  // 軌跡用の要素を生成し、すべてに鏝の形を埋め込む
-  for (let i = 0; i < trailCount; i++) {
+    // 先頭の鏝本体（これは即座に追従）
+    gsap.to(trowel, { x: x, y: y, duration: 0 });
+    
+    // --- 【新ロジック】残像（鏝の形）をその場に生成 ---
+    createTrail(x, y);
+  });
+
+  function createTrail(x, y) {
     const trail = document.createElement('div');
     trail.className = 'cursor-trail';
-    // 鏝のSVGをコピーして挿入
+    // 鏝の形を注入
     trail.innerHTML = `
       <svg viewBox="0 0 100 100" class="trowel-svg">
         <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
@@ -846,57 +855,45 @@ if (window.innerWidth >= 768) {
       </svg>
     `;
     document.body.appendChild(trail);
-    trails.push(trail);
+
+    // 初期位置をマウスの場所に固定
+    gsap.set(trail, {
+      x: x,
+      y: y,
+      opacity: 0.3, // 最初からかなり薄く
+      scale: 0.9,
+      transformOrigin: "50% 5%"
+    });
+
+    // 「その場」でゆっくり、長〜く消えていくアニメーション
+    gsap.to(trail, {
+      opacity: 0,
+      scale: 0.6,
+      duration: 2.5, // 2.5秒かけてゆっくり消える（長〜い余韻）
+      ease: "power2.in", // 最後にスッと消える感じ
+      onComplete: () => {
+        trail.remove(); // 消えたら要素を削除して重くならないようにする
+      }
+    });
   }
 
-  window.addEventListener('mousemove', (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-
-    // 先頭の鏝
-    gsap.to(trowel, { x: x, y: y, duration: 0 });
-    
-    // 流れ星の尾っぽ（残像）の動き
-    trails.forEach((trail, index) => {
-      const ratio = (index + 1) / trailCount;
-      gsap.to(trail, {
-        x: x,
-        y: y,
-        duration: 0.6 * ratio, // 後ろほど遅れて届くことで綺麗な尾っぽに
-        ease: 'power2.out',
-        opacity: 0.7 * (1 - ratio), // 後ろに行くほどシュッと消えていく
-        scale: 1 - ratio * 0.8, // 後ろに行くほど小さくなる
-      });
-    });
-  });
-
-  // ボタンやリンクへのホバーアクション（超大げさ版）
+  // ボタンやリンクへのホバーアクション（さらに大げさに）
   const interactiveEls = document.querySelectorAll('a, button, [role="button"], .afro-btn, .sns-fixed button, .tex-cell');
 
   interactiveEls.forEach((el) => {
     el.addEventListener('mouseenter', () => {
-      // ホバー時は鏝を【2倍】に拡大、影の光を【30px】まで爆発させる
       gsap.to(trowel, {
-        scale: 2.0,
-        filter: 'drop-shadow(0 0 30px rgba(196, 168, 130, 1.0))', 
-        duration: 0.3
-      });
-      // 尾っぽ全体も強く発光させる
-      gsap.to(trails, {
-        filter: 'blur(1px) drop-shadow(0 0 10px rgba(196, 168, 130, 0.8))',
-        duration: 0.3
+        scale: 2.5, // さらに大きく
+        filter: 'drop-shadow(0 0 35px rgba(196, 168, 130, 1.0))', 
+        duration: 0.4,
+        ease: "back.out(2)" // 弾むような大げさな動き
       });
     });
     
     el.addEventListener('mouseleave', () => {
-      // 離れたら元に戻る
       gsap.to(trowel, {
         scale: 1,
         filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))',
-        duration: 0.3
-      });
-      gsap.to(trails, {
-        filter: 'blur(1px)',
         duration: 0.3
       });
     });

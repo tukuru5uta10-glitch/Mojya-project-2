@@ -853,7 +853,7 @@ if (window.innerWidth >= 768) {
     // 2. 「塗り跡」生成ロジック
     // 前回の位置から一定距離（3px）動くたびに残像を残すことで、連続した「面」にする
     const dist = Math.hypot(x - lastX, y - lastY);
-    if (dist > 3) { 
+    if (dist > 1) { 
       createKoteTrail(x, y);
       lastX = x;
       lastY = y;

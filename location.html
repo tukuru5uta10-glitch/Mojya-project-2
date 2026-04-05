@@ -159,6 +159,22 @@ body {
   .page-title-main span {
     letter-spacing: 0.05em !important; 
     transform: scaleX(0.85); 
+  } 
+  /* ここから追加：文章エリアの調整 */
+  .content-section {
+    padding: 4rem 1.5rem; /* 左右の余白を少し詰めて、中央に密度を作る */
+    text-align: justify;  /* 文末を揃えてブロックとしての美しさを出す */
+  }
+  .content-label {
+    font-size: 0.45rem !important;    /* ラベルをさらに小さくして、情報の対比を強める */
+    letter-spacing: -0.05em !important; 
+    margin-bottom: 1.5rem;
+  }
+  .content-p {
+    font-size: 0.45rem !important;    /* 文字をあえて小さくし、余白の価値を上げる */ 
+    line-height: -1.0;      /* 行間 */
+    color: rgba(44, 44, 44, 0.7); /* 黒を少し薄めて、高級感を出す */
+    letter-spacing: -0.05em;
   }
 }
 /* ── 自由編集コンテンツエリア ── */

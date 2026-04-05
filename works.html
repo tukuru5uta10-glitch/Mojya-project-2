@@ -194,7 +194,7 @@ body {
   }
 }
 /* ── 自由編集コンテンツエリア ── */
-/* 229行目付近：OUTLINEなどの小見出し */
+ /* ここから追加：文章エリアの調整 */
 .content-label { 
   font-size:0.6rem; 
   letter-spacing:-0.03em !important; /* 元の0.4emからガッツリ詰めました */
@@ -202,8 +202,6 @@ body {
   margin-bottom:1rem; 
   display:block;
 }
-
-/* 230行目付近：本文 */
 .content-p { 
   font-size:0.85rem; 
   line-height:2.2; 
@@ -211,8 +209,6 @@ body {
   margin-bottom:2rem; 
   letter-spacing: -0.03em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
 }
-.content-label { font-size:0.6rem; letter-spacing:0.4em; color:var(--teak); margin-bottom:1rem; display:block;}
-.content-p { font-size:0.85rem; line-height:2.2; color:rgba(44,44,44,0.8); margin-bottom:2rem; }
 
 footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }

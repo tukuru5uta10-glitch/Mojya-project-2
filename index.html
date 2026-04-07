@@ -536,43 +536,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   opacity: 0.7 !important;
   border-bottom: 1px solid var(--teak-light) !important;
 }
-/* PC環境のみ */
-@media (min-width: 768px) {
-  /* ③ リンクに触っても指を出さない（全ての要素でカーソルを強制消去） */
-  *, *::before, *::after {
-    cursor: none !important;
-  }
-
-  .trowel-cursor {
-    width: 35px;
-    height: 35px;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -5%) rotate(-15deg);
-    transform-origin: 50% 5%;
-  }
-
-  /* 塗り跡用のスタイル */
-  .cursor-trail-kote {
-    width: 35px;
-    height: 35px;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -5%) rotate(-15deg);
-    transform-origin: 50% 5%;
-    will-change: opacity; /* 動作を軽くする */
-  }
-  
-  .trowel-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-}
 </style>
 <script type="application/ld+json">
 {
@@ -607,16 +570,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   </linearGradient>
 </defs>
 </svg>
-  
-<div class="trowel-cursor">
-  <svg viewBox="0 0 100 100" class="trowel-svg">
-    <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
-    <path d="M 50 85 L 50 95 C 50 99, 45 99, 45 95 L 45 85" stroke="#8B6A47" stroke-width="3" fill="none" stroke-linecap="round"/>
-  </svg>
-</div>
 
-<canvas id="plasterCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:9998;"></canvas>
-  
 <div class="nav-logo"><span>pwnk — Osaka</span></div>
 
 <button class="afro-btn" id="afroBtn" aria-label="メニューを開く">
@@ -825,75 +779,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
-  
-if (window.innerWidth >= 768) {
-  const trowel = document.querySelector('.trowel-cursor');
-  let lastX = 0;
-  let lastY = 0;
 
-  window.addEventListener('mousemove', (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-
-    // 本体移動
-    gsap.to(trowel, { x: x, y: y, duration: 0 });
-
-    // 【重要】マウスの移動距離を計算
-    const dist = Math.hypot(x - lastX, y - lastY);
-    
-    // 移動距離に応じて、間を埋めるように鏝を配置（塗りつぶし）
-    // 1px動くごとに1枚置く勢いで敷き詰めます
-    const steps = Math.ceil(dist / 2); 
-    for (let i = 0; i < steps; i++) {
-      const lerpX = lastX + (x - lastX) * (i / steps);
-      const lerpY = lastY + (y - lastY) * (i / steps);
-      createKoteStamp(lerpX, lerpY);
-    }
-
-    lastX = x;
-    lastY = y;
-  });
-
-  function createKoteStamp(x, y) {
-    const trail = document.createElement('div');
-    trail.className = 'cursor-trail-kote';
-    // ②④ 鏝と同色の形で塗りつぶす（SVGをそのままスタンプ）
-    trail.innerHTML = `
-      <svg viewBox="0 0 100 100" class="trowel-svg">
-        <path d="M 50 5 L 75 30 L 70 85 L 30 85 L 25 30 Z" fill="#C4A882"/>
-        <path d="M 50 85 L 50 95 C 50 99, 45 99, 45 95 L 45 85" stroke="#8B6A47" stroke-width="3" fill="none" stroke-linecap="round"/>
-      </svg>
-    `;
-    document.body.appendChild(trail);
-
-    gsap.set(trail, {
-      x: x,
-      y: y,
-      opacity: 0.05, // 重なるのでこれくらいがちょうど良い「塗り」になります
-      scale: 1,
-      rotation: -15
-    });
-
-    // ① じわぁーと消えていく（4秒かけてゆっくり）
-    gsap.to(trail, {
-      opacity: 0,
-      duration: 1.5,
-      ease: "power2.inOut",
-      onComplete: () => trail.remove()
-    });
-  }
-
-  // ホバーアクション（大きくせず、影だけ）
-  const interactiveEls = document.querySelectorAll('a, button, .afro-btn, .sns-fixed button, .tex-cell');
-  interactiveEls.forEach((el) => {
-    el.addEventListener('mouseenter', () => {
-      gsap.to(trowel, { filter: 'drop-shadow(0 0 15px rgba(196, 168, 130, 0.8))', duration: 0.3 });
-    });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(trowel, { filter: 'drop-shadow(0 0 0px rgba(196, 168, 130, 0))', duration: 0.3 });
-    });
-  });
-}
   const btn  = document.getElementById('afroBtn');
   const menu = document.getElementById('fs-menu');
   let menuOpen = false;

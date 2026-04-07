@@ -24,7 +24,8 @@ body {
   font-weight:400;
   overflow-x:hidden;
 }
-/* ヘッダー＆メニュー：TOPと100%共通 */
+
+/* ── ヘッダー＆メニュー周り（ベースコードそのまま） ── */
 .nav-logo {
   position:fixed; top:0; left:0; right:0; z-index:200;
   display:flex; justify-content:center; align-items:center;
@@ -110,7 +111,7 @@ body {
 #fs-menu.is-open .fs-nav button:nth-child(7) { animation-delay:0.50s; }
 @keyframes fsIn { to { opacity:1; transform:translateY(0); } }
 
-/* ── 子ページ専用ミニヒーロー（TOPのオーロラを継承） ── */
+/* ── ページヒーロー ── */
 #page-hero {
   height:40svh; min-height:300px;
   position:relative; display:flex; align-items:center; justify-content:center;
@@ -127,103 +128,201 @@ body {
   50% { transform:translate(-5%,5%) skew(1deg,2deg) scaleX(1.05); opacity:0.85;}
 }
 .page-title-main {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  font-family: 'Noto Sans JP', sans-serif !important;
-  font-weight: 900 !important;
-  line-height: 0.8 !important; /* 密着 */
-  color: var(--warm-white);
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0;
-  white-space: nowrap;
+  position: relative; z-index: 2; text-align: center;
+  font-family: 'Noto Sans JP', sans-serif !important; font-weight: 900 !important;
+  line-height: 0.8 !important; color: var(--warm-white);
+  text-transform: uppercase; display: flex; flex-direction: column;
+  align-items: center; margin: 0; white-space: nowrap;
 }
-
 .page-title-main span {
-  display: block;
-  /* ★ここをマイナスに！文字同士の隙間を消して「壁」にします */
-  letter-spacing: 0.1em ; 
-  transform: scaleX(0.85);
-  transform-origin: center;
+  display: block; letter-spacing: 0.1em ; 
+  transform: scaleX(0.85); transform-origin: center;
+}
+.title-top { font-size: clamp(1rem, 9.5vw, 6rem) !important; letter-spacing: 0.06em !important; }
+.title-bottom { font-size: clamp(1rem, 12vw, 7rem) !important; margin-top: -0.15em; }
+
+/* ── NEW: MATRIX ギャラリーエリア ── */
+.matrix-section {
+  padding: 4rem 2rem 8rem;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* 5. 【両端を揃えるためのサイズ調整】 */
-.title-top {
-  /* TROWELLED(9文字): 下段より少し小さく絞って幅を合わせる */
-  font-size: clamp(1rem, 9.5vw, 6rem) !important;
-  
-  /* ★この数値を触ります！ */
-  /* マイナス値を大きくするほど、文字が重なり合って狭くなります */
-  letter-spacing: 0.06em !important;
+/* ビュー切り替えボタン */
+.matrix-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.matrix-btn {
+  background: transparent;
+  border: 1px solid var(--teak-light);
+  color: var(--teak);
+  padding: 0.6rem 1.5rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+.matrix-btn:hover {
+  background: rgba(196,168,130,0.1);
+}
+.matrix-btn.is-active {
+  background: var(--charcoal);
+  color: var(--warm-white);
+  border-color: var(--charcoal);
 }
 
-.title-bottom {
-  /* ARCHIVES(8文字): 1文字少ない分、大きくして土台にする */
-  font-size: clamp(1rem, 12vw, 7rem) !important;
-  /* 食い込みを少し深くして、1つのロゴのように見せる */
-  margin-top: -0.15em; 
+/* マップ本体 */
+.matrix-canvas {
+  position: relative;
+  width: 100%;
+  height: 65vh; /* 画面の高さの65%をマップに */
+  min-height: 400px;
+  background: #EFEBE3; /* 漆喰下地のような淡いグレーベージュ */
+  border: 1px solid rgba(139, 106, 71, 0.2);
+  overflow: hidden;
+  border-radius: 4px;
 }
 
-/* スマホ版 */
-@media (max-width: 768px) {
-  .page-title-main {
-    line-height: 0.65 !important;
-  }
-  .page-title-main span {
-    letter-spacing: 0.05em !important; 
-    transform: scaleX(0.85); 
-  }
-  /* ここから追加：文章エリアの調整 */
-  .content-section {
-    padding: 4rem 1.5rem; /* 左右の余白を少し詰めて、中央に密度を作る */
-    text-align: justify;  /* 文末を揃えてブロックとしての美しさを出す */
-  }
-  .content-label {
-    font-size: 0.45rem !important;    /* ラベルをさらに小さくして、情報の対比を強める */
-    letter-spacing: 0.01em !important; 
-    margin-bottom: 1.5rem;
-  }
-  .content-p {
-    font-size: 0.45rem !important;    /* 文字をあえて小さくし、余白の価値を上げる */ 
-    line-height: -1.0;      /* 行間 */
-    color: rgba(44, 44, 44, 0.7); /* 黒を少し薄めて、高級感を出す */
-    letter-spacing: -0.05em;
-  }
+/* 座標軸（十字の線） */
+.axis-line-x, .axis-line-y {
+  position: absolute;
+  background: rgba(139, 106, 71, 0.2); /* テーク色の薄い線 */
+  pointer-events: none;
 }
-/* ── 自由編集コンテンツエリア ── */
-/* 229行目付近：OUTLINEなどの小見出し */
-.content-label { 
-  font-size:0.85rem !important; 
-  letter-spacing:-0.01em !important;  /* 元の0.4emからガッツリ詰めました */
-  color:var(--teak); 
-  margin-bottom:1rem; 
-  display:block;
+.axis-line-x { top: 50%; left: 0; width: 100%; height: 1px; }
+.axis-line-y { top: 0; left: 50%; width: 1px; height: 100%; }
+
+/* 座標軸のラベルテキスト */
+.axis-label {
+  position: absolute;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--teak);
+  pointer-events: none;
+  background: #EFEBE3;
+  padding: 0.2rem 0.5rem;
+  transition: opacity 0.5s ease;
+}
+.label-top { top: 1rem; left: 50%; transform: translateX(-50%); }
+.label-bottom { bottom: 1rem; left: 50%; transform: translateX(-50%); }
+.label-left { top: 50%; left: 1rem; transform: translateY(-50%); }
+.label-right { top: 50%; right: 1rem; transform: translateY(-50%); }
+
+/* 施工写真（サムネイル） */
+.project-dot {
+  position: absolute;
+  width: 60px; /* サムネイルのサイズ */
+  height: 60px;
+  background-color: var(--charcoal);
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%; /* 丸形に切り抜き */
+  border: 2px solid var(--warm-white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  /* transformの中心をドットの中央に設定 */
+  transform: translate(-50%, -50%); 
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  z-index: 10;
+}
+.project-dot:hover {
+  box-shadow: 0 6px 15px rgba(139, 106, 71, 0.4);
+  border-color: var(--teak-light);
+  z-index: 20;
 }
 
-/* 230行目付近：本文 */
-.content-p { 
-  font-size:0.65rem !important; 
-  line-height:2.2; 
-  color:rgba(44,44,44,0.8); 
-  margin-bottom:2rem; 
-  letter-spacing: -0.03em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
+/* ホバー時に表示される詳細ツールチップ */
+.project-tooltip {
+  position: absolute;
+  bottom: 110%; /* ドットの少し上に表示 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--charcoal);
+  color: var(--warm-white);
+  padding: 0.5rem 1rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  border-radius: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+.project-dot:hover .project-tooltip {
+  opacity: 1;
+  bottom: 125%;
+}
+/* ツールチップの下向き三角 */
+.project-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px; border-style: solid;
+  border-color: var(--charcoal) transparent transparent transparent;
 }
 
+/* フッター */
 footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
 .footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
 
-@media (min-width: 768px) {
-  .afro-btn { top:1rem; left:1.6rem; padding:0; }
-  .afro-svg { width:50px; height:56px; }
-  .afro-menu-label { font-size:0.62rem; }
-  .sns-fixed { top:1.3rem; right:1.8rem; gap:1.2rem; }
-  .sns-fixed svg { width:30px; height:30px; }
-  .content-section { padding: 8rem 4rem; }
+@media (max-width: 768px) {
+  .page-title-main { line-height: 0.65 !important; }
+  .page-title-main span { letter-spacing: 0.05em !important; transform: scaleX(0.85); }
+  .matrix-section { padding: 3rem 1rem; }
+  .matrix-controls { flex-direction: column; gap: 0.5rem; }
+  
+  /* --- 追加・修正部分 --- */
+  .matrix-canvas { height: 70svh; } /* 高さを確保 */
+  .axis-label {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.3rem;
+    background: rgba(239, 235, 227, 0.8); /* 背景を透かして読みやすく */
+    backdrop-filter: blur(4px);
+    z-index: 30;
+  }
+  .project-dot {
+    width: 50px; /* ドットを小さく */
+    height: 50px;
+    border-width: 1.5px;
+  }
+  .project-tooltip {
+    font-size: 0.7rem;
+    padding: 0.6rem 0.8rem;
+  }
 }
+
+/* --- ここから追加 --- */
+  @media (max-width: 768px) {
+    .matrix-canvas {
+      height: 70svh; /* スマホで高さをしっかり確保 */
+    }
+    .axis-label {
+      font-size: 0.55rem;
+      padding: 0.15rem 0.3rem;
+      background: rgba(239, 235, 227, 0.8);
+      backdrop-filter: blur(4px);
+      z-index: 30;
+    }
+    .project-dot {
+      width: 50px; /* スマホではドットを小さく */
+      height: 50px;
+      border-width: 1.5px;
+    }
+    .project-tooltip {
+      font-size: 0.7rem;
+      padding: 0.6rem 0.8rem;
+    }
+  }
+  /* --- ここまで追加 --- */
 </style>
 </head>
 <body>
@@ -305,14 +404,25 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 </h1>
 </section>
 
-<section class="content-section">
-  <span class="content-label" id="fadeLabel">ARCHIVE_TYPE: TACTILE_SURFACE</span>
-  <p class="content-p" id="fadeParagraph">
-    漆喰、モールテックス、モルタル、ジョリパット、聚楽、珪藻土、造形、版築、etc.<br>
-    コテ一つで描かれるテクスチャは、二度と同じものは生まれない表現の記録です。<br>
-    30年の施工現場で刻んできた『手の痕跡』を、施工事例として体系化しています。<br>
-    素材と対話し、空間を定義してきたPWNKの軌跡を、まもなく公開いたします。
-  </p>
+<section class="matrix-section">
+  
+  <div class="matrix-controls">
+    <button class="matrix-btn is-active" data-view="view1">空間と役割 (Space & Role)</button>
+    <button class="matrix-btn" data-view="view2">質感とテイスト (Texture & Taste)</button>
+    <button class="matrix-btn" data-view="view3">素材と耐久性 (Material & Life)</button>
+  </div>
+
+  <div class="matrix-canvas" id="matrixCanvas">
+    <div class="axis-line-x"></div>
+    <div class="axis-line-y"></div>
+    
+    <div class="axis-label label-top" id="labelTop">Design (意匠性)</div>
+    <div class="axis-label label-bottom" id="labelBottom">Functional (機能・実用)</div>
+    <div class="axis-label label-left" id="labelLeft">Interior (内装)</div>
+    <div class="axis-label label-right" id="labelRight">Exterior (外装)</div>
+
+    </div>
+
 </section>
 
 <footer>
@@ -323,6 +433,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
+  /* メニュー処理等 */
   const btn  = document.getElementById('afroBtn');
   const menu = document.getElementById('fs-menu');
   let menuOpen = false;
@@ -334,14 +445,9 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     btn.setAttribute('aria-label', menuOpen ? 'メニューを閉じる' : 'メニューを開く');
     document.body.style.overflow = menuOpen ? 'hidden' : '';
   }
-
   btn.addEventListener('click', () => toggleMenu(!menuOpen));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) toggleMenu(false); });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && menuOpen) toggleMenu(false);
-  });
-
-  /* サングラス、インスタグラムのホバー */
   const sunglasses = document.getElementById('gSunglasses');
   btn.addEventListener('mouseenter', () => { if (!menuOpen) sunglasses.style.opacity = '1'; });
   btn.addEventListener('mouseleave', () => { sunglasses.style.opacity = '0'; });
@@ -350,9 +456,169 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   igBtn.addEventListener('mouseenter', () => igPath.setAttribute('fill','url(#igGrad)'));
   igBtn.addEventListener('mouseleave', () => igPath.setAttribute('fill','#C4A882'));
 
-  /* ページ内でのフワッと現れる演出を100%踏襲 */
-  gsap.from('#fadeLabel', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
-  gsap.from('#fadeParagraph', { opacity: 0, y: 20, duration: 0.8, delay: 0.5, ease: 'power3.out' });
+  /* -----------------------------------------------------------
+     MATRIX GALLERY SCRIPT
+     ----------------------------------------------------------- */
+
+  // 1. 各ビュー（軸）の定義
+  const viewDefinitions = {
+    view1: {
+      top: "Design (意匠性)", bottom: "Functional (機能・実用)",
+      left: "Interior (内装)", right: "Exterior (外装)"
+    },
+    view2: {
+      top: "Smooth (精緻・洗練)", bottom: "Rough (素材感・無骨)",
+      left: "Traditional (伝統・和)", right: "Modern (現代・洋)"
+    },
+    view3: {
+      top: "Evergreen (不変・耐久)", bottom: "Aging (風合い・経年変化)",
+      left: "Natural (天然素材)", right: "High-Tech (高機能素材)"
+    }
+  };
+
+  // 2. 施工事例データの定義 (プロトタイプ用のダミーデータ)
+  // 実際の写真URLに差し替えることで、丸いアイコンが写真になります。
+  const projects = [
+    {
+      id: "p1",
+      title: "モールテックス カウンター",
+      imgUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80", 
+      view1: { x: 20, y: 20 }, // 内装寄り(20%), 意匠性寄り(20%) ※yは上からの%
+      view2: { x: 85, y: 15 }, // 現代寄り(85%), 精緻寄り(15%)
+      view3: { x: 80, y: 15 }  // 高機能寄り(80%), 不変寄り(15%)
+    },
+    {
+      id: "p2",
+      title: "外壁 漆喰掻き落とし",
+      imgUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 90, y: 70 }, // 外装(90%), やや機能(70%)
+      view2: { x: 15, y: 80 }, // 伝統(15%), 無骨(80%)
+      view3: { x: 10, y: 85 }  // 天然素材(10%), 経年変化(85%)
+    },
+    {
+      id: "p3",
+      title: "エントランス 土間モルタル",
+      imgUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 60, y: 80 }, // やや外装(60%), 機能重視(80%)
+      view2: { x: 70, y: 60 }, // 現代(70%), やや無骨(60%)
+      view3: { x: 50, y: 30 }  // 中間(50%), やや耐久(30%)
+    },
+    {
+      id: "p4",
+      title: "和室 本漆喰仕上げ",
+      imgUrl: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 15, y: 50 }, // 完全内装(15%), 中間(50%)
+      view2: { x: 10, y: 30 }, // 伝統(10%), やや精緻(30%)
+      view3: { x: 15, y: 60 }  // 天然素材(15%), やや経年変化(60%)
+    },
+    {
+      id: "p5",
+      title: "店舗内装 特殊造形",
+      imgUrl: "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 30, y: 10 }, // 内装(30%), 意匠性特化(10%)
+      view2: { x: 60, y: 85 }, // やや現代(60%), 完全無骨(85%)
+      view3: { x: 70, y: 70 }  // やや高機能(70%), やや経年変化(70%)
+    }
+  ];
+
+// 座標をスマホ向けに補正する関数
+  function getResponsivePosition(pos) {
+    const isMobile = window.innerWidth <= 768;
+    let x = pos.x;
+    let y = pos.y;
+    if (isMobile) {
+      // スマホの時は端に寄りすぎないよう 15%〜85% の間に収める
+      x = 15 + (pos.x * 0.7);
+      y = 15 + (pos.y * 0.7);
+    }
+    return { x, y };
+  }
+
+  const canvas = document.getElementById('matrixCanvas');
+  const projectElements = [];
+
+// スマホの時に端に寄りすぎないようにする計算機
+  function getResponsivePosition(pos) {
+    const isMobile = window.innerWidth <= 768;
+    let x = pos.x;
+    let y = pos.y;
+    if (isMobile) {
+      x = 15 + (pos.x * 0.7); // 0-100の範囲を15-85に圧縮
+      y = 15 + (pos.y * 0.7);
+    }
+    return { x, y };
+  }
+
+  // 3. 初期化：HTML上にドット（サムネイル）を生成
+  projects.forEach((proj) => {
+    const dot = document.createElement('div');
+    dot.className = 'project-dot';
+    // 背景画像を設定
+    dot.style.backgroundImage = `url('${proj.imgUrl}')`;
+    
+    // 初期位置（view1）をセット
+    gsap.set(dot, { 
+      left: proj.view1.x + "%", 
+      top: proj.view1.y + "%" 
+    });
+
+    // ツールチップの追加
+    const tooltip = document.createElement('div');
+    tooltip.className = 'project-tooltip';
+    tooltip.innerText = proj.title;
+    dot.appendChild(tooltip);
+
+    canvas.appendChild(dot);
+    
+    // アニメーション用に配列に保存
+    projectElements.push({ element: dot, data: proj });
+  });
+
+  // 4. ビュー切り替えのアニメーション処理
+ function switchView(viewId) {
+    const def = viewDefinitions[viewId];
+    
+    gsap.to('.axis-label', { opacity: 0, duration: 0.2, onComplete: () => {
+      document.getElementById('labelTop').innerText = def.top;
+      document.getElementById('labelBottom').innerText = def.bottom;
+      document.getElementById('labelLeft').innerText = def.left;
+      document.getElementById('labelRight').innerText = def.right;
+      gsap.to('.axis-label', { opacity: 1, duration: 0.3 });
+    }});
+
+    projectElements.forEach((item, index) => {
+      // ここで「スマホ用の補正」を通した座標を使うように修正
+      const rawPos = item.data[viewId];
+      const newPos = getResponsivePosition(rawPos);
+
+      gsap.to(item.element, {
+        left: newPos.x + "%",
+        top: newPos.y + "%",
+        duration: 1.2,
+        ease: "power3.inOut",
+        delay: index * 0.03 
+      });
+    });
+  }
+
+  // 5. ボタンのクリックイベント連携
+  const buttons = document.querySelectorAll('.matrix-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // アクティブ状態の切り替え
+      buttons.forEach(b => b.classList.remove('is-active'));
+      e.target.classList.add('is-active');
+      
+      // 対応するビューに切り替え
+      const viewId = e.target.getAttribute('data-view');
+      switchView(viewId);
+    });
+  });
+
+  // 初期ロード時のアニメーション
+  gsap.from('.matrix-section', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
+  gsap.from('.project-dot', { scale: 0, opacity: 0, duration: 0.8, stagger: 0.1, delay: 0.8, ease: "back.out(1.5)" });
+
 </script>
 
 </body>

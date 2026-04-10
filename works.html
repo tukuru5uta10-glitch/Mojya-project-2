@@ -498,7 +498,11 @@ gsap.registerPlugin(ScrollTrigger);
 
     canvas.appendChild(dot);
   });
-  
+  // BACKボタンでモーダルを閉じる処理
+  document.getElementById('modalClose').addEventListener('click', () => {
+    document.getElementById('imageModal').style.display = 'none';
+    document.body.classList.remove('modal-open'); // スクロールを再開
+  });
 </script>
 
 </body>

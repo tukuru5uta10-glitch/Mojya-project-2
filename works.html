@@ -141,63 +141,93 @@ body {
 .title-top { font-size: clamp(1rem, 9.5vw, 6rem) !important; letter-spacing: 0.06em !important; }
 .title-bottom { font-size: clamp(1rem, 12vw, 7rem) !important; margin-top: -0.15em; }
 
-/* ── NEW: MATRIX ギャラリーエリア ── */
-.matrix-section { padding: 2rem; position: relative; max-width: 1400px; margin: 0 auto; }
+/* ── MATRIX ギャラリー（枠なし・軸線主役版） ── */
+.matrix-section { 
+  padding: 4rem 2rem; 
+  position: relative; 
+  max-width: 1400px; 
+  margin: 0 auto; 
+}
 
 .matrix-canvas {
   position: relative;
   width: 100%;
-  height: 80vh; /* 画面に大きく表示 */
-  background: #EFEBE3;
-  border: 1px solid rgba(139, 106, 71, 0.2);
-  overflow: hidden;
-  border-radius: 8px;
+  height: 85vh; 
+  background: transparent; /* 背景色を透明にして馴染ませる */
+  overflow: visible; /* サムネが拡大したときに見切れないようにする */
 }
 
-.axis-line-x { top: 50%; left: 0; width: 100%; height: 1px; background: rgba(139, 106, 71, 0.15); }
-.axis-line-y { top: 0; left: 50%; width: 1px; height: 100%; background: rgba(139, 106, 71, 0.15); }
+/* 十字の軸線 */
+.axis-line-x, .axis-line-y {
+  position: absolute;
+  background: var(--teak);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.axis-line-x { top: 50%; left: 0; width: 100%; height: 1.5px; }
+.axis-line-y { top: 0; left: 50%; width: 1.5px; height: 100%; }
 
+/* 軸ラベル（白抜き背景で読みやすく） */
 .axis-label {
   position: absolute;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
   color: var(--teak);
-  font-weight: 500;
-  text-transform: uppercase;
+  background: var(--warm-white);
+  padding: 0.2rem 0.6rem;
   z-index: 5;
 }
-.label-top { top: 1rem; left: 50%; transform: translateX(-50%); }
-.label-bottom { bottom: 1rem; left: 50%; transform: translateX(-50%); }
-.label-left { top: 50%; left: 1rem; transform: translateY(-50%) rotate(-90deg); }
-.label-right { top: 50%; right: 1rem; transform: translateY(-50%) rotate(90deg); }
+.label-top { top: 0; left: 50%; transform: translateX(-50%); }
+.label-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+.label-left { top: 50%; left: 0; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
+.label-right { top: 50%; right: 0; transform: translateY(-50%) rotate(90deg); transform-origin: center; }
 
-/* 丸いサムネイル */
+/* 丸いサムネイル本体 */
 .project-dot {
   position: absolute;
-  width: 80px; /* PCでの標準サイズ */
-  height: 80px;
+  width: 85px;
+  height: 85px;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  border: 3px solid #fff;
+  border: 2px solid #fff;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   cursor: pointer;
   transform: translate(-50%, -50%);
-  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), z-index 0s, border-color 0.3s;
+  /* スムーズな拡大アニメーションの設定 */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
   z-index: 10;
 }
 
-/* ホバーで大きく拡大（重なりを無視して最前面へ） */
+/* ホバー時の拡大（ほどよいサイズに変更） */
 .project-dot:hover {
-  transform: translate(-50%, -50%) scale(5); /* 5倍に拡大 */
-  z-index: 1000;
+  transform: translate(-50%, -50%) scale(1.4) !important;
+  z-index: 100;
   border-color: var(--teak-light);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
+/* 吹き出しタイトル（③サムネにカーソル合わせるとホバー） */
+.project-dot::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--charcoal);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, bottom 0.3s;
+}
+.project-dot:hover::after { opacity: 1; bottom: -50px; }
+
 @media (max-width: 768px) {
-  .project-dot { width: 50px; height: 50px; }
-  .project-dot:hover { transform: translate(-50%, -50%) scale(4); }
+  .project-dot { width: 60px; height: 60px; }
 }
   
 </style>

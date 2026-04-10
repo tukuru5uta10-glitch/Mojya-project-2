@@ -246,8 +246,27 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
 .footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
   
+/* スマホ版（画面幅768px以下）の調整 */
 @media (max-width: 768px) {
-  .project-dot { width: 60px; height: 60px; }
+  /* サムネイルをひと回り小さくして密集を回避 */
+  .project-dot {
+    width: 60px;  /* 80pxから60pxに */
+    height: 60px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* 影も少し軽めに */
+  }
+
+  /* 軸ラベルの位置を少し外側に逃がして重なりを防ぐ */
+  .axis-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.1rem 0.3rem;
+  }
+  
+  /* 縦軸のラベル（Smooth / Textured）を端に寄せる */
+  .axis-label[style*="top: 2%"], 
+  .axis-label[style*="bottom: 2%"] {
+    transform: translateX(-50%) translateY(0);
+  }
 }
   
 </style>

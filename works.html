@@ -431,9 +431,9 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 </footer>
 
 <script>
-  gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
-  /* メニュー処理等 */
+  /* メニュー処理等（既存のまま） */
   const btn  = document.getElementById('afroBtn');
   const menu = document.getElementById('fs-menu');
   let menuOpen = false;
@@ -476,68 +476,35 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     }
   };
 
-  // 2. 施工事例データの定義 (プロトタイプ用のダミーデータ)
-  // 実際の写真URLに差し替えることで、丸いアイコンが写真になります。
+  // 2. 全21枚の施工事例データ（SEOファイル名完全対応版）
   const projects = [
-    {
-      id: "p1",
-      title: "モールテックス カウンター",
-      imgUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80", 
-      view1: { x: 20, y: 20 }, // 内装寄り(20%), 意匠性寄り(20%) ※yは上からの%
-      view2: { x: 85, y: 15 }, // 現代寄り(85%), 精緻寄り(15%)
-      view3: { x: 80, y: 15 }  // 高機能寄り(80%), 不変寄り(15%)
-    },
-    {
-      id: "p2",
-      title: "外壁 漆喰掻き落とし",
-      imgUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=200&q=80",
-      view1: { x: 90, y: 70 }, // 外装(90%), やや機能(70%)
-      view2: { x: 15, y: 80 }, // 伝統(15%), 無骨(80%)
-      view3: { x: 10, y: 85 }  // 天然素材(10%), 経年変化(85%)
-    },
-    {
-      id: "p3",
-      title: "エントランス 土間モルタル",
-      imgUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=200&q=80",
-      view1: { x: 60, y: 80 }, // やや外装(60%), 機能重視(80%)
-      view2: { x: 70, y: 60 }, // 現代(70%), やや無骨(60%)
-      view3: { x: 50, y: 30 }  // 中間(50%), やや耐久(30%)
-    },
-    {
-      id: "p4",
-      title: "和室 本漆喰仕上げ",
-      imgUrl: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=200&q=80",
-      view1: { x: 15, y: 50 }, // 完全内装(15%), 中間(50%)
-      view2: { x: 10, y: 30 }, // 伝統(10%), やや精緻(30%)
-      view3: { x: 15, y: 60 }  // 天然素材(15%), やや経年変化(60%)
-    },
-    {
-      id: "p5",
-      title: "店舗内装 特殊造形",
-      imgUrl: "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=200&q=80",
-      view1: { x: 30, y: 10 }, // 内装(30%), 意匠性特化(10%)
-      view2: { x: 60, y: 85 }, // やや現代(60%), 完全無骨(85%)
-      view3: { x: 70, y: 70 }  // やや高機能(70%), やや経年変化(70%)
-    }
+    { id: "p1", title: "岸和田市 MISONOYA様 門塀", imgUrl: "images/works/mortex-kishiwada-shop-exterior-entrance-wall.jpg", view1: { x: 90, y: 15 }, view2: { x: 80, y: 20 }, view3: { x: 85, y: 20 } },
+    { id: "p2", title: "堺市 YZ様邸 LDK 漆喰", imgUrl: "images/works/shikkui-sakai-private-interior-ldk.jpg", view1: { x: 10, y: 80 }, view2: { x: 10, y: 15 }, view3: { x: 10, y: 80 } },
+    { id: "p3", title: "某邸 アクセント壁 モルタル造形", imgUrl: "images/works/mortar-decorative-region-shop-interior-accent-wall.jpg", view1: { x: 15, y: 10 }, view2: { x: 80, y: 80 }, view3: { x: 30, y: 70 } },
+    { id: "p4", title: "堺市 AZ様邸 LDK 漆喰・モールテックス", imgUrl: "images/works/shikkui-mortex-sakai-private-interior-ldk.jpg", view1: { x: 10, y: 85 }, view2: { x: 30, y: 15 }, view3: { x: 40, y: 80 } },
+    { id: "p5", title: "堺市 AZ様邸 階段 モールテックス", imgUrl: "images/works/shikkui-mortex-sakai-private-interior-staircase.jpg", view1: { x: 15, y: 20 }, view2: { x: 80, y: 15 }, view3: { x: 85, y: 20 } },
+    { id: "p6", title: "葛城市 某邸 LDK 漆喰・墨モルタル", imgUrl: "images/works/shikkui-mortex-ink-mortar-katuragi-private-interior-ldk.jpg", view1: { x: 10, y: 20 }, view2: { x: 70, y: 30 }, view3: { x: 60, y: 30 } },
+    { id: "p7", title: "某邸 門柱 特殊仕上げ", imgUrl: "images/works/pwnk-region-private-exterior-gatepost.jpg", view1: { x: 90, y: 10 }, view2: { x: 50, y: 80 }, view3: { x: 40, y: 40 } },
+    { id: "p8", title: "大阪市 よころ様 ファサード", imgUrl: "images/works/jolypate-osaka-shop-exterior-facade.jpg", view1: { x: 95, y: 15 }, view2: { x: 60, y: 70 }, view3: { x: 50, y: 40 } },
+    { id: "p9", title: "大阪市 よころ様 店内壁", imgUrl: "images/works/jolypate-osaka-shop-interior-wall.jpg", view1: { x: 15, y: 25 }, view2: { x: 60, y: 65 }, view3: { x: 50, y: 30 } },
+    { id: "p10", title: "生駒市 YH様邸 洗面漆喰", imgUrl: "images/works/shikkui-ikoma-private-interior-washroom.jpg", view1: { x: 10, y: 60 }, view2: { x: 20, y: 10 }, view3: { x: 10, y: 50 } },
+    { id: "p11", title: "生駒市 YH様邸 LDKアクセント壁", imgUrl: "images/works/shikkui-decorative-ikoma-private-interior-ldk-accent-wall.jpg", view1: { x: 10, y: 15 }, view2: { x: 40, y: 70 }, view3: { x: 20, y: 60 } },
+    { id: "p12", title: "某店 什器モールテックス", imgUrl: "images/works/mortex-region-shop-interior-furniture.jpg", view1: { x: 40, y: 15 }, view2: { x: 90, y: 10 }, view3: { x: 90, y: 10 } },
+    { id: "p13", title: "某店 土間仕上げ", imgUrl: "images/works/pwnk-region-shop-interior-doma.jpg", view1: { x: 30, y: 85 }, view2: { x: 70, y: 60 }, view3: { x: 50, y: 30 } },
+    { id: "p14", title: "豊中市 鼓道様 店内壁", imgUrl: "images/works/jyuraku-toyonaka-shop-interior-wall.jpg", view1: { x: 10, y: 15 }, view2: { x: 10, y: 80 }, view3: { x: 10, y: 60 } },
+    { id: "p15", title: "豊中市 某店 アートウォール", imgUrl: "images/works/art-wall-toyonaka-shop-interior-wall.jpg", view1: { x: 10, y: 10 }, view2: { x: 80, y: 80 }, view3: { x: 40, y: 50 } },
+    { id: "p16", title: "某邸 外壁ジョリパット", imgUrl: "images/works/jolypate-region-private-exterior-wall.jpg", view1: { x: 95, y: 60 }, view2: { x: 50, y: 50 }, view3: { x: 60, y: 40 } },
+    { id: "p17", title: "泉大津市 某邸 LDK", imgUrl: "images/works/mortex-shikkui-izumiotu-private-interior-ldk.jpg", view1: { x: 15, y: 40 }, view2: { x: 50, y: 20 }, view3: { x: 60, y: 30 } },
+    { id: "p18", title: "京都市 某店 看板・モルタル造形", imgUrl: "images/works/mortar-decorative-kyoto-shop-exterior-signboard.jpg", view1: { x: 95, y: 10 }, view2: { x: 80, y: 90 }, view3: { x: 40, y: 70 } },
+    { id: "p19", title: "藤井寺市 某邸 LDK", imgUrl: "images/works/mortex-shikkui-fujiidera-private-interior-ldk.jpg", view1: { x: 10, y: 50 }, view2: { x: 40, y: 30 }, view3: { x: 50, y: 40 } },
+    { id: "p20", title: "藤井寺市 某邸 洗面モールテックス", imgUrl: "images/works/mortex-shikkui-fujiidera-private-interior-washroom.jpg", view1: { x: 15, y: 20 }, view2: { x: 85, y: 15 }, view3: { x: 90, y: 10 } },
+    { id: "p21", title: "奈良市 某邸 書斎 珪藻土", imgUrl: "images/works/keisoudo-nara-private-interior-studyroom.jpg", view1: { x: 5, y: 70 }, view2: { x: 20, y: 60 }, view3: { x: 10, y: 50 } }
   ];
-
-// 座標をスマホ向けに補正する関数
-  function getResponsivePosition(pos) {
-    const isMobile = window.innerWidth <= 768;
-    let x = pos.x;
-    let y = pos.y;
-    if (isMobile) {
-      // スマホの時は端に寄りすぎないよう 15%〜85% の間に収める
-      x = 15 + (pos.x * 0.7);
-      y = 15 + (pos.y * 0.7);
-    }
-    return { x, y };
-  }
 
   const canvas = document.getElementById('matrixCanvas');
   const projectElements = [];
 
-// スマホの時に端に寄りすぎないようにする計算機
+  // 座標をスマホ向けに補正する関数（重複を解消して1つにまとめました）
   function getResponsivePosition(pos) {
     const isMobile = window.innerWidth <= 768;
     let x = pos.x;
@@ -553,7 +520,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   projects.forEach((proj) => {
     const dot = document.createElement('div');
     dot.className = 'project-dot';
-    // 背景画像を設定
     dot.style.backgroundImage = `url('${proj.imgUrl}')`;
     
     // 初期位置（view1）をセット
@@ -575,7 +541,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   });
 
   // 4. ビュー切り替えのアニメーション処理
- function switchView(viewId) {
+  function switchView(viewId) {
     const def = viewDefinitions[viewId];
     
     gsap.to('.axis-label', { opacity: 0, duration: 0.2, onComplete: () => {
@@ -587,7 +553,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     }});
 
     projectElements.forEach((item, index) => {
-      // ここで「スマホ用の補正」を通した座標を使うように修正
       const rawPos = item.data[viewId];
       const newPos = getResponsivePosition(rawPos);
 
@@ -618,7 +583,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   // 初期ロード時のアニメーション
   gsap.from('.matrix-section', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
   gsap.from('.project-dot', { scale: 0, opacity: 0, duration: 0.8, stagger: 0.1, delay: 0.8, ease: "back.out(1.5)" });
-
+  
 </script>
 
 </body>

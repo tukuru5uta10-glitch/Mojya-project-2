@@ -424,31 +424,49 @@ gsap.registerPlugin(ScrollTrigger);
 
   const canvas = document.getElementById('matrixCanvas');
 
-  // ふわふわアニメーションの関数（完全ランダム・超低速）
+  // 1. 浮遊アニメーションの定義（中心から「行って戻る」動き）
   function randomFloat(element) {
+    const range = 6; // 動きの幅
+    const targetX = (Math.random() - 0.5) * range;
+    const targetY = (Math.random() - 0.5) * range;
+    const speed = Math.random() * 5 + 8; // 8〜13秒
+
+    // ゴール（ランダムな位置）へ
     gsap.to(element, {
-      x: (Math.random() - 0.5) * 20, // ±2px以内
-      y: (Math.random() - 0.5) * 20, // ±2px以内
-      duration: Math.random() * 5 + 2, // 8秒〜13秒かけて移動
+      x: targetX,
+      y: targetY,
+      duration: speed / 2,
       ease: "sine.inOut",
-      onComplete: () => randomFloat(element)
+      onComplete: () => {
+        // スタート（0, 0）へ戻る
+        gsap.to(element, {
+          x: 0,
+          y: 0,
+          duration: speed / 2,
+          ease: "sine.inOut",
+          onComplete: () => randomFloat(element) // ループ
+        });
+      }
     });
   }
 
+  // 2. 各サムネイルの生成と配置
   projects.forEach((proj, index) => {
     const dot = document.createElement('div');
     dot.className = 'project-dot';
     dot.setAttribute('data-title', proj.title);
     dot.style.backgroundImage = `url(${proj.img})`;
     
-    // 配置
+    // スマホ対応の配置倍率（1.2で少し広めに、スマホなら0.9で凝縮）
+    const isMobile = window.innerWidth < 768;
+    const spread = isMobile ? 0.9 : 1.2;
+
     gsap.set(dot, {
-      left: (50 + proj.x) + "%",
-      top: (50 + proj.y) + "%",
+      left: (50 + (proj.x * spread)) + "%",
+      top: (50 + (proj.y * spread)) + "%",
       scale: 0
     });
 
-    // 出現
     gsap.to(dot, {
       scale: 1,
       duration: 0.8,

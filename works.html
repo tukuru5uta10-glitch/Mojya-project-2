@@ -358,7 +358,7 @@ gsap.registerPlugin(ScrollTrigger);
       MATRIX GALLERY SCRIPT (浮遊アニメーション & クリック対応)
      ----------------------------------------------------------- */
 
-  const projects = [
+ const projects = [
     { title: "MISONOYA門塀", img: "images/works/mortex-kishiwada-shop-exterior-entrance-wall.jpg", x: -35, y: -5 },
     { title: "YZ様邸 LDK 漆喰", img: "images/works/shikkui-sakai-private-interior-ldk.jpg", x: 40, y: -35 },
     { title: "アクセント壁 モルタル造形", img: "images/works/mortar-decorative-region-shop-interior-accent-wall.jpg", x: 5, y: 30 },
@@ -384,20 +384,31 @@ gsap.registerPlugin(ScrollTrigger);
 
   const canvas = document.getElementById('matrixCanvas');
 
+  // ふわふわアニメーションの関数（完全ランダム・超低速）
+  function randomFloat(element) {
+    gsap.to(element, {
+      x: (Math.random() - 0.5) * 4, // ±2px以内
+      y: (Math.random() - 0.5) * 4, // ±2px以内
+      duration: Math.random() * 5 + 8, // 8秒〜13秒かけて移動
+      ease: "sine.inOut",
+      onComplete: () => randomFloat(element)
+    });
+  }
+
   projects.forEach((proj, index) => {
     const dot = document.createElement('div');
     dot.className = 'project-dot';
     dot.setAttribute('data-title', proj.title);
     dot.style.backgroundImage = `url(${proj.img})`;
     
-    // 1. 初期の位置決め
+    // 配置
     gsap.set(dot, {
       left: (50 + proj.x) + "%",
       top: (50 + proj.y) + "%",
       scale: 0
     });
 
-    // 2. ふわっと出現
+    // 出現
     gsap.to(dot, {
       scale: 1,
       duration: 0.8,
@@ -405,51 +416,14 @@ gsap.registerPlugin(ScrollTrigger);
       ease: "back.out(1.7)"
     });
 
-    // 3. 完全にランダムな浮遊（超ゆっくり・超微細）
-    function randomFloat(element) {
-      gsap.to(element, {
-        x: (Math.random() - 0.5) * 6, // 左右に最大3px
-        y: (Math.random() - 0.5) * 6, // 上下に最大3px
-        duration: Math.random() * 5 + 7, // 7秒〜12秒かけて移動
-        ease: "sine.inOut",
-        onComplete: () => randomFloat(element) // 終わったらまた別の方向へ
-      });
-    }
+    // 浮遊開始
     randomFloat(dot);
 
-    // 4. クリックで画像を表示（ここが消えてたかも！）
-    dot.addEventListener('click', (e) => {
-      e.stopPropagation(); // 念のためイベントの重なりを防止
+    // 画像クリック対応
+    dot.addEventListener('click', () => {
       window.open(proj.img, '_blank');
     });
 
-    // 5. キャンバスに追加（これも重要！）
-    canvas.appendChild(dot);
-  });
-
-  /* --- ここからふわふわアニメーションの全入れ替え --- */
-    // ふわふわした浮遊感（動きを極小に、速度を極遅に、方向を完全ランダムに）
-    function randomFloat(element) {
-      // 次の目的地（x, y）を計算
-      const newX = (Math.random() - 0.5) * 5; // ±2.5px以内（極小の動き）
-      const newY = (Math.random() - 0.5) * 5; // ±2.5px以内
-      
-      // アニメーション完了時に、再度新しい目的地を計算してアニメーションを開始
-      gsap.to(element, {
-        x: newX,
-        y: newY,
-        duration: Math.random() * (12 - 6) + 6, // 6秒〜12秒かけてゆっくり動く（極遅）
-        ease: "sine.inOut",
-        onComplete: function() {
-          // 目的地に到達したら、再度新しい目的地を計算してアニメーションを開始
-          randomFloat(element);
-        }
-      });
-    }
-
-    // 各ドットに対して、個別にアニメーションを開始
-    randomFloat(dot);
-    /* --- ここまで入れ替え --- */
     canvas.appendChild(dot);
   });
   

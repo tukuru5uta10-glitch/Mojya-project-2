@@ -405,20 +405,15 @@ gsap.registerPlugin(ScrollTrigger);
       ease: "back.out(1.7)"
     });
 
-    // ふわふわした浮遊感の追加
+   // ふわふわした浮遊感（動きを最小限に、速度をバラバラに）
     gsap.to(dot, {
-      x: "random(-5, 5)",
-      y: "random(-5, 5)",
-      duration: "random(2, 4)",
+      x: () => (Math.random() - 0.5) * 10, // 左右に最大5px（微細な動き）
+      y: () => (Math.random() - 0.5) * 10, // 上下に最大5px
+      duration: "random(4, 8)",           // 4秒〜8秒かけてゆっくり動く
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut",
-      delay: Math.random() * 2
-    });
-
-    // クリックで本番画像を表示
-    dot.addEventListener('click', () => {
-      window.open(proj.img, '_blank');
+      delay: Math.random() * -10          // マイナスのディレイで最初からバラバラの位置で開始
     });
 
     canvas.appendChild(dot);

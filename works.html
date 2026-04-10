@@ -142,187 +142,101 @@ body {
 .title-bottom { font-size: clamp(1rem, 12vw, 7rem) !important; margin-top: -0.15em; }
 
 /* ── NEW: MATRIX ギャラリーエリア ── */
-.matrix-section {
-  padding: 4rem 2rem 8rem;
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* ビュー切り替えボタン */
-.matrix-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-.matrix-btn {
-  background: transparent;
-  border: 1px solid var(--teak-light);
-  color: var(--teak);
-  padding: 0.6rem 1.5rem;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 2px;
-}
-.matrix-btn:hover {
-  background: rgba(196,168,130,0.1);
-}
-.matrix-btn.is-active {
-  background: var(--charcoal);
-  color: var(--warm-white);
-  border-color: var(--charcoal);
-}
-
-/* マップ本体 */
-.matrix-canvas {
+/* ── 3D GALLERY STYLES ── */
+.gallery-3d-wrapper {
   position: relative;
   width: 100%;
-  height: 65vh; /* 画面の高さの65%をマップに */
-  min-height: 400px;
-  background: #EFEBE3; /* 漆喰下地のような淡いグレーベージュ */
-  border: 1px solid rgba(139, 106, 71, 0.2);
+}
+.scroll-dist {
+  height: 500vh; /* スクロールの長さ。長くするほどゆっくり動きます */
+}
+.gallery-viewport {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  perspective: 1200px; /* 奥行き感の強さ */
   overflow: hidden;
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* 背後のスクロールを妨げない */
 }
 
-/* 座標軸（十字の線） */
-.axis-line-x, .axis-line-y {
+.gallery-stage {
   position: absolute;
-  background: rgba(139, 106, 71, 0.2); /* テーク色の薄い線 */
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
   pointer-events: none;
 }
-.axis-line-x { top: 50%; left: 0; width: 100%; height: 1px; }
-.axis-line-y { top: 0; left: 50%; width: 1px; height: 100%; }
 
-/* 座標軸のラベルテキスト */
-.axis-label {
+/* 各写真カード */
+.project-card {
   position: absolute;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 300;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  color: var(--teak);
-  pointer-events: none;
-  background: #EFEBE3;
-  padding: 0.2rem 0.5rem;
-  transition: opacity 0.5s ease;
-}
-.label-top { top: 1rem; left: 50%; transform: translateX(-50%); }
-.label-bottom { bottom: 1rem; left: 50%; transform: translateX(-50%); }
-.label-left { top: 50%; left: 1rem; transform: translateY(-50%); }
-.label-right { top: 50%; right: 1rem; transform: translateY(-50%); }
-
-/* 施工写真（サムネイル） */
-.project-dot {
-  position: absolute;
-  width: 60px; /* サムネイルのサイズ */
-  height: 60px;
-  background-color: var(--charcoal);
+  width: 280px;
+  aspect-ratio: 4/3;
   background-size: cover;
   background-position: center;
-  border-radius: 50%; /* 丸形に切り抜き */
-  border: 2px solid var(--warm-white);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   cursor: pointer;
-  /* transformの中心をドットの中央に設定 */
-  transform: translate(-50%, -50%); 
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  z-index: 10;
-}
-.project-dot:hover {
-  box-shadow: 0 6px 15px rgba(139, 106, 71, 0.4);
-  border-color: var(--teak-light);
-  z-index: 20;
+  pointer-events: all;
+  transition: filter 0.5s ease;
 }
 
-/* ホバー時に表示される詳細ツールチップ */
-.project-tooltip {
-  position: absolute;
-  bottom: 110%; /* ドットの少し上に表示 */
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--charcoal);
-  color: var(--warm-white);
-  padding: 0.5rem 1rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  border-radius: 3px;
-  white-space: nowrap;
+/* ホバー：画面の60%サイズまで拡大 */
+.project-card:hover {
+  z-index: 1000 !important;
+  width: 60vw; /* 画面幅の60% */
+  aspect-ratio: 16/9;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) translateZ(100px) !important; /* 少し手前に浮き出す */
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* ホバーされていない他のカードを暗くする（親要素への指定が必要） */
+.gallery-stage:has(.project-card:hover) .project-card:not(:hover) {
+  filter: brightness(0.4) blur(4px);
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease, bottom 0.3s ease;
-}
-.project-dot:hover .project-tooltip {
-  opacity: 1;
-  bottom: 125%;
-}
-/* ツールチップの下向き三角 */
-.project-tooltip::after {
-  content: ''; position: absolute; top: 100%; left: 50%;
-  transform: translateX(-50%);
-  border-width: 5px; border-style: solid;
-  border-color: var(--charcoal) transparent transparent transparent;
 }
 
-/* フッター */
-footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
-.footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
-.footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
+/* 軸ガイド */
+.axis-guide {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--teak-light);
+  opacity: 0.5;
+}
+.guide-x { position:absolute; bottom:2rem; width:100%; display:flex; justify-content:space-between; padding:0 3rem; }
+.guide-y { position:absolute; left:2rem; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:3rem 0; writing-mode:vertical-rl; }
+.z-label { position:absolute; top:5rem; right:2rem; font-size:1.2rem; font-style:italic; }
+
+/* 詳細オーバーレイ */
+.project-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.overlay-content { width: 90%; max-width: 1000px; color: #fff; text-align: center; }
+.overlay-content img { width: 100%; max-height: 70vh; object-fit: contain; }
+.overlay-close { position: absolute; top: 2rem; right: 2rem; color: #fff; letter-spacing: 0.3em; }
 
 @media (max-width: 768px) {
-  .page-title-main { line-height: 0.65 !important; }
-  .page-title-main span { letter-spacing: 0.05em !important; transform: scaleX(0.85); }
-  .matrix-section { padding: 3rem 1rem; }
-  .matrix-controls { flex-direction: column; gap: 0.5rem; }
-  
-  /* --- 追加・修正部分 --- */
-  .matrix-canvas { height: 70svh; } /* 高さを確保 */
-  .axis-label {
-    font-size: 0.55rem;
-    padding: 0.15rem 0.3rem;
-    background: rgba(239, 235, 227, 0.8); /* 背景を透かして読みやすく */
-    backdrop-filter: blur(4px);
-    z-index: 30;
-  }
-  .project-dot {
-    width: 50px; /* ドットを小さく */
-    height: 50px;
-    border-width: 1.5px;
-  }
-  .project-tooltip {
-    font-size: 0.7rem;
-    padding: 0.6rem 0.8rem;
-  }
+  .project-card { width: 180px; }
+  .project-card:hover { width: 90vw; }
 }
-
-/* --- ここから追加 --- */
-  @media (max-width: 768px) {
-    .matrix-canvas {
-      height: 70svh; /* スマホで高さをしっかり確保 */
-    }
-    .axis-label {
-      font-size: 0.55rem;
-      padding: 0.15rem 0.3rem;
-      background: rgba(239, 235, 227, 0.8);
-      backdrop-filter: blur(4px);
-      z-index: 30;
-    }
-    .project-dot {
-      width: 50px; /* スマホではドットを小さく */
-      height: 50px;
-      border-width: 1.5px;
-    }
-    .project-tooltip {
-      font-size: 0.7rem;
-      padding: 0.6rem 0.8rem;
-    }
-  }
-  /* --- ここまで追加 --- */
 </style>
 </head>
 <body>

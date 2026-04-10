@@ -324,63 +324,75 @@ gsap.registerPlugin(ScrollTrigger);
   igBtn.addEventListener('mouseenter', () => igPath.setAttribute('fill','url(#igGrad)'));
   igBtn.addEventListener('mouseleave', () => igPath.setAttribute('fill','#C4A882'));
 
-  /* -----------------------------------------------------------
-     MATRIX GALLERY SCRIPT
+ /* -----------------------------------------------------------
+      MATRIX GALLERY SCRIPT (浮遊アニメーション & クリック対応)
      ----------------------------------------------------------- */
 
-  // 全21作品の座標データ (x: -40〜40 / y: -40〜40)
-// x: 左(High-tech) ↔ 右(Organic)
-// y: 上(Smooth) ↔ 下(Textured)
-const projects = [
-  { title: "MISONOYA門塀", img: "images/works/mortex-kishiwada-shop-exterior-entrance-wall.jpg", x: -35, y: -5 },
-  { title: "YZ様邸 LDK 漆喰", img: "images/works/shikkui-sakai-private-interior-ldk.jpg", x: 40, y: -35 },
-  { title: "アクセント壁 モルタル造形", img: "images/works/mortar-decorative-region-shop-interior-accent-wall.jpg", x: 5, y: 30 },
-  { title: "AZ様邸 LDK 漆喰", img: "images/works/shikkui-mortex-sakai-private-interior-ldk.jpg", x: 25, y: -30 },
-  { title: "AZ様邸 階段 モールテックス", img: "images/works/shikkui-mortex-sakai-private-interior-staircase.jpg", x: -30, y: -15 },
-  { title: "葛城市 某邸 LDK 墨モルタル", img: "images/works/shikkui-mortex-ink-mortar-katuragi-private-interior-ldk.jpg", x: -10, y: 0 },
-  { title: "某邸 門柱 特殊仕上げ", img: "images/works/pwnk-region-private-exterior-gatepost.jpg", x: 10, y: 35 },
-  { title: "よころ様 ファサード", img: "images/works/jolypate-osaka-shop-exterior-facade.jpg", x: -25, y: 20 },
-  { title: "よころ様 店内壁", img: "images/works/jolypate-osaka-shop-interior-wall.jpg", x: -20, y: 15 },
-  { title: "生駒市 YH様邸 洗面漆喰", img: "images/works/shikkui-ikoma-private-interior-washroom.jpg", x: 35, y: -38 },
-  { title: "生駒市 YH様邸 LDKアクセント", img: "images/works/shikkui-decorative-ikoma-private-interior-ldk-accent-wall.jpg", x: 30, y: 25 },
-  { title: "TRUFFLE DONUT 什器", img: "images/works/mortex-region-shop-interior-furniture.jpg", x: -38, y: -25 },
-  { title: "某店 土間仕上げ", img: "images/works/pwnk-region-shop-interior-doma.jpg", x: -5, y: 38 },
-  { title: "鼓道様 店内壁", img: "images/works/jyuraku-toyonaka-shop-interior-wall.jpg", x: 38, y: -10 },
-  { title: "豊中市 某店 アートウォール", img: "images/works/art-wall-toyonaka-shop-interior-wall.jpg", x: 15, y: 35 },
-  { title: "某邸 外壁ジョリパット", img: "images/works/jolypate-region-private-exterior-wall.jpg", x: -15, y: 10 },
-  { title: "泉大津市 某邸 LDK", img: "images/works/mortex-shikkui-izumiotu-private-interior-ldk.jpg", x: 0, y: -20 },
-  { title: "京都市 看板・モルタル造形", img: "images/works/mortar-decorative-kyoto-shop-exterior-signboard.jpg", x: -5, y: 30 },
-  { title: "藤井寺市 某邸 LDK", img: "images/works/mortex-shikkui-fujiidera-private-interior-ldk.jpg", x: 5, y: -15 },
-  { title: "藤井寺市 洗面モールテックス", img: "images/works/mortex-shikkui-fujiidera-private-interior-washroom.jpg", x: -38, y: -30 },
-  { title: "奈良市 書斎 珪藻土", img: "images/works/keisoudo-nara-private-interior-studyroom.jpg", x: 40, y: -20 }
-];
+  const projects = [
+    { title: "MISONOYA門塀", img: "images/works/mortex-kishiwada-shop-exterior-entrance-wall.jpg", x: -35, y: -5 },
+    { title: "YZ様邸 LDK 漆喰", img: "images/works/shikkui-sakai-private-interior-ldk.jpg", x: 40, y: -35 },
+    { title: "アクセント壁 モルタル造形", img: "images/works/mortar-decorative-region-shop-interior-accent-wall.jpg", x: 5, y: 30 },
+    { title: "AZ様邸 LDK 漆喰", img: "images/works/shikkui-mortex-sakai-private-interior-ldk.jpg", x: 25, y: -30 },
+    { title: "AZ様邸 階段 モールテックス", img: "images/works/shikkui-mortex-sakai-private-interior-staircase.jpg", x: -30, y: -15 },
+    { title: "葛城市 某邸 LDK 墨モルタル", img: "images/works/shikkui-mortex-ink-mortar-katuragi-private-interior-ldk.jpg", x: -10, y: 0 },
+    { title: "某邸 門柱 特殊仕上げ", img: "images/works/pwnk-region-private-exterior-gatepost.jpg", x: 10, y: 35 },
+    { title: "よころ様 ファサード", img: "images/works/jolypate-osaka-shop-exterior-facade.jpg", x: -25, y: 20 },
+    { title: "よころ様 店内壁", img: "images/works/jolypate-osaka-shop-interior-wall.jpg", x: -20, y: 15 },
+    { title: "生駒市 YH様邸 洗面漆喰", img: "images/works/shikkui-ikoma-private-interior-washroom.jpg", x: 35, y: -38 },
+    { title: "生駒市 YH様邸 LDKアクセント", img: "images/works/shikkui-decorative-ikoma-private-interior-ldk-accent-wall.jpg", x: 30, y: 25 },
+    { title: "TRUFFLE DONUT 什器", img: "images/works/mortex-region-shop-interior-furniture.jpg", x: -38, y: -25 },
+    { title: "某店 土間仕上げ", img: "images/works/pwnk-region-shop-interior-doma.jpg", x: -5, y: 38 },
+    { title: "鼓道様 店内壁", img: "images/works/jyuraku-toyonaka-shop-interior-wall.jpg", x: 38, y: -10 },
+    { title: "豊中市 某店 アートウォール", img: "images/works/art-wall-toyonaka-shop-interior-wall.jpg", x: 15, y: 35 },
+    { title: "某邸 外壁ジョリパット", img: "images/works/jolypate-region-private-exterior-wall.jpg", x: -15, y: 10 },
+    { title: "泉大津市 某邸 LDK", img: "images/works/mortex-shikkui-izumiotu-private-interior-ldk.jpg", x: 0, y: -20 },
+    { title: "京都市 看板・モルタル造形", img: "images/works/mortar-decorative-kyoto-shop-exterior-signboard.jpg", x: -5, y: 40 },
+    { title: "藤井寺市 某邸 LDK", img: "images/works/mortex-shikkui-fujiidera-private-interior-ldk.jpg", x: 5, y: -15 },
+    { title: "藤井寺市 洗面モールテックス", img: "images/works/mortex-shikkui-fujiidera-private-interior-washroom.jpg", x: -38, y: -30 },
+    { title: "奈良市 書斎 珪藻土", img: "images/works/keisoudo-nara-private-interior-studyroom.jpg", x: 40, y: -20 }
+  ];
 
-const canvas = document.getElementById('matrixCanvas');
+  const canvas = document.getElementById('matrixCanvas');
 
-projects.forEach((proj, index) => {
-  const dot = document.createElement('div');
-  dot.className = 'project-dot';
-  dot.style.backgroundImage = `url(${proj.img})`;
-  
-  // 座標配置
-  gsap.set(dot, {
-    left: (50 + proj.x) + "%",
-    top: (50 + proj.y) + "%",
-    scale: 0,
-    opacity: 0
+  projects.forEach((proj, index) => {
+    const dot = document.createElement('div');
+    dot.className = 'project-dot';
+    dot.setAttribute('data-title', proj.title);
+    dot.style.backgroundImage = `url(${proj.img})`;
+    
+    // 中心(50,50)からの相対配置
+    gsap.set(dot, {
+      left: (50 + proj.x) + "%",
+      top: (50 + proj.y) + "%",
+      scale: 0
+    });
+
+    // 出現アニメーション
+    gsap.to(dot, {
+      scale: 1,
+      duration: 0.8,
+      delay: index * 0.05,
+      ease: "back.out(1.7)"
+    });
+
+    // ふわふわした浮遊感の追加
+    gsap.to(dot, {
+      x: "random(-5, 5)",
+      y: "random(-5, 5)",
+      duration: "random(2, 4)",
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: Math.random() * 2
+    });
+
+    // クリックで本番画像を表示
+    dot.addEventListener('click', () => {
+      window.open(proj.img, '_blank');
+    });
+
+    canvas.appendChild(dot);
   });
-
-  canvas.appendChild(dot);
-
-  // 出現アニメーション
-  gsap.to(dot, {
-    scale: 1,
-    opacity: 1,
-    duration: 0.6,
-    delay: 0.5 + (index * 0.03),
-    ease: "back.out(1.7)"
-  });
-});
   
 </script>
 

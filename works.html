@@ -387,8 +387,8 @@ gsap.registerPlugin(ScrollTrigger);
   // ふわふわアニメーションの関数（完全ランダム・超低速）
   function randomFloat(element) {
     gsap.to(element, {
-      x: (Math.random() - 0.5) * 4, // ±2px以内
-      y: (Math.random() - 0.5) * 4, // ±2px以内
+      x: (Math.random() - 0.5) * 20, // ±2px以内
+      y: (Math.random() - 0.5) * 20, // ±2px以内
       duration: Math.random() * 5 + 8, // 8秒〜13秒かけて移動
       ease: "sine.inOut",
       onComplete: () => randomFloat(element)

@@ -201,6 +201,7 @@ body {
 .label-left { top: 50%; left: -3.5rem; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
 /* 右（Organic）を端へ */
 .label-right { top: 50%; right: -3rem; transform: translateY(-50%) rotate(90deg); transform-origin: center; }
+  
 /* 丸いサムネイル本体 */
 .project-dot {
   position: absolute;
@@ -212,14 +213,19 @@ body {
   border: 2px solid #fff;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   cursor: pointer;
-  transform: translate(-50%, -50%);
-  /* スムーズな拡大アニメーションの設定 */
+
+  /* 1. 位置を中央に固定 */
+  transform: translate(-50%, -50%); 
+  /* 2. 拡大の基準点を中心にする */
+  transform-origin: center; 
+
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
   z-index: 10;
 }
 
-/* ホバー時の拡大（ほどよいサイズに変更） */
+/* ホバー時 */
 .project-dot:hover {
+  /* 3. translateを維持したままscaleだけ大きくする */
   transform: translate(-50%, -50%) scale(1.4) !important;
   z-index: 100;
   border-color: var(--teak-light);

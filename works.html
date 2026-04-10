@@ -194,6 +194,7 @@ body {
   white-space: nowrap; /* 改行防止 */
   font-weight: 500;    /* 背景がない分、少しだけ太くして視認性を確保 */
 }
+  
 .label-top { top: 0; left: 50%; transform: translateX(-50%); }
 .label-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
 .label-left { top: 50%; left: 0; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
@@ -250,8 +251,8 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 @media (max-width: 768px) {
   /* サムネイルをひと回り小さくして密集を回避 */
   .project-dot {
-    width: 40px;  /* 80pxから40pxに */
-    height: 20px;
+    width: 30px;  /* 80pxから40pxに */
+    height: 30px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15); /* 影も少し軽めに */
   }
 

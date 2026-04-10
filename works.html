@@ -166,19 +166,19 @@ body {
   z-index: 50; /* ★ここを50くらいに上げる（サムネは10なのでそれより大きく） */
 }/* 横軸（X軸）の太さ */
 .axis-line-x {
-  width: 90%;
-  height: 1.5px;             /* ★1pxから2pxに太くする */
+  width: 95%;
+  height: 1px;             /* ★1pxから2pxに太くする */
   top: 50%;
-  left: 0;
+  left: -5%;
   transform: translateY(-50%);
 }
 
 /* 縦軸（Y軸）の太さ */
 .axis-line-y {
   width: 1.5px;              /* ★ここが細かったはず！2pxに揃える */
-  height: 90%;
+  height: 95%;
   left: 50%;
-  top: 0;
+  top: -5%;
   transform: translateX(-50%);
 }
 
@@ -198,7 +198,7 @@ body {
 .label-top { top: 0; left: 50%; transform: translateX(-50%); }
 .label-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
 /* 左（High-tech）を端へ */
-.label-left { top: 50%; left: -3rem; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
+.label-left { top: 50%; left: -3.5rem; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
 /* 右（Organic）を端へ */
 .label-right { top: 50%; right: -3rem; transform: translateY(-50%) rotate(90deg); transform-origin: center; }
 /* 丸いサムネイル本体 */

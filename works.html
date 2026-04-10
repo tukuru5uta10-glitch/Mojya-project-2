@@ -276,7 +276,21 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     transform: translateX(-50%) translateY(0);
   }
 }
-  
+
+/* モーダル用のCSS（ここを追加） */
+#modalClose {
+  transition: all 0.3s;
+}
+#modalClose:hover {
+  background: #fff;
+  color: #000;
+}
+/* 画像表示中にスクロールを止めるクラス */
+body.modal-open {
+  overflow: hidden;
+}
+
+</style>
 </style>
 </head>
 <body>
@@ -471,9 +485,15 @@ gsap.registerPlugin(ScrollTrigger);
     // 浮遊開始
     randomFloat(dot);
 
-    // 画像クリック対応
-    dot.addEventListener('click', () => {
-      window.open(proj.img, '_blank');
+    // 画像クリックでモーダル表示（ここを差し替え）
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation(); // 浮遊アニメーションへの影響を防ぐ
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      
+      modalImg.src = proj.img; // クリックした画像のパスを入れる
+      modal.style.display = 'flex'; // 表示する
+      document.body.classList.add('modal-open'); // 背後のスクロールを止める
     });
 
     canvas.appendChild(dot);

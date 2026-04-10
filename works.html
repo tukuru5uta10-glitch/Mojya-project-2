@@ -390,20 +390,42 @@ gsap.registerPlugin(ScrollTrigger);
     dot.setAttribute('data-title', proj.title);
     dot.style.backgroundImage = `url(${proj.img})`;
     
-    // 中心(50,50)からの相対配置
+    // 1. 初期の位置決め
     gsap.set(dot, {
       left: (50 + proj.x) + "%",
       top: (50 + proj.y) + "%",
       scale: 0
     });
 
-    // 出現アニメーション
+    // 2. ふわっと出現
     gsap.to(dot, {
       scale: 1,
       duration: 0.8,
       delay: index * 0.05,
       ease: "back.out(1.7)"
     });
+
+    // 3. 完全にランダムな浮遊（超ゆっくり・超微細）
+    function randomFloat(element) {
+      gsap.to(element, {
+        x: (Math.random() - 0.5) * 6, // 左右に最大3px
+        y: (Math.random() - 0.5) * 6, // 上下に最大3px
+        duration: Math.random() * 5 + 7, // 7秒〜12秒かけて移動
+        ease: "sine.inOut",
+        onComplete: () => randomFloat(element) // 終わったらまた別の方向へ
+      });
+    }
+    randomFloat(dot);
+
+    // 4. クリックで画像を表示（ここが消えてたかも！）
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation(); // 念のためイベントの重なりを防止
+      window.open(proj.img, '_blank');
+    });
+
+    // 5. キャンバスに追加（これも重要！）
+    canvas.appendChild(dot);
+  });
 
   /* --- ここからふわふわアニメーションの全入れ替え --- */
     // ふわふわした浮遊感（動きを極小に、速度を極遅に、方向を完全ランダムに）

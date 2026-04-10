@@ -476,49 +476,49 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     }
   };
 
-  // 20枚の施工事例データ
-  // 座標計算：1(90%), 2(70%), 3(50%), 4(30%), 5(10%) で配分
+  // 2. 施工事例データの定義 (プロトタイプ用のダミーデータ)
+  // 実際の写真URLに差し替えることで、丸いアイコンが写真になります。
   const projects = [
-    { id: 1, title: "岸和田市 MISONOYA様 門塀モールテックス", img: "images/works/works-01.jpg", 
-      space_role: { x: 90, y: 80 }, texture_taste: { x: 50, y: 90 }, material_durability: { x: 70, y: 70 } },
-    { id: 2, title: "某邸 LDK 漆喰", img: "images/works/works-02.jpg", 
-      space_role: { x: 10, y: 80 }, texture_taste: { x: 10, y: 30 }, material_durability: { x: 10, y: 50 } },
-    { id: 3, title: "某邸 アクセント壁 モルタル造形", img: "images/works/works-03.jpg", 
-      space_role: { x: 15, y: 10 }, texture_taste: { x: 50, y: 80 }, material_durability: { x: 50, y: 30 } },
-    { id: 4, title: "堺市 AZ様邸 LDK漆喰", img: "images/works/works-04.jpg", 
-      space_role: { x: 10, y: 85 }, texture_taste: { x: 10, y: 40 }, material_durability: { x: 10, y: 55 } },
-    { id: 5, title: "堺市 AZ様邸 キッチン・カップボード天板", img: "images/works/works-05.jpg", 
-      space_role: { x: 20, y: 80 }, texture_taste: { x: 30, y: 85 }, material_durability: { x: 80, y: 80 } },
-    { id: 6, title: "大阪市 U様邸 店舗内装モールテックス", img: "images/works/works-06.jpg", 
-      space_role: { x: 10, y: 20 }, texture_taste: { x: 20, y: 95 }, material_durability: { x: 90, y: 85 } },
-    { id: 7, title: "某邸 外部漆喰塗り替え", img: "images/works/works-07.jpg", 
-      space_role: { x: 90, y: 90 }, texture_taste: { x: 40, y: 20 }, material_durability: { x: 20, y: 40 } },
-    { id: 8, title: "和泉市 S様邸 玄関アプローチ造形", img: "images/works/works-08.jpg", 
-      space_role: { x: 85, y: 15 }, texture_taste: { x: 70, y: 50 }, material_durability: { x: 40, y: 30 } },
-    { id: 9, title: "某邸 洗面台モールテックス", img: "images/works/works-09.jpg", 
-      space_role: { x: 15, y: 30 }, texture_taste: { x: 25, y: 85 }, material_durability: { x: 85, y: 90 } },
-    { id: 10, title: "堺市 カフェ内装 壁面エイジング", img: "images/works/works-10.jpg", 
-      space_role: { x: 12, y: 12 }, texture_taste: { x: 85, y: 60 }, material_durability: { x: 30, y: 20 } },
-    { id: 11, title: "某邸 トイレ壁面 漆喰", img: "images/works/works-11.jpg", 
-      space_role: { x: 8, y: 85 }, texture_taste: { x: 15, y: 35 }, material_durability: { x: 15, y: 60 } },
-    { id: 12, title: "某邸 外構 モルタル仕上げ", img: "images/works/works-12.jpg", 
-      space_role: { x: 95, y: 70 }, texture_taste: { x: 60, y: 70 }, material_durability: { x: 60, y: 75 } },
-    { id: 13, title: "店舗什器 モールテックス加工", img: "images/works/works-13.jpg", 
-      space_role: { x: 10, y: 15 }, texture_taste: { x: 20, y: 90 }, material_durability: { x: 95, y: 80 } },
-    { id: 14, title: "某邸 リビング吹き抜け 漆喰", img: "images/works/works-14.jpg", 
-      space_role: { x: 5, y: 95 }, texture_taste: { x: 10, y: 20 }, material_durability: { x: 10, y: 50 } },
-    { id: 15, title: "某邸 玄関土間 三和土風仕上げ", img: "images/works/works-15.jpg", 
-      space_role: { x: 30, y: 60 }, texture_taste: { x: 80, y: 15 }, material_durability: { x: 40, y: 60 } },
-    { id: 16, title: "某邸 外壁塗り壁 デザイン仕上げ", img: "images/works/works-16.jpg", 
-      space_role: { x: 80, y: 25 }, texture_taste: { x: 65, y: 40 }, material_durability: { x: 35, y: 45 } },
-    { id: 17, title: "オフィス 受付カウンター モールテックス", img: "images/works/works-17.jpg", 
-      space_role: { x: 12, y: 35 }, texture_taste: { x: 15, y: 95 }, material_durability: { x: 90, y: 90 } },
-    { id: 18, title: "某邸 和室 聚楽壁", img: "images/works/works-18.jpg", 
-      space_role: { x: 5, y: 85 }, texture_taste: { x: 75, y: 5 }, material_durability: { x: 20, y: 50 } },
-    { id: 19, title: "某邸 階段踏み面 モールテックス", img: "images/works/works-19.jpg", 
-      space_role: { x: 25, y: 75 }, texture_taste: { x: 35, y: 80 }, material_durability: { x: 80, y: 95 } },
-    { id: 20, title: "某邸 浴室壁面 特殊防水仕上げ", img: "images/works/works-20.jpg", 
-      space_role: { x: 20, y: 90 }, texture_taste: { x: 20, y: 75 }, material_durability: { x: 70, y: 98 } }
+    {
+      id: "p1",
+      title: "モールテックス カウンター",
+      imgUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80", 
+      view1: { x: 20, y: 20 }, // 内装寄り(20%), 意匠性寄り(20%) ※yは上からの%
+      view2: { x: 85, y: 15 }, // 現代寄り(85%), 精緻寄り(15%)
+      view3: { x: 80, y: 15 }  // 高機能寄り(80%), 不変寄り(15%)
+    },
+    {
+      id: "p2",
+      title: "外壁 漆喰掻き落とし",
+      imgUrl: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 90, y: 70 }, // 外装(90%), やや機能(70%)
+      view2: { x: 15, y: 80 }, // 伝統(15%), 無骨(80%)
+      view3: { x: 10, y: 85 }  // 天然素材(10%), 経年変化(85%)
+    },
+    {
+      id: "p3",
+      title: "エントランス 土間モルタル",
+      imgUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 60, y: 80 }, // やや外装(60%), 機能重視(80%)
+      view2: { x: 70, y: 60 }, // 現代(70%), やや無骨(60%)
+      view3: { x: 50, y: 30 }  // 中間(50%), やや耐久(30%)
+    },
+    {
+      id: "p4",
+      title: "和室 本漆喰仕上げ",
+      imgUrl: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 15, y: 50 }, // 完全内装(15%), 中間(50%)
+      view2: { x: 10, y: 30 }, // 伝統(10%), やや精緻(30%)
+      view3: { x: 15, y: 60 }  // 天然素材(15%), やや経年変化(60%)
+    },
+    {
+      id: "p5",
+      title: "店舗内装 特殊造形",
+      imgUrl: "https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=200&q=80",
+      view1: { x: 30, y: 10 }, // 内装(30%), 意匠性特化(10%)
+      view2: { x: 60, y: 85 }, // やや現代(60%), 完全無骨(85%)
+      view3: { x: 70, y: 70 }  // やや高機能(70%), やや経年変化(70%)
+    }
   ];
 
 // 座標をスマホ向けに補正する関数

@@ -222,11 +222,6 @@ body {
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
   z-index: 10;
 }
-  /* ↓ これを追記（GPUに処理を投げるおまじない） */
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
 
 /* ホバー時 */
 .project-dot:hover {
@@ -437,19 +432,13 @@ gsap.registerPlugin(ScrollTrigger);
   const canvas = document.getElementById('matrixCanvas');
 
   // ふわふわアニメーションの関数（完全ランダム・超低速）
- function randomFloat(element) {
-    const range = 6;
-    const speed = Math.random() * 5 + 8;
-
-    // yoyo機能を使って、JavaScriptの計算回数を半分にする
+  function randomFloat(element) {
     gsap.to(element, {
-      x: (Math.random() - 0.5) * range,
-      y: (Math.random() - 0.5) * range,
-      duration: speed,
+      x: (Math.random() - 0.5) * 20, // ±2px以内
+      y: (Math.random() - 0.5) * 20, // ±2px以内
+      duration: Math.random() * 5 + 2, // 8秒〜13秒かけて移動
       ease: "sine.inOut",
-      repeat: -1,   // 無限ループ
-      yoyo: true,   // 行って戻るを自動化
-      repeatRefresh: true // 次の往復時に新しいランダム位置を計算
+      onComplete: () => randomFloat(element)
     });
   }
 

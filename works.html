@@ -404,24 +404,31 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 </h1>
 </section>
 
-<section class="matrix-section">
+<section class="gallery-3d-wrapper" id="galleryWrapper">
+  <div class="scroll-dist"></div>
   
-  <div class="matrix-controls">
-    <button class="matrix-btn is-active" data-view="view1">空間と役割 (Space & Role)</button>
-    <button class="matrix-btn" data-view="view2">質感とテイスト (Texture & Taste)</button>
-    <button class="matrix-btn" data-view="view3">素材と耐久性 (Material & Life)</button>
-  </div>
-
-  <div class="matrix-canvas" id="matrixCanvas">
-    <div class="axis-line-x"></div>
-    <div class="axis-line-y"></div>
-    
-    <div class="axis-label label-top" id="labelTop">Design (意匠性)</div>
-    <div class="axis-label label-bottom" id="labelBottom">Functional (機能・実用)</div>
-    <div class="axis-label label-left" id="labelLeft">Interior (内装)</div>
-    <div class="axis-label label-right" id="labelRight">Exterior (外装)</div>
-
+  <div class="gallery-viewport">
+    <div class="axis-guide">
+      <div class="guide-x"><span>High-tech</span><span>Organic</span></div>
+      <div class="guide-y"><span>Smooth</span><span>Textured</span></div>
+      <div class="z-label" id="zLabel">Modern</div>
     </div>
+    
+    <div class="gallery-stage" id="galleryStage">
+      </div>
+  </div>
+</section>
+
+<div class="project-overlay" id="projectOverlay">
+  <div class="overlay-close">CLOSE</div>
+  <div class="overlay-content">
+    <img src="" alt="" id="overlayImg">
+    <div class="overlay-text">
+      <h2 id="overlayTitle"></h2>
+      <p id="overlayDesc"></p>
+    </div>
+  </div>
+</div>
 
 </section>
 

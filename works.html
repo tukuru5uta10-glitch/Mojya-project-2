@@ -142,101 +142,187 @@ body {
 .title-bottom { font-size: clamp(1rem, 12vw, 7rem) !important; margin-top: -0.15em; }
 
 /* ── NEW: MATRIX ギャラリーエリア ── */
-/* ── 3D GALLERY STYLES ── */
-.gallery-3d-wrapper {
+.matrix-section {
+  padding: 4rem 2rem 8rem;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ビュー切り替えボタン */
+.matrix-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.matrix-btn {
+  background: transparent;
+  border: 1px solid var(--teak-light);
+  color: var(--teak);
+  padding: 0.6rem 1.5rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+.matrix-btn:hover {
+  background: rgba(196,168,130,0.1);
+}
+.matrix-btn.is-active {
+  background: var(--charcoal);
+  color: var(--warm-white);
+  border-color: var(--charcoal);
+}
+
+/* マップ本体 */
+.matrix-canvas {
   position: relative;
   width: 100%;
-}
-.scroll-dist {
-  height: 500vh; /* スクロールの長さ。長くするほどゆっくり動きます */
-}
-.gallery-viewport {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100svh;
-  perspective: 1200px; /* 奥行き感の強さ */
+  height: 65vh; /* 画面の高さの65%をマップに */
+  min-height: 400px;
+  background: #EFEBE3; /* 漆喰下地のような淡いグレーベージュ */
+  border: 1px solid rgba(139, 106, 71, 0.2);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none; /* 背後のスクロールを妨げない */
+  border-radius: 4px;
 }
 
-.gallery-stage {
+/* 座標軸（十字の線） */
+.axis-line-x, .axis-line-y {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
+  background: rgba(139, 106, 71, 0.2); /* テーク色の薄い線 */
   pointer-events: none;
 }
+.axis-line-x { top: 50%; left: 0; width: 100%; height: 1px; }
+.axis-line-y { top: 0; left: 50%; width: 1px; height: 100%; }
 
-/* 各写真カード */
-.project-card {
+/* 座標軸のラベルテキスト */
+.axis-label {
   position: absolute;
-  width: 280px;
-  aspect-ratio: 4/3;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--teak);
+  pointer-events: none;
+  background: #EFEBE3;
+  padding: 0.2rem 0.5rem;
+  transition: opacity 0.5s ease;
+}
+.label-top { top: 1rem; left: 50%; transform: translateX(-50%); }
+.label-bottom { bottom: 1rem; left: 50%; transform: translateX(-50%); }
+.label-left { top: 50%; left: 1rem; transform: translateY(-50%); }
+.label-right { top: 50%; right: 1rem; transform: translateY(-50%); }
+
+/* 施工写真（サムネイル） */
+.project-dot {
+  position: absolute;
+  width: 60px; /* サムネイルのサイズ */
+  height: 60px;
+  background-color: var(--charcoal);
   background-size: cover;
   background-position: center;
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border-radius: 50%; /* 丸形に切り抜き */
+  border: 2px solid var(--warm-white);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   cursor: pointer;
-  pointer-events: all;
-  transition: filter 0.5s ease;
+  /* transformの中心をドットの中央に設定 */
+  transform: translate(-50%, -50%); 
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  z-index: 10;
+}
+.project-dot:hover {
+  box-shadow: 0 6px 15px rgba(139, 106, 71, 0.4);
+  border-color: var(--teak-light);
+  z-index: 20;
 }
 
-/* ホバー：画面の60%サイズまで拡大 */
-.project-card:hover {
-  z-index: 1000 !important;
-  width: 60vw; /* 画面幅の60% */
-  aspect-ratio: 16/9;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) translateZ(100px) !important; /* 少し手前に浮き出す */
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-}
-
-/* ホバーされていない他のカードを暗くする（親要素への指定が必要） */
-.gallery-stage:has(.project-card:hover) .project-card:not(:hover) {
-  filter: brightness(0.4) blur(4px);
-  pointer-events: none;
-}
-
-/* 軸ガイド */
-.axis-guide {
+/* ホバー時に表示される詳細ツールチップ */
+.project-tooltip {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
+  bottom: 110%; /* ドットの少し上に表示 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--charcoal);
+  color: var(--warm-white);
+  padding: 0.5rem 1rem;
   font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--teak-light);
-  opacity: 0.5;
+  letter-spacing: 0.1em;
+  border-radius: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
 }
-.guide-x { position:absolute; bottom:2rem; width:100%; display:flex; justify-content:space-between; padding:0 3rem; }
-.guide-y { position:absolute; left:2rem; height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:3rem 0; writing-mode:vertical-rl; }
-.z-label { position:absolute; top:5rem; right:2rem; font-size:1.2rem; font-style:italic; }
+.project-dot:hover .project-tooltip {
+  opacity: 1;
+  bottom: 125%;
+}
+/* ツールチップの下向き三角 */
+.project-tooltip::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px; border-style: solid;
+  border-color: var(--charcoal) transparent transparent transparent;
+}
 
-/* 詳細オーバーレイ */
-.project-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-  z-index: 2000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.overlay-content { width: 90%; max-width: 1000px; color: #fff; text-align: center; }
-.overlay-content img { width: 100%; max-height: 70vh; object-fit: contain; }
-.overlay-close { position: absolute; top: 2rem; right: 2rem; color: #fff; letter-spacing: 0.3em; }
+/* フッター */
+footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
+.footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
+.footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
 
 @media (max-width: 768px) {
-  .project-card { width: 180px; }
-  .project-card:hover { width: 90vw; }
+  .page-title-main { line-height: 0.65 !important; }
+  .page-title-main span { letter-spacing: 0.05em !important; transform: scaleX(0.85); }
+  .matrix-section { padding: 3rem 1rem; }
+  .matrix-controls { flex-direction: column; gap: 0.5rem; }
+  
+  /* --- 追加・修正部分 --- */
+  .matrix-canvas { height: 70svh; } /* 高さを確保 */
+  .axis-label {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.3rem;
+    background: rgba(239, 235, 227, 0.8); /* 背景を透かして読みやすく */
+    backdrop-filter: blur(4px);
+    z-index: 30;
+  }
+  .project-dot {
+    width: 50px; /* ドットを小さく */
+    height: 50px;
+    border-width: 1.5px;
+  }
+  .project-tooltip {
+    font-size: 0.7rem;
+    padding: 0.6rem 0.8rem;
+  }
 }
+
+/* --- ここから追加 --- */
+  @media (max-width: 768px) {
+    .matrix-canvas {
+      height: 70svh; /* スマホで高さをしっかり確保 */
+    }
+    .axis-label {
+      font-size: 0.55rem;
+      padding: 0.15rem 0.3rem;
+      background: rgba(239, 235, 227, 0.8);
+      backdrop-filter: blur(4px);
+      z-index: 30;
+    }
+    .project-dot {
+      width: 50px; /* スマホではドットを小さく */
+      height: 50px;
+      border-width: 1.5px;
+    }
+    .project-tooltip {
+      font-size: 0.7rem;
+      padding: 0.6rem 0.8rem;
+    }
+  }
+  /* --- ここまで追加 --- */
 </style>
 </head>
 <body>
@@ -318,31 +404,24 @@ body {
 </h1>
 </section>
 
-<section class="gallery-3d-wrapper" id="galleryWrapper">
-  <div class="scroll-dist"></div>
+<section class="matrix-section">
   
-  <div class="gallery-viewport">
-    <div class="axis-guide">
-      <div class="guide-x"><span>High-tech</span><span>Organic</span></div>
-      <div class="guide-y"><span>Smooth</span><span>Textured</span></div>
-      <div class="z-label" id="zLabel">Modern</div>
-    </div>
-    
-    <div class="gallery-stage" id="galleryStage">
-      </div>
+  <div class="matrix-controls">
+    <button class="matrix-btn is-active" data-view="view1">空間と役割 (Space & Role)</button>
+    <button class="matrix-btn" data-view="view2">質感とテイスト (Texture & Taste)</button>
+    <button class="matrix-btn" data-view="view3">素材と耐久性 (Material & Life)</button>
   </div>
-</section>
 
-<div class="project-overlay" id="projectOverlay">
-  <div class="overlay-close">CLOSE</div>
-  <div class="overlay-content">
-    <img src="" alt="" id="overlayImg">
-    <div class="overlay-text">
-      <h2 id="overlayTitle"></h2>
-      <p id="overlayDesc"></p>
+  <div class="matrix-canvas" id="matrixCanvas">
+    <div class="axis-line-x"></div>
+    <div class="axis-line-y"></div>
+    
+    <div class="axis-label label-top" id="labelTop">Design (意匠性)</div>
+    <div class="axis-label label-bottom" id="labelBottom">Functional (機能・実用)</div>
+    <div class="axis-label label-left" id="labelLeft">Interior (内装)</div>
+    <div class="axis-label label-right" id="labelRight">Exterior (外装)</div>
+
     </div>
-  </div>
-</div>
 
 </section>
 
@@ -381,79 +460,129 @@ gsap.registerPlugin(ScrollTrigger);
      MATRIX GALLERY SCRIPT
      ----------------------------------------------------------- */
 
- /* ── 3D GALLERY SCRIPT ── */
-const projectsData = [
-  // ヒアリングシートに基づき座標（-50〜50）を設定
-  // X: High-tech(-50) - Organic(50)
-  // Y: Smooth(-50) - Textured(50)
-  // Z: Modern(0) - Traditional(4000)
-  { id: 1, title: "MISONOYA様 門塀", img: "images/works/mortex-kishiwada-shop-exterior-entrance-wall.jpg", x: -40, y: 0, z: 200 },
-  { id: 2, title: "YZ様邸 LDK 漆喰", img: "images/works/shikkui-sakai-private-interior-ldk.jpg", x: 50, y: -50, z: 3800 },
-  { id: 3, title: "アクセント壁 モルタル造形", img: "images/works/mortar-decorative-region-shop-interior-unknown.jpg", x: 0, y: 30, z: 1500 },
-  { id: 4, title: "AZ様邸 LDK 漆喰", img: "images/works/shikkui& mortex-sakai-private-interior-ldk.jpg", x: 30, y: -40, z: 2500 },
-  { id: 5, title: "AZ様邸 階段 モールテックス", img: "images/works/shikkui&mortex-sakai-private-interior-staircase.jpg", x: -40, y: -10, z: 800 },
-  { id: 12, title: "TRUFFLE DONUT 什器", img: "images/works/mortex-region-shop-interior-furniture.jpg", x: -50, y: -40, z: 400 },
-  { id: 14, title: "蕎麦 鼓道 店内壁", img: "images/works/jyuraku-toyonaka-shop-interior-wall.jpg", x: 20, y: -30, z: 3500 },
-  { id: 21, title: "奈良 某邸 書斎 珪藻土", img: "images/works/keisoudo-nara-private-interior-studyroom.jpg", x: 40, y: -40, z: 3200 },
-  // ... 他の作品も同様にz軸を振り分ける ...
-];
-
-const stage = document.getElementById('galleryStage');
-
-// カードの生成
-projectsData.forEach(proj => {
-  const card = document.createElement('div');
-  card.className = 'project-card';
-  card.style.backgroundImage = `url(${proj.img})`;
-  // 初期位置をセット（Z軸はScrollTriggerで動かすためここでは位置だけ）
-  card.style.left = `calc(50% + ${proj.x}vw)`;
-  card.style.top = `calc(50% + ${proj.y}vh)`;
-  card.style.transform = `translate(-50%, -50%)`;
-  
-  card.onclick = () => showOverlay(proj);
-  stage.appendChild(card);
-  
-  // Z軸のアニメーション設定
-  gsap.fromTo(card, 
-    { z: -proj.z - 2000, opacity: 0 }, // はるか奥から
-    { 
-      z: 1000, // 自分の前を通り過ぎる
-      opacity: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".gallery-3d-wrapper",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-        // 作品の出現タイミングを調整
-        onUpdate: self => {
-          // 自分の位置が手前すぎると消える処理
-          const progress = self.progress;
-          const myZ = -proj.z - 2000 + (progress * (proj.z + 3000));
-          card.style.opacity = myZ > 500 ? (1 - (myZ - 500)/500) : 1;
-          
-          // Zラベルの更新（目安）
-          if(progress > 0.8) document.getElementById('zLabel').innerText = "Traditional";
-          else if(progress < 0.2) document.getElementById('zLabel').innerText = "Modern";
-          else document.getElementById('zLabel').innerText = "Archive";
-        }
-      }
+  // 1. 各ビュー（軸）の定義
+  const viewDefinitions = {
+    view1: {
+      top: "Design (意匠性)", bottom: "Functional (機能・実用)",
+      left: "Interior (内装)", right: "Exterior (外装)"
+    },
+    view2: {
+      top: "Smooth (精緻・洗練)", bottom: "Rough (素材感・無骨)",
+      left: "Traditional (伝統・和)", right: "Modern (現代・洋)"
+    },
+    view3: {
+      top: "Evergreen (不変・耐久)", bottom: "Aging (風合い・経年変化)",
+      left: "Natural (天然素材)", right: "High-Tech (高機能素材)"
     }
-  );
-});
+  };
 
-// モーダル処理
-const overlay = document.getElementById('projectOverlay');
-function showOverlay(proj) {
-  document.getElementById('overlayImg').src = proj.img;
-  document.getElementById('overlayTitle').innerText = proj.title;
-  overlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-overlay.onclick = () => {
-  overlay.style.display = 'none';
-  document.body.style.overflow = '';
-};
+  // 2. 全21枚の施工事例データ（SEOファイル名完全対応版）
+  const projects = [
+    { id: "p1", title: "岸和田市 MISONOYA様 門塀", imgUrl: "images/works/mortex-kishiwada-shop-exterior-entrance-wall.jpg", view1: { x: 90, y: 15 }, view2: { x: 80, y: 20 }, view3: { x: 85, y: 20 } },
+    { id: "p2", title: "堺市 YZ様邸 LDK 漆喰", imgUrl: "images/works/shikkui-sakai-private-interior-ldk.jpg", view1: { x: 10, y: 80 }, view2: { x: 10, y: 15 }, view3: { x: 10, y: 80 } },
+    { id: "p3", title: "某邸 アクセント壁 モルタル造形", imgUrl: "images/works/mortar-decorative-region-shop-interior-accent-wall.jpg", view1: { x: 15, y: 10 }, view2: { x: 80, y: 80 }, view3: { x: 30, y: 70 } },
+    { id: "p4", title: "堺市 AZ様邸 LDK 漆喰・モールテックス", imgUrl: "images/works/shikkui-mortex-sakai-private-interior-ldk.jpg", view1: { x: 10, y: 85 }, view2: { x: 30, y: 15 }, view3: { x: 40, y: 80 } },
+    { id: "p5", title: "堺市 AZ様邸 階段 モールテックス", imgUrl: "images/works/shikkui-mortex-sakai-private-interior-staircase.jpg", view1: { x: 15, y: 20 }, view2: { x: 80, y: 15 }, view3: { x: 85, y: 20 } },
+    { id: "p6", title: "葛城市 某邸 LDK 漆喰・墨モルタル", imgUrl: "images/works/shikkui-mortex-ink-mortar-katuragi-private-interior-ldk.jpg", view1: { x: 10, y: 20 }, view2: { x: 70, y: 30 }, view3: { x: 60, y: 30 } },
+    { id: "p7", title: "某邸 門柱 特殊仕上げ", imgUrl: "images/works/pwnk-region-private-exterior-gatepost.jpg", view1: { x: 90, y: 10 }, view2: { x: 50, y: 80 }, view3: { x: 40, y: 40 } },
+    { id: "p8", title: "大阪市 よころ様 ファサード", imgUrl: "images/works/jolypate-osaka-shop-exterior-facade.jpg", view1: { x: 95, y: 15 }, view2: { x: 60, y: 70 }, view3: { x: 50, y: 40 } },
+    { id: "p9", title: "大阪市 よころ様 店内壁", imgUrl: "images/works/jolypate-osaka-shop-interior-wall.jpg", view1: { x: 15, y: 25 }, view2: { x: 60, y: 65 }, view3: { x: 50, y: 30 } },
+    { id: "p10", title: "生駒市 YH様邸 洗面漆喰", imgUrl: "images/works/shikkui-ikoma-private-interior-washroom.jpg", view1: { x: 10, y: 60 }, view2: { x: 20, y: 10 }, view3: { x: 10, y: 50 } },
+    { id: "p11", title: "生駒市 YH様邸 LDKアクセント壁", imgUrl: "images/works/shikkui-decorative-ikoma-private-interior-ldk-accent-wall.jpg", view1: { x: 10, y: 15 }, view2: { x: 40, y: 70 }, view3: { x: 20, y: 60 } },
+    { id: "p12", title: "某店 什器モールテックス", imgUrl: "images/works/mortex-region-shop-interior-furniture.jpg", view1: { x: 40, y: 15 }, view2: { x: 90, y: 10 }, view3: { x: 90, y: 10 } },
+    { id: "p13", title: "某店 土間仕上げ", imgUrl: "images/works/pwnk-region-shop-interior-doma.jpg", view1: { x: 30, y: 85 }, view2: { x: 70, y: 60 }, view3: { x: 50, y: 30 } },
+    { id: "p14", title: "豊中市 鼓道様 店内壁", imgUrl: "images/works/jyuraku-toyonaka-shop-interior-wall.jpg", view1: { x: 10, y: 15 }, view2: { x: 10, y: 80 }, view3: { x: 10, y: 60 } },
+    { id: "p15", title: "豊中市 某店 アートウォール", imgUrl: "images/works/art-wall-toyonaka-shop-interior-wall.jpg", view1: { x: 10, y: 10 }, view2: { x: 80, y: 80 }, view3: { x: 40, y: 50 } },
+    { id: "p16", title: "某邸 外壁ジョリパット", imgUrl: "images/works/jolypate-region-private-exterior-wall.jpg", view1: { x: 95, y: 60 }, view2: { x: 50, y: 50 }, view3: { x: 60, y: 40 } },
+    { id: "p17", title: "泉大津市 某邸 LDK", imgUrl: "images/works/mortex-shikkui-izumiotu-private-interior-ldk.jpg", view1: { x: 15, y: 40 }, view2: { x: 50, y: 20 }, view3: { x: 60, y: 30 } },
+    { id: "p18", title: "京都市 某店 看板・モルタル造形", imgUrl: "images/works/mortar-decorative-kyoto-shop-exterior-signboard.jpg", view1: { x: 95, y: 10 }, view2: { x: 80, y: 90 }, view3: { x: 40, y: 70 } },
+    { id: "p19", title: "藤井寺市 某邸 LDK", imgUrl: "images/works/mortex-shikkui-fujiidera-private-interior-ldk.jpg", view1: { x: 10, y: 50 }, view2: { x: 40, y: 30 }, view3: { x: 50, y: 40 } },
+    { id: "p20", title: "藤井寺市 某邸 洗面モールテックス", imgUrl: "images/works/mortex-shikkui-fujiidera-private-interior-washroom.jpg", view1: { x: 15, y: 20 }, view2: { x: 85, y: 15 }, view3: { x: 90, y: 10 } },
+    { id: "p21", title: "奈良市 某邸 書斎 珪藻土", imgUrl: "images/works/keisoudo-nara-private-interior-studyroom.jpg", view1: { x: 5, y: 70 }, view2: { x: 20, y: 60 }, view3: { x: 10, y: 50 } }
+  ];
+
+  const canvas = document.getElementById('matrixCanvas');
+  const projectElements = [];
+
+  // 座標をスマホ向けに補正する関数（重複を解消して1つにまとめました）
+  function getResponsivePosition(pos) {
+    const isMobile = window.innerWidth <= 768;
+    let x = pos.x;
+    let y = pos.y;
+    if (isMobile) {
+      x = 15 + (pos.x * 0.7); // 0-100の範囲を15-85に圧縮
+      y = 15 + (pos.y * 0.7);
+    }
+    return { x, y };
+  }
+
+  // 3. 初期化：HTML上にドット（サムネイル）を生成
+  projects.forEach((proj) => {
+    const dot = document.createElement('div');
+    dot.className = 'project-dot';
+    dot.style.backgroundImage = `url('${proj.imgUrl}')`;
+    
+    // 初期位置（view1）をセット
+    gsap.set(dot, { 
+      left: proj.view1.x + "%", 
+      top: proj.view1.y + "%" 
+    });
+
+    // ツールチップの追加
+    const tooltip = document.createElement('div');
+    tooltip.className = 'project-tooltip';
+    tooltip.innerText = proj.title;
+    dot.appendChild(tooltip);
+
+    canvas.appendChild(dot);
+    
+    // アニメーション用に配列に保存
+    projectElements.push({ element: dot, data: proj });
+  });
+
+  // 4. ビュー切り替えのアニメーション処理
+  function switchView(viewId) {
+    const def = viewDefinitions[viewId];
+    
+    gsap.to('.axis-label', { opacity: 0, duration: 0.2, onComplete: () => {
+      document.getElementById('labelTop').innerText = def.top;
+      document.getElementById('labelBottom').innerText = def.bottom;
+      document.getElementById('labelLeft').innerText = def.left;
+      document.getElementById('labelRight').innerText = def.right;
+      gsap.to('.axis-label', { opacity: 1, duration: 0.3 });
+    }});
+
+    projectElements.forEach((item, index) => {
+      const rawPos = item.data[viewId];
+      const newPos = getResponsivePosition(rawPos);
+
+      gsap.to(item.element, {
+        left: newPos.x + "%",
+        top: newPos.y + "%",
+        duration: 1.2,
+        ease: "power3.inOut",
+        delay: index * 0.03 
+      });
+    });
+  }
+
+  // 5. ボタンのクリックイベント連携
+  const buttons = document.querySelectorAll('.matrix-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // アクティブ状態の切り替え
+      buttons.forEach(b => b.classList.remove('is-active'));
+      e.target.classList.add('is-active');
+      
+      // 対応するビューに切り替え
+      const viewId = e.target.getAttribute('data-view');
+      switchView(viewId);
+    });
+  });
+
+  // 初期ロード時のアニメーション
+  gsap.from('.matrix-section', { opacity: 0, y: 30, duration: 1, delay: 0.3 });
+  gsap.from('.project-dot', { scale: 0, opacity: 0, duration: 0.8, stagger: 0.1, delay: 0.8, ease: "back.out(1.5)" });
   
 </script>
 

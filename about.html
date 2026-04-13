@@ -202,6 +202,32 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
 .footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
 
+  /* ── ダンス再生ボタン ── */
+.dance-action {
+  text-align: center;
+  margin-top: -1.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 10;
+}
+.play-dance-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--warm-white);
+  background: var(--teak);
+  border: 1px solid var(--teak);
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.play-dance-btn:hover {
+  background: transparent;
+  color: var(--teak);
+}
 @media (min-width: 768px) {
   .afro-btn { top:1rem; left:1.6rem; padding:0; }
   .afro-svg { width:50px; height:56px; }

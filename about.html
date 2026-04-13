@@ -26,7 +26,8 @@ body {
   font-weight:400;
   overflow-x:hidden;
 }
-/* ヘッダー＆メニュー：TOPと100%共通 */
+
+/* ── ナビゲーション ── */
 .nav-logo {
   position:fixed; top:0; left:0; right:0; z-index:200;
   display:flex; justify-content:center; align-items:center;
@@ -57,6 +58,7 @@ body {
   text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
 }
 .afro-btn:hover .afro-menu-label { opacity:1; }
+
 .sns-fixed {
   position:fixed; top:0.9rem; right:0.5rem; z-index:9999;
   display:flex; align-items:center; gap:0.5rem; pointer-events:all;
@@ -112,7 +114,7 @@ body {
 #fs-menu.is-open .fs-nav button:nth-child(7) { animation-delay:0.50s; }
 @keyframes fsIn { to { opacity:1; transform:translateY(0); } }
 
-/* ── 子ページ専用ミニヒーロー（TOPのオーロラを継承） ── */
+/* ── ヒーロー ── */
 #page-hero {
   height:40svh; min-height:300px;
   position:relative; display:flex; align-items:center; justify-content:center;
@@ -134,7 +136,7 @@ body {
   text-align: center;
   font-family: 'Noto Sans JP', sans-serif !important;
   font-weight: 900 !important;
-  line-height: 0.8 !important; /* 密着 */
+  line-height: 0.8 !important; 
   color: var(--warm-white)!important;
   text-transform: uppercase;
   display: flex;
@@ -145,64 +147,68 @@ body {
 }
 .page-title {
   display: block;
-  /* 1段で横幅いっぱいに広げるサイズ感 */
   font-size: clamp(1rem, 12vw, 7rem) !important;
-  /* 文字を密着させ、「石壁」のような塊にする */
   letter-spacing: 0.02em !important;
-  /* ★重要：平体（横に潰す）。これでドッシリした重圧が出る */
   transform: scaleX(0.85);
   transform-origin: center;
 }
-/* スマホ版 */
+
+/* スマホ版（文章と3Dコンテナの調整） */
 @media (max-width: 768px) {
-  .page-title-main {
-    line-height: 0.65 !important;
-  }
-  .page-title-main span {
-    letter-spacing: 0.05em !important; 
-    transform: scaleX(0.85); 
-  }
-  /* ここから追加：文章エリアの調整 */
-  .content-section {
-    padding: 4rem 1.5rem; /* 左右の余白を少し詰めて、中央に密度を作る */
-    text-align: justify;  /* 文末を揃えてブロックとしての美しさを出す */
-  }
-  .content-label {
-    font-size: 0.45rem !important;    /* ラベルをさらに小さくして、情報の対比を強める */
-    letter-spacing: 0.01em !important; 
-    margin-bottom: 1.5rem;
-  }
-  .content-p {
-    font-size: 0.45rem !important;    /* 文字をあえて小さくし、余白の価値を上げる */ 
-    line-height: -1.0;      /* 行間 */
-    color: rgba(44, 44, 44, 0.7); /* 黒を少し薄めて、高級感を出す */
-    letter-spacing: -0.05em;
-  }
+  .page-title-main { line-height: 0.65 !important; }
+  .page-title-main span { letter-spacing: 0.05em !important; transform: scaleX(0.85); }
+  .content-section { padding: 4rem 1.5rem; text-align: justify; }
+  .content-label { font-size: 0.45rem !important; letter-spacing: 0.01em !important; margin-bottom: 1.5rem; }
+  .content-p { font-size: 0.45rem !important; line-height: -1.0; color: rgba(44, 44, 44, 0.7); letter-spacing: -0.05em; }
 }
-/* ── 自由編集コンテンツエリア ── */
-/* 229行目付近：OUTLINEなどの小見出し */
+
 .content-label { 
   font-size:0.85rem !important; 
-  letter-spacing:-0.01em !important;  /* 元の0.4emからガッツリ詰めました */
+  letter-spacing:-0.01em !important; 
   color:var(--teak); 
   margin-bottom:1rem; 
   display:block;
 }
-
-/* 230行目付近：本文 */
 .content-p { 
   font-size:0.65rem !important; 
   line-height:2.2; 
   color:rgba(44,44,44,0.8); 
   margin-bottom:2rem; 
-  letter-spacing: -0.03em !important; /* ★これを追加（マイナス値で文字間が詰まります） */
+  letter-spacing: -0.03em !important; 
 }
 
 footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }
 .footer-logo { font-family:'Noto Sans JP',sans-serif; font-weight:100; font-size:0.75rem; letter-spacing:0.4em; color:rgba(196,168,130,0.35); }
 .footer-copy { font-size:0.5rem; letter-spacing:0.15em; color:rgba(250,247,242,0.2); }
 
-  /* ── ダンス再生ボタン ── */
+/* ── 3Dコンテナ（お腹まわりに判定を絞る） ── */
+.model-container {
+  margin: 0 auto 3rem; 
+  width: 100%;
+  max-width: 220px; /* ここがポイント：横幅を限界まで絞り、お腹まわりだけ触れるように */
+  height: 450px; 
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#glitterCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+model-viewer {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  background: transparent;
+}
+
+/* ── ダンス再生ボタン ── */
 .dance-action {
   text-align: center;
   margin-top: -1.5rem;
@@ -228,6 +234,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   background: transparent;
   color: var(--teak);
 }
+
 @media (min-width: 768px) {
   .afro-btn { top:1rem; left:1.6rem; padding:0; }
   .afro-svg { width:50px; height:56px; }
@@ -236,33 +243,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   .sns-fixed svg { width:30px; height:30px; }
   .content-section { padding: 8rem 4rem; }
 }
-  /* ── 3Dコンテナとキラキラの設定 ── */
-  .model-container {
-    margin: 0 auto 3rem; 
-    width: 280px;  /* 判定範囲をお腹まわりの幅に絞る */
-    height: 450px; 
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #glitterCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* キャラ操作を邪魔しない */
-    z-index: 5;
-  }
-
-  model-viewer {
-    width: 100%;
-    height: 100%;
-    outline: none;
-    background: transparent;
-  }
 </style>
 </head>
 <body>
@@ -339,8 +319,8 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   <div class="hero-wall"></div>
   <div class="hero-aurora"></div>
   <h1 class="page-title-main">
- 　 <span class="page-title">INSIDE PWNK</span>
-　</h1>
+    <span class="page-title">INSIDE PWNK</span>
+  </h1>
 </section>
 
 <section class="content-section">
@@ -362,6 +342,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     <button id="playDanceBtn" class="play-dance-btn">PLAY DYNAMITE</button>
   </div>
   <audio id="danceBgm" src="music/dynamite.mp3"></audio>
+  
   <span class="content-label" id="fadeLabel">WORK IN PROGRESS</span>
   <p class="content-p" id="fadeParagraph">
     PWNKの核心(コア)を解明するためのデータを最適化中です。<br>
@@ -378,6 +359,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
+  // 1. メニューのアニメーション設定
   const btn  = document.getElementById('afroBtn');
   const menu = document.getElementById('fs-menu');
   let menuOpen = false;
@@ -396,7 +378,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     if (e.key === 'Escape' && menuOpen) toggleMenu(false);
   });
 
-  /* サングラス、インスタグラムのホバー */
   const sunglasses = document.getElementById('gSunglasses');
   btn.addEventListener('mouseenter', () => { if (!menuOpen) sunglasses.style.opacity = '1'; });
   btn.addEventListener('mouseleave', () => { sunglasses.style.opacity = '0'; });
@@ -405,39 +386,18 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   igBtn.addEventListener('mouseenter', () => igPath.setAttribute('fill','url(#igGrad)'));
   igBtn.addEventListener('mouseleave', () => igPath.setAttribute('fill','#C4A882'));
 
-  /* ページ内でのフワッと現れる演出を100%踏襲 */
+  // 2. 文字とボタンのフワッと表示
   gsap.from('#fadeLabel', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
   gsap.from('#fadeParagraph', { opacity: 0, y: 20, duration: 0.8, delay: 0.5, ease: 'power3.out' });
-
-  /* ── 3Dモデルと音楽の連動 ── */
-  const modelViewer = document.querySelector('model-viewer');
-  const playBtn = document.getElementById('playDanceBtn');
-  const bgm = document.getElementById('danceBgm');
-
-  // ボタン自体もフワッと表示させる演出
   gsap.from('#fadeBtn', { opacity: 0, y: 20, duration: 0.8, delay: 0.3, ease: 'power3.out' });
 
-  // ボタンをクリックした時の動作
-  playBtn.addEventListener('click', () => {
-    // 1. 音楽を再生（ブラウザの制限対策で、ユーザー操作時に鳴らすのが鉄則です）
-    bgm.play().catch(e => console.error("音声の再生に失敗しました:", e));
-    
-    // 2. 3Dモデルのアニメーションを開始
-    modelViewer.play();
-    
-    // 3. 再生後はボタンをフワッと消す
-    gsap.to(playBtn, { opacity: 0, duration: 0.5, onComplete: () => {
-      playBtn.style.display = 'none';
-    }});
-  });
- /* ── 3D連動 ＆ キラキラエフェクト制御（トグル版） ── */
+  // 3. 3Dモデル・音楽・キラキラの制御
   const modelViewer = document.querySelector('model-viewer');
   const playBtn = document.getElementById('playDanceBtn');
   const bgm = document.getElementById('danceBgm');
   const canvas = document.getElementById('glitterCanvas');
   const ctx = canvas.getContext('2d');
 
-  // キャンバスのサイズ設定
   function resizeCanvas() {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
@@ -475,7 +435,6 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
 
   function animate() {
     if (!isDancing) {
-      // 停止時は描画をクリアして終了
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       sparkles = [];
       return;
@@ -490,43 +449,23 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     requestAnimationFrame(animate);
   }
 
-  // ★ オンオフ切り替えのメイン処理
+  // ★ 再生／停止の切り替えボタン機能
   playBtn.addEventListener('click', () => {
     if (bgm.paused) {
-      // ── 再生（ON） ──
-      bgm.play().catch(e => {
-        console.error("再生エラー：ファイルパスやブラウザ設定を確認してください", e);
-      });
+      bgm.play().catch(e => console.error("音声エラー:", e));
       modelViewer.play();
       isDancing = true;
       animate();
       playBtn.textContent = 'STOP DYNAMITE';
-      playBtn.style.background = 'var(--charcoal)'; // 停止ボタンっぽく色を変更
+      playBtn.style.background = 'var(--charcoal)';
     } else {
-      // ── 停止（OFF） ──
       bgm.pause();
-      // bgm.currentTime = 0; // 最初からやり直したい場合はこの行のコメントを外す
       modelViewer.pause();
       isDancing = false;
       playBtn.textContent = 'PLAY DYNAMITE';
-      playBtn.style.background = 'var(--teak)'; // 元の色に戻す
+      playBtn.style.background = 'var(--teak)';
     }
   });
-
-  // メニュー制御など既存のコード（残しておく）
-  const btn = document.getElementById('afroBtn');
-  const menu = document.getElementById('fs-menu');
-  let menuOpen = false;
-  function toggleMenu(state) {
-    menuOpen = state;
-    btn.classList.toggle('is-open', menuOpen);
-    menu.classList.toggle('is-open', menuOpen);
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-  }
-  btn.addEventListener('click', () => toggleMenu(!menuOpen));
-  gsap.from('#fadeLabel', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
-  gsap.from('#fadeParagraph', { opacity: 0, y: 20, duration: 0.8, delay: 0.5, ease: 'power3.out' });
-  
 </script>
 </body>
 </html>

@@ -430,6 +430,68 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
       playBtn.style.display = 'none';
     }});
   });
+  /* ── 3D連動 ＆ キラキラエフェクト制御 ── */
+  const modelViewer = document.querySelector('model-viewer');
+  const playBtn = document.getElementById('playDanceBtn');
+  const bgm = document.getElementById('danceBgm');
+  const canvas = document.getElementById('glitterCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // キャンバスのサイズ設定
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Sparkle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = (Math.random() * (canvas.height * 0.5)) + (canvas.height * 0.25);
+      this.size = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 1.2;
+      this.speedY = (Math.random() * -1.5) - 0.5;
+      this.color = `hsla(${Math.random() * 30 + 30}, 100%, 80%, ${Math.random() * 0.8 + 0.2})`;
+      this.life = 100;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.life -= 1.2;
+    }
+    draw() {
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = "white";
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * (this.life/100), 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  let sparkles = [];
+  let isDancing = false;
+
+  function animate() {
+    if (!isDancing) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (sparkles.length < 50) sparkles.push(new Sparkle());
+    sparkles.forEach((s, i) => {
+      s.update();
+      s.draw();
+      if (s.life <= 0) sparkles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+  }
+
+  playBtn.addEventListener('click', () => {
+    bgm.play().catch(console.error);
+    modelViewer.play();
+    isDancing = true;
+    animate();
+    gsap.to(playBtn, { opacity: 0, duration: 0.5, onComplete: () => playBtn.style.display = 'none' });
+  });
 </script>
 
 </body>

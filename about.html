@@ -440,7 +440,10 @@ model-viewer {
       return;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (sparkles.length < 50) sparkles.push(new Sparkle());
+    // 最大数を50から300〜500へ、さらに1フレームで3粒ずつ生成するように変更
+if (sparkles.length < 400) {
+  for(let i=0; i<3; i++) sparkles.push(new Sparkle());
+}
     sparkles.forEach((s, i) => {
       s.update();
       s.draw();

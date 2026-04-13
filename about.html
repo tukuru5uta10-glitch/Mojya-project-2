@@ -405,26 +405,29 @@ model-viewer {
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-  class Sparkle {
+class Sparkle {
     constructor() {
       this.x = Math.random() * canvas.width;
-      this.y = (Math.random() * (canvas.height * 0.5)) + (canvas.height * 0.25);
-      this.size = Math.random() * 2 + 1;
-      this.speedX = (Math.random() - 0.5) * 1.2;
-      this.speedY = (Math.random() * -1.5) - 0.5;
-      this.color = `hsla(${Math.random() * 30 + 30}, 100%, 80%, ${Math.random() * 0.8 + 0.2})`;
+      // 出現位置を少し広げる
+      this.y = (Math.random() * canvas.height);
+      this.size = Math.random() * 5 + 2; // 大きく
+      this.speedX = (Math.random() - 0.5) * 2;
+      this.speedY = (Math.random() * -3) - 1; // 速く
+      // より明るい金色・ピンク・白が混ざるように調整
+      this.color = `hsla(${Math.random() * 50 + 20}, 100%, 85%, ${Math.random() * 0.5 + 0.5})`;
       this.life = 100;
     }
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
-      this.life -= 1.2;
+      this.life -= 0.7; // 長持ちさせる
     }
     draw() {
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 30; // 発光を強く
       ctx.shadowColor = "white";
       ctx.fillStyle = this.color;
       ctx.beginPath();
+      // 粒の形を少しキラッとさせるためにarcを使用
       ctx.arc(this.x, this.y, this.size * (this.life/100), 0, Math.PI * 2);
       ctx.fill();
     }
@@ -434,16 +437,16 @@ model-viewer {
   let isDancing = false;
 
   function animate() {
-    if (!isDancing) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      sparkles = [];
-      return;
-    }
+    if (!isDancing) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // 最大数を50から300〜500へ、さらに1フレームで3粒ずつ生成するように変更
-if (sparkles.length < 400) {
-  for(let i=0; i<3; i++) sparkles.push(new Sparkle());
-}
+    
+    // 一度に生成する数を増やして密度を上げる
+    if (sparkles.length < 400) {
+      for(let i=0; i<3; i++) {
+        sparkles.push(new Sparkle());
+      }
+    }
+
     sparkles.forEach((s, i) => {
       s.update();
       s.draw();
@@ -451,7 +454,6 @@ if (sparkles.length < 400) {
     });
     requestAnimationFrame(animate);
   }
-
   // ★ 再生／停止の切り替えボタン機能
   playBtn.addEventListener('click', () => {
     if (bgm.paused) {

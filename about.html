@@ -320,15 +320,19 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   <div class="model-container" id="fadeModel" style="margin-bottom: 3rem; width: 100%; height: 500px;">
     <model-viewer 
       src="models/Dynamite.glb" 
-      autoplay 
       loop
       animation-name="*" 
       camera-controls
+      disable-zoom
       shadow-intensity="1"
       style="width: 100%; height: 100%; outline: none; background:transparent;">
     </model-viewer>
   </div>
-  
+
+  <div class="dance-action" id="fadeBtn">
+    <button id="playDanceBtn" class="play-dance-btn">PLAY DYNAMITE</button>
+  </div>
+  <audio id="danceBgm" src="music/dynamite.mp3"></audio>
   <span class="content-label" id="fadeLabel">WORK IN PROGRESS</span>
   <p class="content-p" id="fadeParagraph">
     PWNKの核心(コア)を解明するためのデータを最適化中です。<br>

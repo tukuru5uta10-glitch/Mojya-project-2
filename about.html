@@ -379,6 +379,28 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   /* ページ内でのフワッと現れる演出を100%踏襲 */
   gsap.from('#fadeLabel', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
   gsap.from('#fadeParagraph', { opacity: 0, y: 20, duration: 0.8, delay: 0.5, ease: 'power3.out' });
+
+  /* ── 3Dモデルと音楽の連動 ── */
+  const modelViewer = document.querySelector('model-viewer');
+  const playBtn = document.getElementById('playDanceBtn');
+  const bgm = document.getElementById('danceBgm');
+
+  // ボタン自体もフワッと表示させる演出
+  gsap.from('#fadeBtn', { opacity: 0, y: 20, duration: 0.8, delay: 0.3, ease: 'power3.out' });
+
+  // ボタンをクリックした時の動作
+  playBtn.addEventListener('click', () => {
+    // 1. 音楽を再生（ブラウザの制限対策で、ユーザー操作時に鳴らすのが鉄則です）
+    bgm.play().catch(e => console.error("音声の再生に失敗しました:", e));
+    
+    // 2. 3Dモデルのアニメーションを開始
+    modelViewer.play();
+    
+    // 3. 再生後はボタンをフワッと消す
+    gsap.to(playBtn, { opacity: 0, duration: 0.5, onComplete: () => {
+      playBtn.style.display = 'none';
+    }});
+  });
 </script>
 
 </body>

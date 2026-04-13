@@ -410,45 +410,75 @@ model-viewer {
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-class Sparkle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      // 出現位置を少し広げる
-      this.y = (Math.random() * canvas.height);
-      this.size = Math.random() * 5 + 2; // 大きく
-      this.speedX = (Math.random() - 0.5) * 2;
-      this.speedY = (Math.random() * -3) - 1; // 速く
-      // より明るい金色・ピンク・白が混ざるように調整
-      this.color = `hsla(${Math.random() * 50 + 20}, 100%, 85%, ${Math.random() * 0.5 + 0.5})`;
+const handAnchor = document.querySelector('#hand-anchor');
+  const modelViewer = document.querySelector('model-viewer');
+
+  class Sparkle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 10 + 5;
+      // 手から振り落とされるような初速
+      this.speedX = (Math.random() - 0.5) * 8;
+      this.speedY = (Math.random() * 2); // 最初から少し下に落ちる
+      this.gravity = 0.25; 
+      this.colorHue = Math.random() * 360;
       this.life = 100;
+      this.opacity = 1;
+      this.rotate = Math.random() * 360;
     }
+
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
-      this.life -= 0.7; // 長持ちさせる
+      this.speedY += this.gravity;
+      this.life -= 2.5; // 少し早めに消える
+      this.opacity = this.life / 100;
+      this.colorHue += 15; // 虹色変化を速く
+      this.rotate += 10;
     }
+
     draw() {
-      ctx.shadowBlur = 30; // 発光を強く
-      ctx.shadowColor = "white";
-      ctx.fillStyle = this.color;
+      if (this.life <= 0) return;
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate((this.rotate * Math.PI) / 180);
+      
       ctx.beginPath();
-      // 粒の形を少しキラッとさせるためにarcを使用
-      ctx.arc(this.x, this.y, this.size * (this.life/100), 0, Math.PI * 2);
+      const spikes = 5;
+      for (let i = 0; i < spikes * 2; i++) {
+        const radius = i % 2 === 0 ? this.size : this.size / 2;
+        const angle = (i * Math.PI) / spikes;
+        ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+      }
+      ctx.closePath();
+
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = `hsla(${this.colorHue}, 100%, 70%, ${this.opacity})`;
+      ctx.fillStyle = `hsla(${this.colorHue}, 100%, 80%, ${this.opacity})`;
       ctx.fill();
+      ctx.restore();
     }
   }
 
-  let sparkles = [];
-  let isDancing = false;
-
   function animate() {
-    if (!isDancing) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!isDancing) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
     
-    // 一度に生成する数を増やして密度を上げる
-    if (sparkles.length < 400) {
-      for(let i=0; i<3; i++) {
-        sparkles.push(new Sparkle());
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 【重要】Hotspotの現在の画面上の座標を取得
+    const rect = modelViewer.getBoundingClientRect();
+    // model-viewerのメソッドを使用して、3D空間上の位置を2Dスクリーン座標に変換
+    const point = modelViewer.queryHotspot('hotspot-hand');
+
+    if (point) {
+      // 座標が取得できたら、そこから星を生成
+      // point.canvasX, point.canvasY がモデル上の位置
+      for(let i = 0; i < 2; i++) {
+        sparkles.push(new Sparkle(point.canvasX, point.canvasY));
       }
     }
 
@@ -457,6 +487,7 @@ class Sparkle {
       s.draw();
       if (s.life <= 0) sparkles.splice(i, 1);
     });
+
     requestAnimationFrame(animate);
   }
   // ★ 再生／停止の切り替えボタン機能

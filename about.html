@@ -328,6 +328,11 @@ model-viewer {
     <canvas id="glitterCanvas"></canvas>
     
     <model-viewer 
+      <div slot="hotspot-hand" id="hand-anchor" 
+      data-position="0.2 1.5 0" 
+      data-normal="0 1 0" 
+      style="width: 20px; height: 20px; background: red; border-radius: 50%;">
+  </div>
       src="models/Dynamite.glb" 
       loop
       animation-name="*" 

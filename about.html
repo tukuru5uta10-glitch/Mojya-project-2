@@ -430,7 +430,7 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
       playBtn.style.display = 'none';
     }});
   });
-  /* ── 3D連動 ＆ キラキラエフェクト制御 ── */
+ /* ── 3D連動 ＆ キラキラエフェクト制御（トグル版） ── */
   const modelViewer = document.querySelector('model-viewer');
   const playBtn = document.getElementById('playDanceBtn');
   const bgm = document.getElementById('danceBgm');
@@ -474,7 +474,12 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
   let isDancing = false;
 
   function animate() {
-    if (!isDancing) return;
+    if (!isDancing) {
+      // 停止時は描画をクリアして終了
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      sparkles = [];
+      return;
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (sparkles.length < 50) sparkles.push(new Sparkle());
     sparkles.forEach((s, i) => {
@@ -485,14 +490,43 @@ footer { padding:1.8rem; background:var(--charcoal); display:flex; justify-conte
     requestAnimationFrame(animate);
   }
 
+  // ★ オンオフ切り替えのメイン処理
   playBtn.addEventListener('click', () => {
-    bgm.play().catch(console.error);
-    modelViewer.play();
-    isDancing = true;
-    animate();
-    gsap.to(playBtn, { opacity: 0, duration: 0.5, onComplete: () => playBtn.style.display = 'none' });
+    if (bgm.paused) {
+      // ── 再生（ON） ──
+      bgm.play().catch(e => {
+        console.error("再生エラー：ファイルパスやブラウザ設定を確認してください", e);
+      });
+      modelViewer.play();
+      isDancing = true;
+      animate();
+      playBtn.textContent = 'STOP DYNAMITE';
+      playBtn.style.background = 'var(--charcoal)'; // 停止ボタンっぽく色を変更
+    } else {
+      // ── 停止（OFF） ──
+      bgm.pause();
+      // bgm.currentTime = 0; // 最初からやり直したい場合はこの行のコメントを外す
+      modelViewer.pause();
+      isDancing = false;
+      playBtn.textContent = 'PLAY DYNAMITE';
+      playBtn.style.background = 'var(--teak)'; // 元の色に戻す
+    }
   });
-</script>
 
+  // メニュー制御など既存のコード（残しておく）
+  const btn = document.getElementById('afroBtn');
+  const menu = document.getElementById('fs-menu');
+  let menuOpen = false;
+  function toggleMenu(state) {
+    menuOpen = state;
+    btn.classList.toggle('is-open', menuOpen);
+    menu.classList.toggle('is-open', menuOpen);
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }
+  btn.addEventListener('click', () => toggleMenu(!menuOpen));
+  gsap.from('#fadeLabel', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
+  gsap.from('#fadeParagraph', { opacity: 0, y: 20, duration: 0.8, delay: 0.5, ease: 'power3.out' });
+  
+</script>
 </body>
 </html>
